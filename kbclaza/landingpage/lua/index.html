@@ -1,0 +1,2570 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Thực Liên Silk - Lụa Nha Xá | Tinh Hoa Dệt Lụa Truyền Thống</title>
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Be+Vietnam+Pro:ital,wght@0,300;0,400;0,500;0,600;0,700;0,800;1,400;1,600&family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400;1,600&display=swap" rel="stylesheet">
+    <!-- Font Awesome Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <style>
+        :root {
+            --primary: #721121;
+            --primary-hover: #4b0913;
+            --primary-light: #f9ecee;
+            --accent: #c5a059;
+            --accent-light: #fbf5e9;
+            --bg-cream: #fdfbf7;
+            --bg-white: #ffffff;
+            --text-dark: #1a1111;
+            --text-muted: #4a3838;
+            --border-color: #eedddf;
+            --gold: #d4af37;
+            --shadow: rgba(114, 17, 33, 0.12);
+            --transition: all 0.35s cubic-bezier(0.4, 0, 0.2, 1);
+            
+            /* Silk / Traditional Pattern */
+            --pattern-opacity: 0.04;
+            --bg-pattern: url("data:image/svg+xml,%3Csvg width='40' height='40' viewBox='0 0 40 40' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M20 20.5V18H0v-2h20v-2H0v-2h20v-2H0V8h20V6H0V4h20V2H0V0h22v20h2V0h2v20h2V0h2v20h2V0h2v20h2V0h2v20h2v2H20v-1.5zM0 20h2v20H0V20zm4 0h2v20H4V20zm4 0h2v20H8V20zm4 0h2v20h-2V20zm4 0h2v20h-2V20zm4 4h20v2H20v-2zm0 4h20v2H20v-2zm0 4h20v2H20v-2zm0 4h20v2H20v-2z' fill='%23721121' fill-opacity='0.05' fill-rule='evenodd'/%3E%3C/svg%3E");
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Be Vietnam Pro', sans-serif;
+            background-color: var(--bg-white);
+            color: var(--text-dark);
+            line-height: 1.6;
+            overflow-x: hidden;
+            font-weight: 500;
+        }
+
+        /* Utility classes */
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 24px;
+        }
+
+        .btn-pill {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            background-color: var(--primary);
+            color: var(--bg-white);
+            padding: 14px 32px;
+            font-weight: 700;
+            font-size: 14px;
+            letter-spacing: 0.5px;
+            border-radius: 50px;
+            border: none;
+            cursor: pointer;
+            text-decoration: none;
+            text-transform: uppercase;
+            box-shadow: 0 8px 24px rgba(122, 6, 33, 0.25);
+            transition: var(--transition);
+        }
+
+        .btn-pill:hover {
+            background-color: var(--primary-hover);
+            transform: translateY(-3px);
+            box-shadow: 0 12px 28px rgba(122, 6, 33, 0.35);
+        }
+
+        .btn-pill:active {
+            transform: translateY(-1px);
+        }
+
+        .badge-pill {
+            display: inline-block;
+            background-color: var(--primary-light);
+            color: var(--primary);
+            padding: 6px 16px;
+            border-radius: 50px;
+            font-size: 12px;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            margin-bottom: 20px;
+            border: 1px solid rgba(122, 6, 33, 0.15);
+        }
+
+        /* Header Style */
+        header {
+            background-color: var(--bg-white);
+            border-bottom: 1px solid #f0f0f0;
+            padding: 16px 0;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.02);
+        }
+
+        header .container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            font-family: 'Be Vietnam Pro', sans-serif;
+            font-weight: 800;
+            font-size: 20px;
+            color: var(--primary);
+            text-decoration: none;
+            letter-spacing: -0.5px;
+            flex-grow: 1;
+            text-align: center;
+        }
+
+        .nav-back {
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            font-size: 14px;
+            font-weight: 600;
+            color: var(--text-dark);
+            text-decoration: none;
+            width: 100px;
+            transition: var(--transition);
+        }
+
+        .nav-back:hover {
+            color: var(--primary);
+        }
+
+        .header-icons {
+            display: flex;
+            gap: 20px;
+            align-items: center;
+            width: 100px;
+            justify-content: flex-end;
+        }
+
+        .header-icons a {
+            color: var(--text-dark);
+            font-size: 18px;
+            transition: var(--transition);
+            text-decoration: none;
+            position: relative;
+        }
+
+        .header-icons a:hover {
+            color: var(--primary);
+        }
+
+        .cart-badge {
+            position: absolute;
+            top: -8px;
+            right: -10px;
+            background-color: var(--primary);
+            color: white;
+            font-size: 10px;
+            font-weight: 700;
+            padding: 2px 6px;
+            border-radius: 50%;
+        }
+
+        /* HERO SECTION (Image 1) */
+        .hero {
+            padding: 60px 0 80px;
+            background: linear-gradient(135deg, #fffcfb 0%, #fdf5f2 100%), var(--bg-pattern);
+            background-blend-mode: overlay;
+            overflow: hidden;
+            position: relative;
+        }
+
+        .hero .container {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 60px;
+            align-items: center;
+        }
+
+        .hero-content {
+            display: flex;
+            flex-direction: column;
+            align-items: flex-start;
+        }
+
+        .hero-content .badge-pill {
+            background-color: var(--primary);
+            color: var(--bg-white);
+            border: none;
+        }
+
+        .hero h1 {
+            font-size: clamp(36px, 5vw, 48px);
+            font-weight: 800;
+            color: var(--text-dark);
+            line-height: 1.15;
+            margin-bottom: 24px;
+            letter-spacing: -1px;
+        }
+
+        .hero-desc {
+            font-size: 16px;
+            color: var(--text-muted);
+            margin-bottom: 28px;
+            line-height: 1.7;
+        }
+
+        .hero-rating {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            margin-bottom: 36px;
+        }
+
+        .stars {
+            display: flex;
+            gap: 2px;
+            color: var(--gold);
+            font-size: 16px;
+        }
+
+        .rating-text {
+            font-size: 14px;
+            font-weight: 600;
+            color: var(--text-dark);
+        }
+
+        .hero-trust-bar {
+            display: flex;
+            gap: 24px;
+            margin-top: 40px;
+            border-top: 1px solid var(--border-color);
+            padding-top: 24px;
+            width: 100%;
+        }
+
+        .trust-item {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            font-size: 13px;
+            font-weight: 600;
+            color: var(--text-muted);
+        }
+
+        .trust-item i {
+            color: var(--primary);
+            font-size: 16px;
+        }
+
+        .hero-image-wrapper {
+            position: relative;
+            border-radius: 24px;
+            overflow: hidden;
+            box-shadow: 0 25px 50px rgba(114, 17, 33, 0.15);
+            aspect-ratio: 1 / 1;
+            border: 8px solid white;
+        }
+
+        .hero-image {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: var(--transition);
+        }
+
+        .hero-image-wrapper:hover .hero-image {
+            transform: scale(1.03);
+        }
+
+        /* CATALOG SECTION (Image 2) */
+        .catalog {
+            padding: 80px 0;
+            background-color: var(--bg-white);
+            background-image: linear-gradient(rgba(255, 255, 255, 0.85), rgba(255, 255, 255, 0.85)), url('silk-bg-1.png');
+            background-repeat: repeat;
+            background-blend-mode: normal;
+        }
+
+        .section-header {
+            text-align: center;
+            margin-bottom: 40px;
+        }
+
+        .section-header h2 {
+            font-size: 32px;
+            font-weight: 800;
+            color: var(--text-dark);
+        }
+
+        .section-header h2 span {
+            font-family: 'Playfair Display', serif;
+            font-style: italic;
+            color: var(--accent);
+            font-weight: 600;
+        }
+
+        .tab-filters {
+            display: flex;
+            justify-content: center;
+            gap: 12px;
+            margin-bottom: 40px;
+            flex-wrap: wrap;
+        }
+
+        .tab-btn {
+            background: transparent;
+            border: 1px solid var(--border-color);
+            color: var(--text-dark);
+            padding: 10px 24px;
+            border-radius: 50px;
+            font-weight: 600;
+            font-size: 14px;
+            cursor: pointer;
+            transition: var(--transition);
+        }
+
+        .tab-btn:hover {
+            border-color: var(--primary);
+            color: var(--primary);
+        }
+
+        .tab-btn.active {
+            background-color: var(--primary);
+            border-color: var(--primary);
+            color: var(--bg-white);
+            box-shadow: 0 4px 12px rgba(122, 6, 33, 0.2);
+        }
+
+        .hidden-tab {
+            display: none;
+        }
+
+        .tab-filters.expanded .hidden-tab {
+            display: inline-block;
+            animation: fadeIn 0.3s ease;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(-5px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .product-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 24px;
+        }
+
+        .product-card {
+            background-color: var(--bg-white);
+            border-radius: 16px;
+            overflow: hidden;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.02);
+            border: 1px solid #f5ede9;
+            transition: var(--transition);
+            display: flex;
+            flex-direction: column;
+        }
+
+        .product-card:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 16px 36px var(--shadow);
+            border-color: var(--primary-light);
+        }
+
+        .product-img-box {
+            position: relative;
+            aspect-ratio: 1/1;
+            overflow: hidden;
+            background-color: #f7f5f0;
+        }
+
+        .product-img-box img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: var(--transition);
+        }
+
+        .product-card:hover .product-img-box img {
+            transform: scale(1.08);
+        }
+
+        .product-details {
+            padding: 20px;
+            text-align: center;
+            display: flex;
+            flex-direction: column;
+            flex-grow: 1;
+        }
+
+        .product-name {
+            font-size: 15px;
+            font-weight: 700;
+            margin-bottom: 8px;
+            color: var(--text-dark);
+            min-height: 44px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .product-price {
+            font-size: 16px;
+            font-weight: 800;
+            color: var(--primary);
+            margin-bottom: 16px;
+        }
+
+        .btn-order-outline {
+            display: block;
+            border: 1px solid var(--primary);
+            color: var(--primary);
+            background: transparent;
+            padding: 10px;
+            border-radius: 8px;
+            font-weight: 700;
+            font-size: 13px;
+            text-transform: uppercase;
+            cursor: pointer;
+            transition: var(--transition);
+            width: 100%;
+            margin-top: auto;
+        }
+
+        .product-card:hover .btn-order-outline {
+            background-color: var(--primary);
+            color: white;
+        }
+
+        /* MAGAZINE & TRUST SECTION (Image 3) */
+        .trust-section {
+            background-color: var(--bg-cream);
+            background-image: linear-gradient(rgba(253, 251, 247, 0.85), rgba(253, 251, 247, 0.85)), url('silk-bg-2.png');
+            background-repeat: repeat;
+            background-blend-mode: normal;
+            padding: 0 0 80px;
+            overflow: hidden;
+        }
+
+        /* Maroon banner */
+        .magazine-banner {
+            background-color: var(--primary);
+            color: var(--bg-white);
+            padding: 16px 0;
+            text-align: center;
+            font-size: 13px;
+            font-weight: 600;
+            letter-spacing: 1.5px;
+            text-transform: uppercase;
+        }
+
+        /* Marquee wrapper */
+        .marquee-wrapper {
+            background-color: var(--primary);
+            padding: 10px 0 24px;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+            overflow: hidden;
+            white-space: nowrap;
+            position: relative;
+        }
+
+        .marquee-content {
+            display: inline-block;
+            animation: marquee 25s linear infinite;
+        }
+
+        .marquee-content span {
+            font-family: 'Playfair Display', serif;
+            font-size: 20px;
+            font-weight: 700;
+            letter-spacing: 6px;
+            margin-right: 80px;
+            opacity: 0.6;
+            color: var(--bg-white);
+            transition: var(--transition);
+        }
+
+        .marquee-content span:hover {
+            opacity: 1;
+        }
+
+        @keyframes marquee {
+            0% { transform: translateX(0%); }
+            100% { transform: translateX(-50%); }
+        }
+
+        /* Trust content box */
+        .trust-content {
+            max-width: 750px;
+            margin: 60px auto 0;
+            text-align: center;
+            background-color: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(10px);
+            padding: 48px;
+            border-radius: 24px;
+            box-shadow: 0 15px 50px rgba(114, 17, 33, 0.08);
+            border: 1px solid rgba(255,255,255,0.8);
+        }
+
+        .trust-content h3 {
+            font-size: clamp(24px, 4vw, 32px);
+            font-weight: 800;
+            color: var(--text-dark);
+            margin-bottom: 24px;
+            line-height: 1.25;
+        }
+
+        .trust-content h3 span {
+            font-family: 'Playfair Display', serif;
+            font-style: italic;
+            color: var(--primary);
+            font-weight: 600;
+        }
+
+        .trust-list {
+            display: flex;
+            flex-direction: column;
+            gap: 16px;
+            margin: 0 auto 36px;
+            max-width: 500px;
+            text-align: left;
+        }
+
+        .trust-list-item {
+            display: flex;
+            align-items: flex-start;
+            gap: 12px;
+            font-size: 14px;
+            color: var(--text-dark);
+        }
+
+        .trust-list-item i {
+            color: var(--accent);
+            background-color: var(--accent-light);
+            padding: 5px;
+            border-radius: 50%;
+            font-size: 12px;
+            margin-top: 2px;
+        }
+
+        .trust-list-item strong {
+            font-weight: 700;
+            display: block;
+            margin-bottom: 2px;
+        }
+
+        .trust-list-item span {
+            color: var(--text-muted);
+        }
+
+        /* Pulsing animation for key CTA */
+        .btn-pulse {
+            position: relative;
+            animation: pulse-button 2.5s infinite;
+        }
+
+        @keyframes pulse-button {
+            0% {
+                box-shadow: 0 8px 24px rgba(122, 6, 33, 0.25);
+            }
+            50% {
+                box-shadow: 0 8px 30px rgba(122, 6, 33, 0.55);
+            }
+            100% {
+                box-shadow: 0 8px 24px rgba(122, 6, 33, 0.25);
+            }
+        }
+
+        .trust-shipping-pills {
+            display: flex;
+            justify-content: center;
+            gap: 24px;
+            margin-top: 24px;
+            font-size: 13px;
+            font-weight: 600;
+            color: var(--text-muted);
+        }
+
+        .trust-shipping-pills span {
+            display: flex;
+            align-items: center;
+            gap: 6px;
+        }
+
+        /* MARKET COMPARISON (Image 4) */
+        .comparison {
+            padding: 80px 0;
+            background-color: var(--bg-white);
+            background-image: linear-gradient(rgba(255, 255, 255, 0.85), rgba(255, 255, 255, 0.85)), url('silk-bg-3.png');
+            background-repeat: repeat;
+            background-blend-mode: normal;
+        }
+
+        .comparison-header {
+            text-align: center;
+            max-width: 800px;
+            margin: 0 auto 50px;
+        }
+
+        .comparison-header h2 {
+            font-size: 26px;
+            font-weight: 800;
+            color: var(--text-dark);
+            line-height: 1.4;
+        }
+
+        .comparison-header h2 span {
+            font-family: 'Playfair Display', serif;
+            font-style: italic;
+            color: var(--primary);
+            font-weight: 600;
+        }
+
+        .comparison-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 24px;
+        }
+
+        .comparison-card {
+            background-color: var(--bg-white);
+            border-radius: 16px;
+            overflow: hidden;
+            box-shadow: 0 4px 25px rgba(0, 0, 0, 0.02);
+            border: 1px solid #f6f0ec;
+            transition: var(--transition);
+        }
+
+        .comparison-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 12px 30px rgba(0, 0, 0, 0.04);
+        }
+
+        .comparison-img-box {
+            height: 180px;
+            overflow: hidden;
+            position: relative;
+        }
+
+        .comparison-img-box img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .comparison-body {
+            padding: 24px;
+        }
+
+        .comparison-body h4 {
+            font-size: 16px;
+            font-weight: 800;
+            color: var(--primary);
+            margin-bottom: 12px;
+        }
+
+        .comparison-body p {
+            font-size: 13px;
+            color: var(--text-muted);
+            line-height: 1.6;
+        }
+
+        /* BRAND VALUES SECTION (Image 5) */
+        .brand-values {
+            padding: 80px 0;
+            background-color: var(--bg-cream);
+            background-image: linear-gradient(rgba(253, 251, 247, 0.85), rgba(253, 251, 247, 0.85)), url('silk-bg-4.png');
+            background-repeat: repeat;
+            background-blend-mode: normal;
+            border-top: 1px solid #f6f0ec;
+            position: relative;
+        }
+
+        .brand-values-header {
+            text-align: center;
+            margin-bottom: 50px;
+        }
+
+        .brand-values-header .badge-pill {
+            background-color: var(--bg-cream);
+            border: 1px solid var(--border-color);
+            color: var(--text-dark);
+        }
+
+        .brand-values-header h2 {
+            font-size: 32px;
+            font-weight: 800;
+            color: var(--text-dark);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+            flex-wrap: wrap;
+        }
+
+        .highlight-box {
+            background-color: var(--primary);
+            color: var(--bg-white);
+            padding: 2px 14px;
+            border-radius: 4px;
+            font-weight: 800;
+            font-style: italic;
+            font-family: 'Playfair Display', serif;
+        }
+
+        .values-grid {
+            display: grid;
+            grid-template-columns: 4fr 5fr;
+            gap: 60px;
+            align-items: center;
+        }
+
+        .values-image-box {
+            border-radius: 20px;
+            overflow: hidden;
+            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.05);
+            aspect-ratio: 4 / 5;
+        }
+
+        .values-image-box img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: var(--transition);
+        }
+
+        .values-image-box:hover img {
+            transform: scale(1.03);
+        }
+
+        .values-list {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 32px;
+        }
+
+        .value-card {
+            display: flex;
+            flex-direction: column;
+            align-items: flex-start;
+        }
+
+        .value-icon {
+            color: var(--primary);
+            font-size: 24px;
+            margin-bottom: 12px;
+        }
+
+        .value-card h4 {
+            font-size: 15px;
+            font-weight: 800;
+            margin-bottom: 8px;
+            color: var(--text-dark);
+        }
+
+        .value-card p {
+            font-size: 13px;
+            color: var(--text-muted);
+            line-height: 1.6;
+        }
+
+        /* CTA Bottom */
+        .brand-values-cta {
+            text-align: center;
+            margin-top: 60px;
+        }
+
+        .brand-values-cta .trust-shipping-pills {
+            margin-top: 20px;
+        }
+
+        /* BRAND STORY SECTION */
+        .brand-story {
+            padding: 80px 0;
+            background-color: var(--bg-white);
+            border-top: 1px solid #f6f0ec;
+        }
+
+        .story-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 60px;
+            align-items: center;
+        }
+
+        .story-image-box {
+            border-radius: 20px;
+            overflow: hidden;
+            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.08);
+            position: relative;
+        }
+
+        .story-image-box img {
+            width: 100%;
+            height: auto;
+            display: block;
+            object-fit: cover;
+            aspect-ratio: 4 / 3;
+            transition: var(--transition);
+        }
+
+        .story-image-box:hover img {
+            transform: scale(1.05);
+        }
+
+        .story-content h2 {
+            font-size: 32px;
+            font-weight: 800;
+            color: var(--text-dark);
+            margin-bottom: 16px;
+            line-height: 1.3;
+        }
+
+        .story-content h2 span {
+            color: var(--primary);
+            font-family: 'Playfair Display', serif;
+            font-style: italic;
+        }
+
+        .story-content p {
+            font-size: 15px;
+            color: var(--text-muted);
+            line-height: 1.8;
+            margin-bottom: 20px;
+            font-weight: 500;
+        }
+
+        @media (max-width: 900px) {
+            .story-grid {
+                grid-template-columns: 1fr;
+                gap: 40px;
+            }
+        }
+
+        /* Footer */
+        footer {
+            background-color: var(--bg-white);
+            padding: 40px 0;
+            text-align: center;
+            border-top: 1px solid #f6f0ec;
+            color: var(--text-muted);
+            font-size: 13px;
+        }
+
+        /* ORDER MODAL STYLE */
+        .modal-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background-color: rgba(45, 36, 36, 0.6);
+            backdrop-filter: blur(5px);
+            z-index: 1000;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            opacity: 0;
+            pointer-events: none;
+            transition: var(--transition);
+            padding: 20px;
+        }
+
+        .modal-overlay.active {
+            opacity: 1;
+            pointer-events: all;
+        }
+
+        .modal-container {
+            background-color: var(--bg-white);
+            border-radius: 20px;
+            max-width: 600px;
+            width: 100%;
+            overflow: hidden;
+            box-shadow: 0 25px 50px rgba(0,0,0,0.15);
+            transform: scale(0.9);
+            transition: var(--transition);
+            position: relative;
+        }
+
+        .modal-overlay.active .modal-container {
+            transform: scale(1);
+        }
+
+        .modal-close {
+            position: absolute;
+            top: 16px;
+            right: 20px;
+            font-size: 22px;
+            color: var(--text-muted);
+            cursor: pointer;
+            transition: var(--transition);
+            border: none;
+            background: transparent;
+        }
+
+        .modal-close:hover {
+            color: var(--primary);
+        }
+
+        .modal-header {
+            background-color: var(--primary-light);
+            padding: 24px;
+            color: var(--primary);
+            text-align: center;
+        }
+
+        .modal-header h3 {
+            font-size: 18px;
+            font-weight: 800;
+        }
+
+        .modal-body {
+            padding: 24px;
+            max-height: 70vh;
+            overflow-y: auto;
+        }
+
+        .modal-product-summary {
+            display: flex;
+            gap: 16px;
+            padding-bottom: 20px;
+            border-bottom: 1px solid var(--border-color);
+            margin-bottom: 20px;
+            align-items: center;
+        }
+
+        .modal-product-img {
+            width: 70px;
+            height: 70px;
+            border-radius: 8px;
+            object-fit: cover;
+            border: 1px solid var(--border-color);
+        }
+
+        .modal-product-info h4 {
+            font-size: 15px;
+            font-weight: 800;
+            color: var(--text-dark);
+        }
+
+        .modal-product-info p {
+            font-size: 14px;
+            font-weight: 700;
+            color: var(--primary);
+        }
+
+        .form-group {
+            margin-bottom: 16px;
+        }
+
+        .form-group label {
+            display: block;
+            font-size: 13px;
+            font-weight: 700;
+            color: var(--text-dark);
+            margin-bottom: 6px;
+        }
+
+        .form-control {
+            width: 100%;
+            padding: 12px;
+            border-radius: 8px;
+            border: 1px solid var(--border-color);
+            font-family: inherit;
+            font-size: 14px;
+            color: var(--text-dark);
+            transition: var(--transition);
+        }
+
+        .form-control:focus {
+            outline: none;
+            border-color: var(--primary);
+            box-shadow: 0 0 0 3px rgba(122, 6, 33, 0.1);
+        }
+
+        .form-row {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 16px;
+        }
+
+        .btn-submit {
+            width: 100%;
+            background-color: var(--primary);
+            color: white;
+            padding: 14px;
+            border-radius: 8px;
+            border: none;
+            font-weight: 700;
+            font-size: 14px;
+            cursor: pointer;
+            transition: var(--transition);
+            margin-top: 10px;
+        }
+
+        .btn-submit:hover {
+            background-color: var(--primary-hover);
+        }
+
+        /* Success Notification Modal */
+        .success-box {
+            text-align: center;
+            padding: 32px 16px;
+        }
+
+        .success-icon {
+            font-size: 48px;
+            color: var(--accent);
+            background-color: var(--accent-light);
+            width: 80px;
+            height: 80px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 50%;
+            margin: 0 auto 20px;
+        }
+
+        .success-box h3 {
+            font-size: 20px;
+            font-weight: 800;
+            color: var(--text-dark);
+            margin-bottom: 12px;
+        }
+
+        .success-box p {
+            font-size: 14px;
+            color: var(--text-muted);
+            line-height: 1.6;
+            margin-bottom: 24px;
+        }
+
+        /* Responsive Breakpoints */
+        @media (max-width: 1024px) {
+            .product-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+            .comparison-grid {
+                grid-template-columns: 1fr;
+            }
+            .values-grid {
+                grid-template-columns: 1fr;
+                gap: 40px;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .hero .container {
+                grid-template-columns: 1fr;
+                gap: 40px;
+                text-align: center;
+            }
+
+            .hero-content {
+                align-items: center;
+            }
+
+            .hero-trust-bar {
+                justify-content: center;
+            }
+
+            .values-list {
+                grid-template-columns: 1fr;
+                gap: 24px;
+            }
+
+            .header-icons {
+                width: auto;
+            }
+            
+            .nav-back {
+                width: auto;
+            }
+            
+            .logo {
+                font-size: 16px;
+            }
+            
+            .nav-back span {
+                display: none;
+            }
+
+            .trust-content {
+                padding: 24px;
+            }
+        }
+
+        /* Scroll Animations */
+        .animate-on-scroll {
+            opacity: 0;
+            transform: translateY(30px);
+            transition: opacity 0.8s ease-out, transform 0.8s ease-out;
+            will-change: opacity, transform;
+        }
+
+        .animate-on-scroll.is-visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+        /* --- COMPANY INTRO SUBPAGE --- */
+        #companyIntroContent {
+            background-color: var(--bg-cream);
+            background-image: linear-gradient(rgba(253, 251, 247, 0.95), rgba(253, 251, 247, 0.95)), url('silk-bg-2.png');
+            background-repeat: repeat;
+            padding-bottom: 80px;
+        }
+
+        .intro-header {
+            text-align: center;
+            padding: 60px 0 40px;
+        }
+
+        .intro-header h1 {
+            font-size: 36px;
+            font-weight: 800;
+            color: var(--text-dark);
+            margin-bottom: 16px;
+        }
+        
+        .intro-header h1 span {
+            color: var(--primary);
+            font-family: 'Playfair Display', serif;
+            font-style: italic;
+        }
+
+        .intro-top-grid {
+            display: grid;
+            grid-template-columns: 1fr 2fr;
+            gap: 40px;
+            align-items: center;
+            margin-bottom: 80px;
+            background: var(--bg-white);
+            padding: 40px;
+            border-radius: 20px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.03);
+            border: 1px solid var(--border-color);
+        }
+
+        .intro-logo-box {
+            text-align: center;
+            padding: 30px;
+            border: 1px solid var(--border-color);
+            border-radius: 16px;
+            background: var(--bg-cream);
+        }
+
+        .intro-logo-box .logo-text {
+            font-family: 'Be Vietnam Pro', sans-serif;
+            font-weight: 800;
+            font-size: 28px;
+            color: var(--primary);
+            letter-spacing: -0.5px;
+        }
+        
+        .intro-logo-box .logo-sub {
+            font-family: 'Playfair Display', serif;
+            font-style: italic;
+            color: var(--gold);
+            font-size: 16px;
+        }
+
+        .intro-text p {
+            font-size: 15px;
+            color: var(--text-muted);
+            line-height: 1.8;
+            margin-bottom: 16px;
+            font-weight: 500;
+        }
+
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 24px;
+            margin-bottom: 80px;
+        }
+
+        .stat-card {
+            background: var(--bg-white);
+            padding: 30px 20px;
+            border-radius: 16px;
+            text-align: center;
+            border: 1px solid var(--border-color);
+            box-shadow: 0 5px 20px rgba(0,0,0,0.02);
+            transition: var(--transition);
+        }
+
+        .stat-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 15px 30px rgba(0,0,0,0.05);
+            border-color: var(--primary);
+        }
+
+        .stat-icon {
+            font-size: 32px;
+            color: var(--primary);
+            margin-bottom: 16px;
+        }
+
+        .stat-card h3 {
+            font-size: 32px;
+            font-weight: 800;
+            color: var(--text-dark);
+            margin-bottom: 8px;
+        }
+        
+        .stat-card p {
+            font-size: 14px;
+            color: var(--text-muted);
+            font-weight: 600;
+        }
+
+        .vision-mission {
+            text-align: center;
+            margin-bottom: 80px;
+        }
+        
+        .vision-mission h2 {
+            font-size: 28px;
+            font-weight: 800;
+            color: var(--text-dark);
+            margin-bottom: 16px;
+        }
+
+        .split-image-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            border-radius: 24px;
+            overflow: hidden;
+            box-shadow: 0 15px 40px rgba(0,0,0,0.08);
+            margin-top: 40px;
+            height: 500px;
+        }
+
+        .split-box {
+            position: relative;
+            background-size: cover;
+            background-position: center;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .split-box::before {
+            content: '';
+            position: absolute;
+            inset: 0;
+            background: linear-gradient(to top, rgba(0,0,0,0.8), rgba(0,0,0,0.2));
+        }
+
+        .split-box h3 {
+            position: relative;
+            color: white;
+            font-size: 36px;
+            font-weight: 800;
+            text-shadow: 0 2px 10px rgba(0,0,0,0.5);
+            font-family: 'Playfair Display', serif;
+        }
+
+        .team-section {
+            text-align: center;
+        }
+
+        .team-section h2 {
+            font-size: 28px;
+            font-weight: 800;
+            color: var(--text-dark);
+            margin-bottom: 40px;
+            position: relative;
+            display: inline-block;
+        }
+
+        .team-section h2::after {
+            content: '';
+            position: absolute;
+            bottom: -10px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 60px;
+            height: 3px;
+            background: var(--primary);
+        }
+
+        .team-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 24px;
+            margin-top: 40px;
+        }
+
+        .team-card {
+            background: var(--bg-white);
+            border-radius: 16px;
+            overflow: hidden;
+            border: 1px solid var(--border-color);
+            transition: var(--transition);
+        }
+
+        .team-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 15px 30px rgba(0,0,0,0.06);
+        }
+
+        .team-img-box {
+            height: 250px;
+            overflow: hidden;
+        }
+
+        .team-img-box img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: var(--transition);
+        }
+
+        .team-card:hover .team-img-box img {
+            transform: scale(1.05);
+        }
+
+        .team-info {
+            padding: 20px;
+        }
+
+        .team-info h4 {
+            font-size: 16px;
+            font-weight: 800;
+            color: var(--text-dark);
+            margin-bottom: 4px;
+        }
+
+        .team-info p {
+            font-size: 13px;
+            color: var(--text-muted);
+        }
+        
+        @media (max-width: 900px) {
+            .intro-top-grid, .split-image-grid {
+                grid-template-columns: 1fr;
+            }
+            .stats-grid, .team-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+        }
+        @media (max-width: 600px) {
+            .stats-grid, .team-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+
+    <script>
+        // Migrate old VietShop/KBC localStorage data to KBCLAZA
+        (function() {
+            const keys = ['cart', 'custom_products', 'deleted_products', 'categories', 'enterprises', 'orders', 'deleted_enterprises'];
+            keys.forEach(key => {
+                let oldData = localStorage.getItem('kbcshop_' + key) || localStorage.getItem('vietshop_' + key);
+                if (oldData && !localStorage.getItem('kbclaza_' + key)) {
+                    localStorage.setItem('kbclaza_' + key, oldData);
+                }
+            });
+        })();
+
+        // Intersection Observer for scroll animations
+        document.addEventListener("DOMContentLoaded", function() {
+            const observerOptions = {
+                root: null,
+                rootMargin: '0px',
+                threshold: 0.15
+            };
+
+            const observer = new IntersectionObserver((entries, observer) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.classList.add('is-visible');
+                        observer.unobserve(entry.target);
+                    }
+                });
+            }, observerOptions);
+
+            document.querySelectorAll('.animate-on-scroll').forEach(el => {
+                observer.observe(el);
+            });
+        });
+    </script>
+</head>
+<body>
+
+    <!-- Header Navigation -->
+    <header>
+        <div class="container">
+            <a href="../../products.html" class="nav-back">
+                <i class="fa-solid fa-arrow-left"></i> <span>Quay lại</span>
+            </a>
+            <a href="#" class="logo">Thực Liên Silk - Lụa Nha Xá</a>
+            <div class="header-icons">
+                <a href="../../login.html" title="Tài khoản"><i class="fa-regular fa-user"></i></a>
+                <a href="../../checkout.html" id="cartIcon" title="Giỏ hàng">
+                    <i class="fa-solid fa-shopping-cart"></i>
+                    <span class="cart-badge" id="cartBadge">0</span>
+                </a>
+            </div>
+        </div>
+    </header>
+
+    <div id="mainLandingContent">
+
+    <!-- SECTION 1: HERO (Image 1) -->
+    <section class="hero">
+        <div class="container">
+            <div class="hero-content animate-on-scroll">
+                <span class="badge-pill">Tôn Vinh Nghệ Dệt Truyền Thống</span>
+                <h1>Lụa Tơ Tằm Nha Xá Đích Thực</h1>
+                <p class="hero-desc">Kế thừa tinh hoa từ làng nghề Nha Xá trăm năm, 𝗧𝗵𝘂̛̣𝗰 𝗟𝗶𝗲̂𝗻 𝗦𝗶𝗹𝗸 tự hào mang đến những thước Lụa Tơ Tằm nguyên bản và dịch vụ may đo cao cấp. Với lợi thế là xưởng sản xuất trực tiếp, chúng tôi cam kết mang lại chất lượng thượng hạng cùng mức giá tận gốc, tôn vinh trọn vẹn nét duyên dáng của bạn.</p>
+                <div class="hero-rating">
+                    <div class="stars">
+                        <i class="fa-solid fa-star"></i>
+                        <i class="fa-solid fa-star"></i>
+                        <i class="fa-solid fa-star"></i>
+                        <i class="fa-solid fa-star"></i>
+                        <i class="fa-solid fa-star"></i>
+                    </div>
+                    <span class="rating-text">15,235+ Khách Hàng Hài Lòng</span>
+                </div>
+                <a href="#collection" class="btn-pill">Khám Phá Bộ Sưu Tập</a>
+                <div class="hero-trust-bar">
+                    <span class="trust-item"><i class="fa-solid fa-truck"></i> Giao hàng tận nơi</span>
+                    <span class="trust-item"><i class="fa-solid fa-shield-halved"></i> Kiểm định 100% tơ tằm</span>
+                </div>
+            </div>
+            <div class="hero-image-wrapper animate-on-scroll">
+                <!-- High-quality image representing a woman in traditional Vietnamese light blue Ao Dai inside a wooden room -->
+                <img src="https://images.unsplash.com/photo-1583089892943-e02e5b017b6a?w=800&auto=format&fit=crop&q=80" alt="Nghệ nhân Thực Liên Silk - Lụa Nha Xá" class="hero-image">
+            </div>
+        </div>
+    </section>
+
+    <!-- SECTION 2: CATALOG & FILTERS (Image 2) -->
+    <section class="catalog" id="collection">
+        <div class="container">
+            <div class="section-header animate-on-scroll">
+                <h2>Khám Phá <span>Bộ Sưu Tập</span></h2>
+            </div>
+            
+            <!-- Category Tabs -->
+            <div class="tab-filters" id="categoryTabs">
+                <button class="tab-btn" onclick="switchCategory('vong-lua', this)">Vòng lụa tơ tằm</button>
+                <button class="tab-btn" onclick="switchCategory('ba-ba', this)">Bà ba tơ tằm</button>
+                <button class="tab-btn" onclick="switchCategory('khan-lua', this)">Khăn lụa tơ tằm</button>
+                <button class="tab-btn" onclick="switchCategory('non-lua', this)">Nón lụa tơ tằm</button>
+                <button class="tab-btn" onclick="switchCategory('ao-dai', this)">Áo dài</button>
+                
+                <div style="position: relative; display: inline-block;">
+                    <button class="tab-btn" id="btnMoreTabs" onclick="toggleMoreTabsDropdown(event)" style="border-style: dashed; color: var(--primary);">Xem thêm <i class="fa-solid fa-chevron-down"></i></button>
+                    <div id="moreTabsDropdown" style="display: none; position: absolute; top: 100%; right: 0; background: white; border: 1px solid var(--border-color); border-radius: 8px; z-index: 100; padding: 12px 0; min-width: 220px; box-shadow: 0 10px 25px rgba(0,0,0,0.1); text-align: left; margin-top: 8px;">
+                        <ul style="list-style: none; margin: 0; padding: 0;">
+                            <li><a href="javascript:void(0)" onclick="switchCategory('tho-roi', document.getElementById('btnMoreTabs')); closeMoreTabsDropdown()" style="display: block; padding: 8px 20px; color: var(--text-dark); text-decoration: none; font-size: 14px; transition: 0.2s;" onmouseover="this.style.color='var(--primary)'" onmouseout="this.style.color='var(--text-dark)'"><span style="color: var(--accent); margin-right: 8px;">•</span> Thọ Rơi</a></li>
+                            <li><a href="javascript:void(0)" onclick="switchCategory('lua-vang', document.getElementById('btnMoreTabs')); closeMoreTabsDropdown()" style="display: block; padding: 8px 20px; color: var(--text-dark); text-decoration: none; font-size: 14px; transition: 0.2s;" onmouseover="this.style.color='var(--primary)'" onmouseout="this.style.color='var(--text-dark)'"><span style="color: var(--accent); margin-right: 8px;">•</span> Lụa Vàng</a></li>
+                            <li><a href="javascript:void(0)" onclick="switchCategory('lua-hong', document.getElementById('btnMoreTabs')); closeMoreTabsDropdown()" style="display: block; padding: 8px 20px; color: var(--text-dark); text-decoration: none; font-size: 14px; transition: 0.2s;" onmouseover="this.style.color='var(--primary)'" onmouseout="this.style.color='var(--text-dark)'"><span style="color: var(--accent); margin-right: 8px;">•</span> Lụa Hồng</a></li>
+                            <li><a href="javascript:void(0)" onclick="switchCategory('lua-hoa-cai', document.getElementById('btnMoreTabs')); closeMoreTabsDropdown()" style="display: block; padding: 8px 20px; color: var(--text-dark); text-decoration: none; font-size: 14px; transition: 0.2s;" onmouseover="this.style.color='var(--primary)'" onmouseout="this.style.color='var(--text-dark)'"><span style="color: var(--accent); margin-right: 8px;">•</span> Lụa Hoa Cải</a></li>
+                            <li><a href="javascript:void(0)" onclick="switchCategory('lua-cham-bi', document.getElementById('btnMoreTabs')); closeMoreTabsDropdown()" style="display: block; padding: 8px 20px; color: var(--text-dark); text-decoration: none; font-size: 14px; transition: 0.2s;" onmouseover="this.style.color='var(--primary)'" onmouseout="this.style.color='var(--text-dark)'"><span style="color: var(--accent); margin-right: 8px;">•</span> Lụa Chấm Bi</a></li>
+                            <li><a href="javascript:void(0)" onclick="switchCategory('vai-lua-tron', document.getElementById('btnMoreTabs')); closeMoreTabsDropdown()" style="display: block; padding: 8px 20px; color: var(--text-dark); text-decoration: none; font-size: 14px; transition: 0.2s;" onmouseover="this.style.color='var(--primary)'" onmouseout="this.style.color='var(--text-dark)'"><span style="color: var(--accent); margin-right: 8px;">•</span> Vải Lụa Trơn</a></li>
+                            <li><a href="javascript:void(0)" onclick="switchCategory('lua-hoa-mai', document.getElementById('btnMoreTabs')); closeMoreTabsDropdown()" style="display: block; padding: 8px 20px; color: var(--text-dark); text-decoration: none; font-size: 14px; transition: 0.2s;" onmouseover="this.style.color='var(--primary)'" onmouseout="this.style.color='var(--text-dark)'"><span style="color: var(--accent); margin-right: 8px;">•</span> Lụa Hoa Mai</a></li>
+                            <li><a href="javascript:void(0)" onclick="switchCategory('lua-hoa-beo', document.getElementById('btnMoreTabs')); closeMoreTabsDropdown()" style="display: block; padding: 8px 20px; color: var(--text-dark); text-decoration: none; font-size: 14px; transition: 0.2s;" onmouseover="this.style.color='var(--primary)'" onmouseout="this.style.color='var(--text-dark)'"><span style="color: var(--accent); margin-right: 8px;">•</span> Lụa Hoa Bèo</a></li>
+                            <li><a href="javascript:void(0)" onclick="switchCategory('lua-canh', document.getElementById('btnMoreTabs')); closeMoreTabsDropdown()" style="display: block; padding: 8px 20px; color: var(--text-dark); text-decoration: none; font-size: 14px; transition: 0.2s;" onmouseover="this.style.color='var(--primary)'" onmouseout="this.style.color='var(--text-dark)'"><span style="color: var(--accent); margin-right: 8px;">•</span> Lụa Canh</a></li>
+                            <li><a href="javascript:void(0)" onclick="switchCategory('lua-duoi-cong', document.getElementById('btnMoreTabs')); closeMoreTabsDropdown()" style="display: block; padding: 8px 20px; color: var(--text-dark); text-decoration: none; font-size: 14px; transition: 0.2s;" onmouseover="this.style.color='var(--primary)'" onmouseout="this.style.color='var(--text-dark)'"><span style="color: var(--accent); margin-right: 8px;">•</span> Lụa Đuôi Công</a></li>
+                            <li><a href="javascript:void(0)" onclick="switchCategory('lua-chuon-chuon', document.getElementById('btnMoreTabs')); closeMoreTabsDropdown()" style="display: block; padding: 8px 20px; color: var(--text-dark); text-decoration: none; font-size: 14px; transition: 0.2s;" onmouseover="this.style.color='var(--primary)'" onmouseout="this.style.color='var(--text-dark)'"><span style="color: var(--accent); margin-right: 8px;">•</span> Lụa Chuồn Chuồn</a></li>
+                            <li><a href="javascript:void(0)" onclick="switchCategory('lua-dong-tien', document.getElementById('btnMoreTabs')); closeMoreTabsDropdown()" style="display: block; padding: 8px 20px; color: var(--text-dark); text-decoration: none; font-size: 14px; transition: 0.2s;" onmouseover="this.style.color='var(--primary)'" onmouseout="this.style.color='var(--text-dark)'"><span style="color: var(--accent); margin-right: 8px;">•</span> Lụa Đồng Tiền</a></li>
+                            <li><a href="javascript:void(0)" onclick="switchCategory('nhung-the', document.getElementById('btnMoreTabs')); closeMoreTabsDropdown()" style="display: block; padding: 8px 20px; color: var(--text-dark); text-decoration: none; font-size: 14px; transition: 0.2s;" onmouseover="this.style.color='var(--primary)'" onmouseout="this.style.color='var(--text-dark)'"><span style="color: var(--accent); margin-right: 8px;">•</span> Nhung The Tơ Tằm</a></li>
+                            <li><a href="javascript:void(0)" onclick="switchCategory('bit-mat', document.getElementById('btnMoreTabs')); closeMoreTabsDropdown()" style="display: block; padding: 8px 20px; color: var(--text-dark); text-decoration: none; font-size: 14px; transition: 0.2s;" onmouseover="this.style.color='var(--primary)'" onmouseout="this.style.color='var(--text-dark)'"><span style="color: var(--accent); margin-right: 8px;">•</span> Bịt Mắt Ngủ bằng Lụa</a></li>
+                            <li><a href="javascript:void(0)" onclick="switchCategory('lua-bo-cong-anh', document.getElementById('btnMoreTabs')); closeMoreTabsDropdown()" style="display: block; padding: 8px 20px; color: var(--text-dark); text-decoration: none; font-size: 14px; transition: 0.2s;" onmouseover="this.style.color='var(--primary)'" onmouseout="this.style.color='var(--text-dark)'"><span style="color: var(--accent); margin-right: 8px;">•</span> Lụa Bồ Công Anh</a></li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Products Grid -->
+            <div class="product-grid" id="productGrid">
+                <!-- Products will be dynamically loaded via JS -->
+            </div>
+            
+            <div style="text-align: center; margin-top: 40px;">
+                <button class="btn-pill" onclick="showAllProducts(this)" style="border-radius: 4px; min-width: 200px; background-color: transparent; border: 2px solid var(--primary); color: var(--primary); transition: all 0.3s ease;" onmouseover="this.style.backgroundColor='var(--primary)'; this.style.color='white';" onmouseout="this.style.backgroundColor='transparent'; this.style.color='var(--primary)';">Xem Thêm (30+ Sản Phẩm)</button>
+            </div>
+        </div>
+    </section>
+
+    <!-- SECTION 3: MAGAZINE & TRUST BANNER (Image 3) -->
+    <section class="trust-section">
+        <!-- Top maroon text banner -->
+        <div class="magazine-banner">
+            Vinh Dự Được Trình Diễn Tại Các Tuần Lễ Thời Trang & Tạp Chí Uy Tín
+        </div>
+        
+        <!-- Marquee Ticker -->
+        <div class="marquee-wrapper">
+            <div class="marquee-content">
+                <span>ELLE</span>
+                <span>Harper's BAZAAR</span>
+                <span>L'OFFICIEL</span>
+                <span>VOGUE</span>
+                <span>ELLE</span>
+                <span>Harper's BAZAAR</span>
+                <span>L'OFFICIEL</span>
+                <span>VOGUE</span>
+                <span>ELLE</span>
+                <span>Harper's BAZAAR</span>
+                <span>L'OFFICIEL</span>
+                <span>VOGUE</span>
+            </div>
+        </div>
+
+        <div class="container">
+            <div class="trust-content animate-on-scroll">
+                <span class="badge-pill" style="margin-bottom: 16px;">Cam Kết Chất Lượng</span>
+                <h3>Chất Lượng Lụa Bạn <span>Hoàn Toàn Tin Tưởng</span></h3>
+                
+                <div class="trust-list">
+                    <p style="margin-bottom: 20px; font-weight: 500; font-size: 16px; line-height: 1.6; color: var(--text-dark);">
+                        Sản phẩm bên em là Chất liệu Lụa Tơ Tằm Nha Xá thiên nhiên 100% được dệt thủ công tại làng nghề.
+                    </p>
+                    <div class="trust-list-item" style="margin-bottom: 12px; align-items: flex-start;">
+                        <i class="fa-solid fa-check" style="margin-top: 4px;"></i>
+                        <span style="font-size: 15px;">Mỏng – Nhẹ nhàng – Mềm mại - có khả năng thấm hút mồ hôi tốt.</span>
+                    </div>
+                    <div class="trust-list-item" style="margin-bottom: 12px; align-items: flex-start;">
+                        <i class="fa-solid fa-check" style="margin-top: 4px;"></i>
+                        <span style="font-size: 15px;">Chất liệu an toàn từ tự nhiên, thân thiện với môi trường.</span>
+                    </div>
+                    <div class="trust-list-item" style="margin-bottom: 12px; align-items: flex-start;">
+                        <i class="fa-solid fa-check" style="margin-top: 4px;"></i>
+                        <span style="font-size: 15px;">Mát mẻ vào mùa hè, ấm áp vào mùa đông.</span>
+                    </div>
+                    <div class="trust-list-item" style="margin-bottom: 12px; align-items: flex-start;">
+                        <i class="fa-solid fa-check" style="margin-top: 4px;"></i>
+                        <span style="font-size: 15px;">Có ánh sắc ngọc trai tôn lên sự sang trọng cho người sử dụng.</span>
+                    </div>
+                    <div class="trust-list-item" style="margin-bottom: 12px; align-items: flex-start;">
+                        <i class="fa-solid fa-check" style="margin-top: 4px;"></i>
+                        <span style="font-size: 15px;">Vải giữ bụi kém, khử mùi nên trang phục sạch và thơm lâu hơn các loại vải thông thường.</span>
+                    </div>
+                </div>
+
+                <a href="#collection" class="btn-pill btn-pulse">Trải Nghiệm Lụa Nha Xá Ngay!</a>
+                
+                <div class="trust-shipping-pills">
+                    <span><i class="fa-solid fa-truck-fast"></i> Miễn phí giao hàng từ 1M</span>
+                    <span><i class="fa-solid fa-rotate-left"></i> Đổi trả linh hoạt</span>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- SECTION 4: MARKET COMPARISON (Image 4) -->
+    <section class="comparison">
+        <div class="container">
+            <div class="comparison-header animate-on-scroll">
+                <h2>Dịch Vụ Tư Vấn Tận Tâm.<br>Nhận <span>Thiết Kế & May Đo</span> Theo Yêu Cầu</h2>
+            </div>
+
+            <div class="comparison-grid">
+                <!-- Card 1 -->
+                <div class="comparison-card animate-on-scroll">
+                    <div class="comparison-img-box">
+                        <img src="https://images.unsplash.com/photo-1534126511673-b6899657816a?w=500&auto=format&fit=crop&q=80" alt="Tư Vấn Báo Giá">
+                    </div>
+                    <div class="comparison-body">
+                        <h4>Tư Vấn & Báo Giá</h4>
+                        <p>Dạ mỗi bộ sản phẩm đều có giá riêng từng mẫu khác nhau ạ.<br>Chị đang ưng ý sản phẩm nào vui lòng gửi ảnh để em báo giá và tư vấn kĩ hơn cho chị nhé! ❤️</p>
+                    </div>
+                </div>
+
+                <!-- Card 2 -->
+                <div class="comparison-card animate-on-scroll">
+                    <div class="comparison-img-box">
+                        <img src="https://images.unsplash.com/photo-1610116306796-6fea9f4fae38?w=500&auto=format&fit=crop&q=80" alt="May Đo Cá Nhân">
+                    </div>
+                    <div class="comparison-body">
+                        <h4>May Đo Cá Nhân</h4>
+                        <p>Bên em thiết kế theo màu sắc và số đo cá nhân. Chị chọn mẫu và màu bên em sẽ may theo số đo cho mình nha.<br>Thời gian hoàn thiện sản phẩm dự kiến khoảng 7-10 ngày (chưa tính vận chuyển) ạ.</p>
+                    </div>
+                </div>
+
+                <!-- Card 3 -->
+                <div class="comparison-card animate-on-scroll">
+                    <div class="comparison-img-box">
+                        <img src="https://images.unsplash.com/photo-1576016770956-debb63d90029?w=500&auto=format&fit=crop&q=80" alt="Đa Dạng Mẫu Mã">
+                    </div>
+                    <div class="comparison-body">
+                        <h4>Đa Dạng Mẫu Mã</h4>
+                        <p>Lụa tơ tằm nhuộm thủ công, 10.000 màu, 1.000 hoa văn đa dạng thay đổi liên tục. Chị chọn mẫu và màu trên fanpage rồi gửi số đo 3 vòng, chiều cao, cân nặng bên em sẽ may ạ.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- SECTION 5: BRAND VALUES & FINAL CTA (Image 5) -->
+    <section class="brand-values">
+        <div class="container">
+            <div class="brand-values-header animate-on-scroll">
+                <span class="badge-pill">Thương Hiệu Lụa Số #1</span>
+                <h2>Tôn Vinh <span class="highlight-box">Vẻ Đẹp Của Bạn</span></h2>
+            </div>
+
+            <div class="values-grid">
+                <div class="values-image-box">
+                    <img src="https://images.unsplash.com/photo-1621184455862-c163dfb30e0f?w=800&auto=format&fit=crop&q=80" alt="Mẫu Áo Dài Lụa Thực Liên">
+                </div>
+
+                <div class="values-list">
+                    <!-- Value 1 -->
+                    <div class="value-card animate-on-scroll">
+                        <div class="value-icon"><i class="fa-solid fa-leaf"></i></div>
+                        <h4>100% Tơ Tằm Tự Nhiên</h4>
+                        <p>Mềm mại, óng ả và an toàn tuyệt đối cho làn da. Không gây kích ứng, bảo vệ vẻ đẹp tự nhiên của bạn.</p>
+                    </div>
+
+                    <!-- Value 2 -->
+                    <div class="value-card animate-on-scroll">
+                        <div class="value-icon"><i class="fa-solid fa-wind"></i></div>
+                        <h4>Thoáng Mát & Thấm Hút</h4>
+                        <p>Điều hòa nhiệt độ cơ thể xuất sắc: mát mẻ vào mùa hè, ấm áp vào mùa đông. Cảm giác nhẹ tựa lông hồng.</p>
+                    </div>
+
+                    <!-- Value 3 -->
+                    <div class="value-card animate-on-scroll">
+                        <div class="value-icon"><i class="fa-solid fa-scroll"></i></div>
+                        <h4>Dệt Thủ Công Truyền Thống</h4>
+                        <p>Sản xuất dưới đôi bàn tay tài hoa của Nghệ nhân Phạm Văn Thực - Kế thừa tinh hoa làng nghề hàng trăm năm.</p>
+                    </div>
+
+                    <!-- Value 4 -->
+                    <div class="value-card animate-on-scroll">
+                        <div class="value-icon"><i class="fa-solid fa-gem"></i></div>
+                        <h4>Sang Trọng Đẳng Cấp</h4>
+                        <p>Độ bóng tinh tế tự nhiên của sợi tơ tằm mang lại vẻ đẹp quý phái, đẳng cấp khác biệt vượt thời gian.</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="brand-values-cta">
+                <a href="#collection" class="btn-pill">Trải Nghiệm Lụa Nha Xá Ngay!</a>
+                <div class="trust-shipping-pills">
+                    <span><i class="fa-solid fa-truck-fast"></i> Giao Hàng Miễn Phí Từ 1M</span>
+                    <span><i class="fa-solid fa-shield-check"></i> Đổi Trả Dễ Dàng</span>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- BRAND STORY -->
+    <section class="brand-story">
+        <div class="container">
+            <div class="story-grid">
+                <div class="story-image-box animate-on-scroll">
+                    <img src="silk-story.png" alt="Nghệ nhân dệt lụa Nha Xá">
+                </div>
+                <div class="story-content animate-on-scroll">
+                    <div class="badge-pill" style="margin-bottom: 16px; background-color: var(--bg-cream); border: 1px solid var(--border-color); color: var(--text-dark);">Câu Chuyện Thương Hiệu</div>
+                    <h2>Khởi Nguồn Từ <span>Làng Nghề Lụa Trăm Năm</span></h2>
+                    <p>Tọa lạc tại làng nghề dệt lụa truyền thống Nha Xá (Hà Nam) với bề dày lịch sử hàng trăm năm, <strong>Thực Liên Silk</strong> tự hào là người kế thừa và phát huy trọn vẹn những tinh hoa dệt lụa của cha ông.</p>
+                    <p>Trái ngược với các sản phẩm lụa công nghiệp đại trà, mỗi thước lụa tại Thực Liên Silk đều trải qua quá trình ươm tơ, dệt vải và nhuộm thủ công vô cùng tỉ mỉ bởi đôi bàn tay tài hoa của nghệ nhân Phạm Văn Thực. Chúng tôi cam kết sử dụng 100% sợi tơ tằm tự nhiên thượng hạng.</p>
+                    <p>Lụa Nha Xá tại Thực Liên Silk mang nét đặc trưng riêng biệt: độ bóng mướt tinh tế, mượt mà khi chạm vào da, ấm áp khi đông về và mát rượi lúc hè sang. Đến với chúng tôi, bạn không chỉ mua một sản phẩm thời trang cao cấp, mà còn đang lưu giữ một di sản văn hóa vô giá của dân tộc.</p>
+                    <button class="btn-pill" style="margin-top: 24px;" onclick="showCompanyIntro()">Xem Chi Tiết Giới Thiệu <i class="fa-solid fa-arrow-right" style="margin-left: 8px;"></i></button>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    </div><!-- END mainLandingContent -->
+
+    <!-- SUBPAGE: COMPANY INTRO -->
+    <div id="companyIntroContent" style="display: none;">
+        <div class="nav-back" style="padding: 20px 24px; cursor: pointer; display: inline-flex; width: auto; white-space: nowrap;" onclick="hideCompanyIntro()">
+            <i class="fa-solid fa-arrow-left"></i> <span>Quay lại trang chính</span>
+        </div>
+        
+        <div class="container">
+            <div class="intro-header">
+                <h1>Giới thiệu chi tiết <span>Thực Liên Silk - Lụa Nha Xá</span></h1>
+                <p style="color: var(--text-muted);">Hành trình gìn giữ di sản lụa tơ tằm nguyên bản từ làng nghề trăm năm.</p>
+            </div>
+
+            <div class="intro-top-grid">
+                <div class="intro-logo-box">
+                    <div class="logo-text">THỰC LIÊN SILK</div>
+                    <div class="logo-sub">TINH HOA LỤA NHA XÁ</div>
+                </div>
+                <div class="intro-text">
+                    <p>Chúng tôi tự hào là cầu nối đưa những tinh hoa của văn hóa truyền thống, của lịch sử làng nghề Nha Xá vang danh hòa nhịp theo xu hướng thời đại cùng hướng đến một cái đẹp sang trọng và nguyên bản. Từ những sợi tơ tằm tự nhiên 100% mang đậm bản sắc vùng miền, mỗi thước lụa được chúng tôi dệt nên đều là một câu chuyện sống động về đôi bàn tay khéo léo của người nghệ nhân.</p>
+                    <p>Không chỉ dừng lại ở việc sản xuất và kinh doanh, Thực Liên Silk còn là nơi bảo tồn và phát huy giá trị di sản phi vật thể. Mỗi sản phẩm của chúng tôi đều gắn liền với tâm huyết lưu giữ truyền thống dân tộc, để khách hàng không chỉ mặc một tấm lụa đẹp, mà còn cảm nhận được cái hồn cốt tinh túy bất tận của Việt Nam.</p>
+                </div>
+            </div>
+
+            <div class="stats-grid">
+                <div class="stat-card">
+                    <div class="stat-icon"><i class="fa-solid fa-users-gear"></i></div>
+                    <h3>50+</h3>
+                    <p>Năm kinh nghiệm gia truyền</p>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-icon"><i class="fa-solid fa-medal"></i></div>
+                    <h3>15+</h3>
+                    <p>Chứng nhận & Giải thưởng</p>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-icon"><i class="fa-solid fa-gem"></i></div>
+                    <h3>100%</h3>
+                    <p>Tơ tằm tự nhiên cao cấp</p>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-icon"><i class="fa-solid fa-heart"></i></div>
+                    <h3>10K+</h3>
+                    <p>Khách hàng tin dùng</p>
+                </div>
+            </div>
+
+            <div class="vision-mission">
+                <h2>Tầm nhìn - Sứ mệnh - Giá trị cốt lõi</h2>
+                <p style="color: var(--text-muted); max-width: 600px; margin: 0 auto;">Mỗi đường tơ, mỗi nhịp thoi đều hướng tới bảo tồn cội nguồn và tôn vinh vẻ đẹp thanh lịch, sang trọng của người phụ nữ Việt Nam.</p>
+                
+                <style>
+                    /* Vision Slider */
+                    .vision-slider-container {
+                        position: relative;
+                        max-width: 1000px;
+                        margin: 40px auto 0;
+                        border-radius: 24px;
+                        overflow: hidden;
+                        box-shadow: 0 15px 40px rgba(0,0,0,0.08);
+                        aspect-ratio: 16/9;
+                        min-height: 400px;
+                    }
+                    .vision-slides {
+                        display: flex;
+                        width: 300%;
+                        height: 100%;
+                        transition: transform 0.8s cubic-bezier(0.25, 1, 0.5, 1);
+                    }
+                    .vision-slide {
+                        width: 33.333%;
+                        height: 100%;
+                        position: relative;
+                        background-size: cover;
+                        background-position: center;
+                    }
+                    .vision-slide::before {
+                        content: '';
+                        position: absolute;
+                        inset: 0;
+                        background: linear-gradient(to right, rgba(26, 17, 17, 0.8) 0%, rgba(26, 17, 17, 0.1) 100%);
+                    }
+                    .vision-slide-content {
+                        position: relative;
+                        z-index: 2;
+                        padding: 60px;
+                        color: white;
+                        height: 100%;
+                        display: flex;
+                        flex-direction: column;
+                        justify-content: center;
+                        max-width: 600px;
+                        text-align: left;
+                    }
+                    .vision-slide-content h3 {
+                        font-size: 42px;
+                        font-weight: 800;
+                        font-family: 'Playfair Display', serif;
+                        letter-spacing: 2px;
+                        margin-bottom: 24px;
+                        text-shadow: 0 2px 10px rgba(0,0,0,0.5);
+                        color: #fcebd0;
+                    }
+                    .vision-slide-content p {
+                        font-size: 16px;
+                        line-height: 1.8;
+                        color: rgba(255,255,255,0.95);
+                        text-shadow: 0 1px 5px rgba(0,0,0,0.5);
+                    }
+                    .vision-slider-nav {
+                        position: absolute;
+                        top: 50%;
+                        transform: translateY(-50%);
+                        width: 100%;
+                        display: flex;
+                        justify-content: space-between;
+                        padding: 0 20px;
+                        z-index: 3;
+                        pointer-events: none;
+                    }
+                    .vision-nav-btn {
+                        width: 48px;
+                        height: 48px;
+                        border-radius: 50%;
+                        background: rgba(255,255,255,0.15);
+                        backdrop-filter: blur(8px);
+                        border: 1px solid rgba(255,255,255,0.3);
+                        color: white;
+                        font-size: 20px;
+                        display: flex;
+                        align-items: center;
+                        justify-content: center;
+                        cursor: pointer;
+                        pointer-events: auto;
+                        transition: all 0.3s ease;
+                    }
+                    .vision-nav-btn:hover {
+                        background: rgba(255,255,255,0.9);
+                        color: var(--primary);
+                        transform: scale(1.1);
+                    }
+                    .vision-indicators {
+                        position: absolute;
+                        bottom: 30px;
+                        left: 50%;
+                        transform: translateX(-50%);
+                        display: flex;
+                        gap: 12px;
+                        z-index: 3;
+                    }
+                    .vision-dot {
+                        width: 10px;
+                        height: 10px;
+                        border-radius: 50%;
+                        background: rgba(255,255,255,0.4);
+                        cursor: pointer;
+                        transition: all 0.3s ease;
+                    }
+                    .vision-dot.active {
+                        background: #fcebd0;
+                        transform: scale(1.3);
+                    }
+                    @media (max-width: 768px) {
+                        .vision-slide-content { padding: 30px; }
+                        .vision-slide-content h3 { font-size: 28px; }
+                        .vision-slider-container { aspect-ratio: 4/3; }
+                    }
+                </style>
+
+                <div class="vision-slider-container" id="visionSlider">
+                    <div class="vision-slides" id="visionSlides">
+                        <!-- Slide 1 -->
+                        <div class="vision-slide" style="background-image: url('https://images.unsplash.com/photo-1616166418838-89f92d47cc4c?q=80&w=1200&auto=format&fit=crop');">
+                            <div class="vision-slide-content">
+                                <h3>Tầm Nhìn</h3>
+                                <p>Tầm nhìn của chúng tôi là trở thành thương hiệu lụa truyền thống hàng đầu, kiến tạo và kết nối các giá trị văn hóa, di sản, mang lại giá trị lâu dài cho cộng đồng. Chúng tôi khao khát đưa lụa Nha Xá vươn tầm quốc tế, khẳng định đẳng cấp tơ tằm nguyên bản của Việt Nam trên bản đồ thời trang thế giới.</p>
+                            </div>
+                        </div>
+                        <!-- Slide 2 -->
+                        <div class="vision-slide" style="background-image: url('https://images.unsplash.com/photo-1596464518116-2fb94711f181?q=80&w=1200&auto=format&fit=crop');">
+                            <div class="vision-slide-content">
+                                <h3>Sứ Mệnh</h3>
+                                <p>Thực Liên Silk mang sứ mệnh bảo tồn, gìn giữ và tôn vinh những tinh hoa của nghề dệt lụa trăm năm. Chúng tôi nỗ lực không ngừng để tạo ra những thước lụa mềm mại, sang trọng, đồng thời tạo sinh kế bền vững cho những người thợ thủ công lành nghề tại làng Nha Xá.</p>
+                            </div>
+                        </div>
+                        <!-- Slide 3 -->
+                        <div class="vision-slide" style="background-image: url('https://images.unsplash.com/photo-1516086208573-00e1cc478cb6?q=80&w=1200&auto=format&fit=crop');">
+                            <div class="vision-slide-content">
+                                <h3>Giá Trị Cốt Lõi</h3>
+                                <p>Chất lượng thượng hạng - Trách nhiệm cộng đồng - Bảo tồn di sản. Mỗi đường tơ, mỗi nhịp thoi đều là sự kết tinh của cái đẹp tự nhiên và mồ hôi của người nghệ nhân. Chúng tôi cam kết tuyệt đối về chất lượng sản phẩm thân thiện với sức khỏe và môi trường.</p>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="vision-slider-nav">
+                        <button class="vision-nav-btn" onclick="prevVisionSlide()"><i class="fa-solid fa-chevron-left"></i></button>
+                        <button class="vision-nav-btn" onclick="nextVisionSlide()"><i class="fa-solid fa-chevron-right"></i></button>
+                    </div>
+
+                    <div class="vision-indicators">
+                        <div class="vision-dot active" onclick="goToVisionSlide(0)"></div>
+                        <div class="vision-dot" onclick="goToVisionSlide(1)"></div>
+                        <div class="vision-dot" onclick="goToVisionSlide(2)"></div>
+                    </div>
+                </div>
+
+                <script>
+                    let currentVisionSlide = 0;
+                    const totalVisionSlides = 3;
+                    let visionSlideInterval;
+
+                    function updateVisionSlider() {
+                        const slides = document.getElementById('visionSlides');
+                        const dots = document.querySelectorAll('.vision-dot');
+                        slides.style.transform = `translateX(-${currentVisionSlide * 33.333}%)`;
+                        dots.forEach((dot, index) => {
+                            dot.classList.toggle('active', index === currentVisionSlide);
+                        });
+                    }
+
+                    function nextVisionSlide() {
+                        currentVisionSlide = (currentVisionSlide + 1) % totalVisionSlides;
+                        updateVisionSlider();
+                        resetVisionInterval();
+                    }
+
+                    function prevVisionSlide() {
+                        currentVisionSlide = (currentVisionSlide - 1 + totalVisionSlides) % totalVisionSlides;
+                        updateVisionSlider();
+                        resetVisionInterval();
+                    }
+
+                    function goToVisionSlide(index) {
+                        currentVisionSlide = index;
+                        updateVisionSlider();
+                        resetVisionInterval();
+                    }
+
+                    function resetVisionInterval() {
+                        clearInterval(visionSlideInterval);
+                        visionSlideInterval = setInterval(nextVisionSlide, 5000);
+                    }
+
+                    // Start auto slide
+                    visionSlideInterval = setInterval(nextVisionSlide, 5000);
+                </script>
+            </div>
+
+            <div class="team-section">
+                <h2>Lãnh đạo & Đội ngũ</h2>
+                <p style="color: var(--text-muted); max-width: 700px; margin: 0 auto 40px;">Đội ngũ chuyên gia và nghệ nhân giàu kinh nghiệm, am hiểu sâu sắc về lụa truyền thống. Chúng tôi không ngừng gìn giữ, lan tỏa giá trị di sản cùng tinh hoa lụa Nha Xá.</p>
+                
+                <div class="team-grid">
+                    <!-- Nghệ nhân -->
+                    <div class="team-card">
+                        <div class="team-img-box">
+                            <img src="https://images.unsplash.com/photo-1560250097-0b93528c311a?w=400&auto=format&fit=crop" alt="Nghệ nhân Phạm Văn Thực">
+                        </div>
+                        <div class="team-info">
+                            <h4>Phạm Văn Thực</h4>
+                            <p>Nghệ nhân Dệt lụa cao cấp</p>
+                        </div>
+                    </div>
+                    <!-- Đại diện -->
+                    <div class="team-card">
+                        <div class="team-img-box">
+                            <img src="https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?w=400&auto=format&fit=crop" alt="Bà Nguyễn Thị B">
+                        </div>
+                        <div class="team-info">
+                            <h4>Trần Thu Liên</h4>
+                            <p>Giám đốc Sáng tạo</p>
+                        </div>
+                    </div>
+                    <!-- Thợ dệt -->
+                    <div class="team-card">
+                        <div class="team-img-box">
+                            <img src="https://images.unsplash.com/photo-1580489944761-15a19d654956?w=400&auto=format&fit=crop" alt="Thợ dệt">
+                        </div>
+                        <div class="team-info">
+                            <h4>Lê Mai Chi</h4>
+                            <p>Quản đốc Xưởng dệt</p>
+                        </div>
+                    </div>
+                    <!-- Tư vấn -->
+                    <div class="team-card">
+                        <div class="team-img-box">
+                            <img src="https://images.unsplash.com/photo-1598550874175-4d0ef436c909?w=400&auto=format&fit=crop" alt="Chuyên viên tư vấn">
+                        </div>
+                        <div class="team-info">
+                            <h4>Hoàng Minh Tú</h4>
+                            <p>Chuyên gia Tư vấn Lụa</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <footer>
+        <div class="container">
+            <p>&copy; 2026 Thực Liên Silk - Lụa Nha Xá. Tất cả quyền được bảo lưu. Tự hào sản xuất tại làng nghề Nha Xá, Hà Nam.</p>
+        </div>
+    </footer>
+
+    <!-- ORDER / CHECKOUT MODAL -->
+    <div class="modal-overlay" id="orderModal">
+        <div class="modal-container">
+            <button class="modal-close" onclick="closeModal()">&times;</button>
+            <div id="modalContent">
+                <!-- Modal forms will be dynamically rendered here -->
+            </div>
+        </div>
+    </div>
+
+    <!-- JS Logic -->
+    <script>
+        // Data for collection tabs
+        const productsData = {
+            'vong-lua': [],
+            'ba-ba': [],
+            'khan-lua': [],
+            'non-lua': [],
+            'ao-dai': [
+                { id: 'aodai-court-gold', name: 'Áo Dài Vàng Cung Đình', price: '2.850.000đ', unit: 'bộ', img: 'https://images.unsplash.com/photo-1583089892943-e02e5b017b6a?w=600&auto=format&fit=crop&q=80' },
+                { id: 'aodai-jade-green', name: 'Áo Dài Lụa Vân Xanh Ngọc', price: '2.950.000đ', unit: 'bộ', img: 'https://images.unsplash.com/photo-1576016770956-debb63d90029?w=600&auto=format&fit=crop&q=80' },
+                { id: 'aodai-antique', name: 'Áo Dài Cổ Phục Ngũ Thân', price: '3.200.000đ', unit: 'bộ', img: 'https://images.unsplash.com/photo-1534126511673-b6899657816a?w=600&auto=format&fit=crop&q=80' }
+            ],
+            'tho-roi': [],
+            'lua-vang': [],
+            'lua-hong': [],
+            'lua-hoa-cai': [],
+            'lua-cham-bi': [],
+            'vai-lua-tron': [
+                { id: 'lt1', name: 'Lụa Tơ Tằm Trơn Cao Cấp', price: '690.000đ', unit: 'mét', img: 'https://images.unsplash.com/photo-1596464716127-f2a82984de30?w=400&fit=crop' },
+                { id: 'lt2', name: 'Lụa Satin Ánh Đen', price: '750.000đ', unit: 'mét', img: 'https://images.unsplash.com/photo-1629198688000-71f23e745b6e?w=400&fit=crop' },
+                { id: 'lt3', name: 'Lụa Tơ Nhện Tuyết Trắng', price: '820.000đ', unit: 'mét', img: 'https://images.unsplash.com/photo-1584441405886-bc91be61e56a?w=400&fit=crop' }
+            ],
+            'lua-hoa-mai': [
+                { id: 'lh1', name: 'Lụa Jacquard Hoa Mai Vàng', price: '950.000đ', unit: 'mét', img: 'https://images.unsplash.com/photo-1574343162293-6e3a6a9b4946?w=400&fit=crop' },
+                { id: 'lh2', name: 'Lụa In Hoa Cúc Tím', price: '890.000đ', unit: 'mét', img: 'https://images.unsplash.com/photo-1594911130612-40fdb9b2d861?w=400&fit=crop' },
+                { id: 'lh3', name: 'Lụa Gấm Thêu Sen', price: '1.200.000đ', unit: 'mét', img: 'https://images.unsplash.com/photo-1586790170083-2f9ceadc732d?w=400&fit=crop' }
+            ],
+            'lua-hoa-beo': [],
+            'lua-canh': [],
+            'lua-duoi-cong': [],
+            'lua-chuon-chuon': [],
+            'lua-dong-tien': [],
+            'nhung-the': [],
+            'bit-mat': [],
+            'lua-bo-cong-anh': []
+        };
+
+        let activeCategory = 'ao-dai'; // Default to one with products
+        let cartCount = 0;
+        let showingAll = false;
+
+        function toggleMoreTabsDropdown(e) {
+            if (e) e.stopPropagation();
+            const dropdown = document.getElementById('moreTabsDropdown');
+            dropdown.style.display = dropdown.style.display === 'none' ? 'block' : 'none';
+        }
+
+        function closeMoreTabsDropdown() {
+            const dropdown = document.getElementById('moreTabsDropdown');
+            if (dropdown) dropdown.style.display = 'none';
+        }
+
+        document.addEventListener('click', function(e) {
+            const btn = document.getElementById('btnMoreTabs');
+            const dropdown = document.getElementById('moreTabsDropdown');
+            if (btn && dropdown && !btn.contains(e.target) && !dropdown.contains(e.target)) {
+                dropdown.style.display = 'none';
+            }
+        });
+
+        function showAllProducts(btnEl) {
+            showingAll = true;
+            document.querySelectorAll('.tab-btn').forEach(btn => btn.classList.remove('active'));
+            if(btnEl) btnEl.style.display = 'none'; // Hide the button after clicking
+            renderProducts();
+        }
+
+        // Render products
+        function renderProducts() {
+            const grid = document.getElementById('productGrid');
+            grid.innerHTML = '';
+            
+            let listToRender = [];
+            
+            if (showingAll) {
+                // Flatten all products
+                for (const cat in productsData) {
+                    listToRender = listToRender.concat(productsData[cat]);
+                }
+            } else {
+                listToRender = productsData[activeCategory] || [];
+            }
+            
+            if (listToRender.length === 0) {
+                grid.innerHTML = '<div style="grid-column: 1/-1; text-align: center; padding: 40px; color: var(--text-muted);">Sản phẩm đang được cập nhật...</div>';
+                return;
+            }
+
+            listToRender.forEach((p, index) => {
+                const isFeatured = index < 2 && !showingAll; // Make first 2 featured only when not showing all
+                const badgeHtml = isFeatured ? `<div style="position: absolute; top: 12px; left: 12px; background: var(--accent); color: white; padding: 4px 10px; font-size: 11px; font-weight: 700; border-radius: 4px; z-index: 1;">NỔI BẬT</div>` : '';
+                
+                const card = document.createElement('div');
+                card.className = 'product-card animate-on-scroll';
+                
+                // Find actual category key for this product for modal to work properly when showing all
+                let productCat = activeCategory;
+                if (showingAll) {
+                    for (const cat in productsData) {
+                        if (productsData[cat].find(item => item.id === p.id)) {
+                            productCat = cat;
+                            break;
+                        }
+                    }
+                }
+
+                card.innerHTML = `
+                    <div class="product-img-box" style="position: relative;">
+                        ${badgeHtml}
+                        <img src="${p.img}" alt="${p.name}">
+                    </div>
+                    <div class="product-details">
+                        <h4 class="product-name">${p.name}</h4>
+                        <div class="product-price">${p.price} <span style="font-size: 13px; font-weight: normal; color: var(--text-muted);">/ ${p.unit}</span></div>
+                        <div style="display: flex; gap: 8px;">
+                            <button class="btn-order-outline" style="flex: 1; font-size: 13px;" onclick="openOrderModal('${productCat}', '${p.id}')">Chi Tiết</button>
+                            <button class="btn-order-outline" style="flex: 1; font-size: 13px; background-color: var(--primary); color: white;" onclick="openAddToCartModal('${productCat}', '${p.id}')">Thêm giỏ hàng</button>
+                        </div>
+                    </div>
+                `;
+                grid.appendChild(card);
+            });
+        }
+
+        // Switch tabs
+        function switchCategory(catId, btnEl) {
+            showingAll = false;
+            activeCategory = catId;
+            
+            // Remove active classes
+            document.querySelectorAll('.tab-btn').forEach(btn => {
+                btn.classList.remove('active');
+            });
+            
+            // Add active class
+            if(btnEl) btnEl.classList.add('active');
+            
+            // Show the "Xem thêm 30+ Sản Phẩm" button if it was hidden
+            const seeMoreBtn = document.querySelector('button[onclick^="showAllProducts"]');
+            if(seeMoreBtn) seeMoreBtn.style.display = 'inline-block';
+            
+            // Re-render
+            renderProducts();
+        }
+
+        // Modal triggers
+        const modalOverlay = document.getElementById('orderModal');
+        const modalContent = document.getElementById('modalContent');
+
+        function openOrderModal(category, productId) {
+            const product = productsData[category].find(p => p.id === productId);
+            if (!product) return;
+
+            modalContent.innerHTML = `
+                <div class="modal-header" style="border-bottom: 1px solid var(--border); padding-bottom: 16px;">
+                    <h3>Thông Tin Sản Phẩm</h3>
+                </div>
+                <div class="modal-body" style="padding-top: 24px;">
+                    <div class="modal-product-summary" style="margin-bottom: 24px; display: flex; gap: 20px; align-items: flex-start;">
+                        <img src="${product.img}" alt="${product.name}" style="width: 150px; height: 150px; object-fit: cover; border-radius: 8px; border: 1px solid var(--border);">
+                        <div class="modal-product-info">
+                            <h4 style="font-size: 20px; color: var(--primary); margin-bottom: 8px;">${product.name}</h4>
+                            <p style="font-size: 18px; font-weight: 700; color: var(--brand); margin-bottom: 16px;">${product.price} <span style="font-size: 14px; font-weight: normal; color: var(--text-muted);">/ ${product.unit}</span></p>
+                            
+                            <ul style="list-style: none; padding: 0; font-size: 14px; color: var(--text-dark); line-height: 1.8;">
+                                <li><i class="fa-solid fa-check" style="color: var(--accent); margin-right: 8px; width: 16px;"></i> <strong>Xuất xứ:</strong> Làng nghề dệt lụa Nha Xá (Hà Nam)</li>
+                                <li><i class="fa-solid fa-check" style="color: var(--accent); margin-right: 8px; width: 16px;"></i> <strong>Chất liệu:</strong> 100% tơ tằm tự nhiên cao cấp</li>
+                                <li><i class="fa-solid fa-check" style="color: var(--accent); margin-right: 8px; width: 16px;"></i> <strong>Đặc tính:</strong> Mềm mại, rủ nhẹ, thoáng mát mùa hè, ấm áp mùa đông.</li>
+                                <li><i class="fa-solid fa-check" style="color: var(--accent); margin-right: 8px; width: 16px;"></i> <strong>Ứng dụng:</strong> Thích hợp may áo dài truyền thống, váy dạ hội cao cấp.</li>
+                            </ul>
+                        </div>
+                    </div>
+                    
+                    <div style="background: #f9f9f9; padding: 16px; border-radius: 8px; margin-bottom: 24px; font-size: 13px; color: var(--text-muted); line-height: 1.6;">
+                        <strong><i class="fa-solid fa-circle-info"></i> Hướng dẫn bảo quản:</strong><br>
+                        - Chỉ nên giặt tay nhẹ nhàng với sữa tắm hoặc dầu gội đầu.<br>
+                        - Phơi trong bóng râm, tránh ánh nắng trực tiếp.<br>
+                        - Ủi (là) khi lụa còn hơi ẩm, ở nhiệt độ thấp dành cho đồ lụa.
+                    </div>
+                    
+                    <div style="display: flex; gap: 12px; justify-content: flex-end;">
+                        <button class="btn-submit" style="background: transparent; color: var(--text-dark); border: 1px solid var(--border); width: auto; padding: 12px 24px;" onclick="closeModal()">Đóng</button>
+                        <button class="btn-submit" style="width: auto; padding: 12px 24px;" onclick="openAddToCartModal('${category}', '${productId}')">Thêm giỏ hàng ngay</button>
+                    </div>
+                </div>
+            `;
+
+            modalOverlay.classList.add('active');
+        }
+
+        function closeModal() {
+            modalOverlay.classList.remove('active');
+        }
+
+        // Close modal on click outside
+        modalOverlay.addEventListener('click', (e) => {
+            if (e.target === modalOverlay) closeModal();
+        });
+
+        // Submit order
+        function handleOrderSubmit(e, productName, productPrice) {
+            e.preventDefault();
+            
+            const specVal = document.getElementById('orderSpec').value;
+            const productImg = document.querySelector('.modal-product-img').src;
+            
+            // Save to localStorage cart
+            let cart = JSON.parse(localStorage.getItem('kbclaza_cart')) || [];
+            cart.push({
+                name: productName,
+                price: productPrice,
+                img: productImg,
+                spec: specVal
+            });
+            localStorage.setItem('kbclaza_cart', JSON.stringify(cart));
+            
+            // Update cart indicator
+            cartCount = cart.length;
+            document.getElementById('cartBadge').innerText = cartCount;
+
+            // Render beautiful success message
+            modalContent.innerHTML = `
+                <div class="success-box">
+                    <div class="success-icon" style="background-color: var(--brand); color: white; width: 60px; height: 60px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 24px; margin: 0 auto 16px;"><i class="fa-solid fa-check"></i></div>
+                    <h3 style="text-align: center; margin-bottom: 12px;">Thêm vào giỏ hàng thành công!</h3>
+                    <p style="text-align: center; color: var(--text-muted); margin-bottom: 24px;">Bạn đã thêm <strong>${specVal} ${productName}</strong> vào giỏ hàng.</p>
+                    <div style="display: flex; gap: 12px; justify-content: center;">
+                        <button class="btn-submit" style="background: transparent; color: var(--text-dark); border: 1px solid var(--border); width: auto; padding: 12px 24px;" onclick="closeModal()">Tiếp tục mua sắm</button>
+                        <button class="btn-submit" style="width: auto; padding: 12px 24px;" onclick="window.location.href='../../checkout.html'">Đến trang thanh toán</button>
+                    </div>
+                </div>
+            `;
+        }
+
+        // Open add to cart modal
+        function openAddToCartModal(category, productId) {
+            const product = productsData[category].find(p => p.id === productId);
+            if (!product) return;
+
+            const isAoDai = category === 'ao-dai';
+            const specLabel = isAoDai ? 'Chọn Kích Cỡ Size (S, M, L, XL):' : 'Số lượng mét cần mua:';
+            const specInput = isAoDai ? `
+                <select class="form-control" id="orderSpec" required>
+                    <option value="1 bộ Size S">Size S (Ngực 82-84, Eo 64-66)</option>
+                    <option value="1 bộ Size M" selected>Size M (Ngực 86-88, Eo 68-70)</option>
+                    <option value="1 bộ Size L">Size L (Ngực 90-92, Eo 72-74)</option>
+                    <option value="1 bộ Size XL">Size XL (Ngực 94-96, Eo 76-78)</option>
+                </select>
+            ` : `
+                <input type="number" class="form-control" id="orderSpec" min="1" max="100" value="4" required>
+            `;
+
+            modalContent.innerHTML = `
+                <div class="modal-header">
+                    <h3>Thêm vào giỏ hàng</h3>
+                </div>
+                <div class="modal-body">
+                    <div class="modal-product-summary">
+                        <img src="${product.img}" alt="${product.name}" class="modal-product-img">
+                        <div class="modal-product-info">
+                            <h4>${product.name}</h4>
+                            <p>${product.price} / ${product.unit}</p>
+                        </div>
+                    </div>
+                    <form onsubmit="handleOrderSubmit(event, '${product.name}', '${product.price}')">
+                        <div class="form-group">
+                            <label>${specLabel}</label>
+                            ${specInput}
+                        </div>
+                        <div class="form-group">
+                            <label for="custNote">Ghi Chú Đơn Hàng (nếu có):</label>
+                            <textarea class="form-control" id="custNote" rows="2" placeholder="Yêu cầu riêng về đóng gói, màu sắc..."></textarea>
+                        </div>
+                        <div style="display: flex; gap: 12px; justify-content: flex-end; margin-top: 24px;">
+                            <button type="button" class="btn-submit" style="background: transparent; color: var(--text-dark); border: 1px solid var(--border); width: auto; padding: 12px 24px;" onclick="closeModal()">Hủy</button>
+                            <button type="submit" class="btn-submit" style="width: auto; padding: 12px 24px;">Xác nhận thêm</button>
+                        </div>
+                    </form>
+                </div>
+            `;
+
+            modalOverlay.classList.add('active');
+        }
+
+        // Initialize products on load
+        window.addEventListener('DOMContentLoaded', () => {
+            // 1. Read landing page configuration (legacy or override)
+            const configStr = localStorage.getItem('landingpage_config_lua');
+            if (configStr) {
+                try {
+                    const config = JSON.parse(configStr);
+                    // Force update if it is the old default text
+                    if (config.heroDesc && (config.heroDesc.includes("100% tơ tằm tự nhiên") || config.heroDesc.includes("chuyên sản xuất các mặt hàng"))) {
+                        config.heroDesc = "Kế thừa tinh hoa từ làng nghề Nha Xá trăm năm, 𝗧𝗵𝘂̛̣𝗰 𝗟𝗶𝗲̂𝗻 𝗦𝗶𝗹𝗸 tự hào mang đến những thước Lụa Tơ Tằm nguyên bản và dịch vụ may đo cao cấp. Với lợi thế là xưởng sản xuất trực tiếp, chúng tôi cam kết mang lại chất lượng thượng hạng cùng mức giá tận gốc, tôn vinh trọn vẹn nét duyên dáng của bạn.";
+                        localStorage.setItem('landingpage_config_lua', JSON.stringify(config));
+                    }
+                    
+                    if (config.logoText) document.querySelector('header .logo').innerText = config.logoText;
+                    if (config.heroTitle) document.querySelector('.hero h1').innerText = config.heroTitle;
+                    if (config.heroDesc) document.querySelector('.hero .hero-desc').innerText = config.heroDesc;
+                    if (config.heroImg) document.querySelector('.hero-image').src = config.heroImg;
+                } catch (e) {
+                    console.error('Error loading landingpage config', e);
+                }
+            }
+
+            // 1.5 Read Enterprise Data to sync Avatar and Name
+            const entStr = localStorage.getItem('kbclaza_enterprises');
+            if (entStr) {
+                try {
+                    const ents = JSON.parse(entStr);
+                    const myEnt = ents.find(e => e.url === 'lua' || e.id === 'ent-1');
+                    if (myEnt) {
+                        // Update title/logo and hero image if available
+                        if (myEnt.name) {
+                            document.querySelector('header .logo').innerText = myEnt.name;
+                            document.querySelector('.hero h1').innerHTML = myEnt.name + ' <br> Lụa Tơ Tằm Thượng Hạng';
+                        }
+                        if (myEnt.img) {
+                            document.querySelector('.hero-image').src = myEnt.img;
+                        }
+                    }
+                } catch (e) {
+                    console.error('Error loading enterprises data', e);
+                }
+            }
+
+            // 2. Read custom products and merge
+            const customProductsStr = localStorage.getItem('kbclaza_custom_products');
+            if (customProductsStr) {
+                try {
+                    const customs = JSON.parse(customProductsStr);
+                    customs.forEach(p => {
+                        if (p.supplier === 'Thực Liên Silk') {
+                            const priceStr = typeof p.price === 'number' ? p.price.toLocaleString('vi-VN') + 'đ' : p.price;
+                            const newProdObj = {
+                                id: p.id,
+                                name: p.name,
+                                price: priceStr,
+                                unit: p.stock.includes('mét') ? 'mét' : (p.stock.includes('bộ') ? 'bộ' : 'sản phẩm'),
+                                img: p.img
+                            };
+                            
+                            // Always remove the product from any existing tabs first (in case it was a default product that got renamed)
+                            for (const t in productsData) {
+                                productsData[t] = productsData[t].filter(existing => existing.id !== p.id);
+                            }
+                            
+                            // Re-categorize the product based on its current name
+                            let tab = 'vai-lua-tron';
+                            const nameNorm = p.name.normalize('NFD').replace(/[\u0300-\u036f]/g, '').toLowerCase();
+                            
+                            if (nameNorm.includes('vong')) tab = 'vong-lua';
+                            else if (nameNorm.includes('ba ba')) tab = 'ba-ba';
+                            else if (nameNorm.includes('khan')) tab = 'khan-lua';
+                            else if (nameNorm.includes('non')) tab = 'non-lua';
+                            else if (nameNorm.includes('ao dai')) tab = 'ao-dai';
+                            else if (nameNorm.includes('tho roi')) tab = 'tho-roi';
+                            else if (nameNorm.includes('vang')) tab = 'lua-vang';
+                            else if (nameNorm.includes('hong')) tab = 'lua-hong';
+                            else if (nameNorm.includes('hoa cai')) tab = 'lua-hoa-cai';
+                            else if (nameNorm.includes('cham bi')) tab = 'lua-cham-bi';
+                            else if (nameNorm.includes('hoa mai')) tab = 'lua-hoa-mai';
+                            else if (nameNorm.includes('hoa beo')) tab = 'lua-hoa-beo';
+                            else if (nameNorm.includes('canh')) tab = 'lua-canh';
+                            else if (nameNorm.includes('duoi cong')) tab = 'lua-duoi-cong';
+                            else if (nameNorm.includes('chuon chuon')) tab = 'lua-chuon-chuon';
+                            else if (nameNorm.includes('dong tien')) tab = 'lua-dong-tien';
+                            else if (nameNorm.includes('nhung')) tab = 'nhung-the';
+                            else if (nameNorm.includes('bit mat')) tab = 'bit-mat';
+                            else if (nameNorm.includes('bo cong anh')) tab = 'lua-bo-cong-anh';
+                            else if (nameNorm.includes('tron') || nameNorm.includes('lua tron')) tab = 'vai-lua-tron';
+                            
+                            productsData[tab].push(newProdObj);
+                        }
+                    });
+                } catch (e) {
+                    console.error('Error merging custom products', e);
+                }
+            }
+
+            // 3. Remove deleted products
+            const deletedStr = localStorage.getItem('kbclaza_deleted_products');
+            if (deletedStr) {
+                try {
+                    const deleted = JSON.parse(deletedStr);
+                    for (const tab in productsData) {
+                        productsData[tab] = productsData[tab].filter(p => !deleted.includes(p.id));
+                    }
+                } catch (e) {
+                    console.error('Error filtering deleted products', e);
+                }
+            }
+
+            // By default, show all products
+            const seeMoreBtn = document.querySelector('button[onclick^="showAllProducts"]');
+            showAllProducts(seeMoreBtn);
+        });
+
+        // --- CHAT LOGIC ---
+        const enterpriseId = 'lua';
+        let currentChatId = localStorage.getItem('kbclaza_current_chat_id');
+        let customerName = localStorage.getItem('kbclaza_current_chat_name');
+        let chatPolling = null;
+
+        function toggleChatWindow() {
+            const win = document.getElementById('chatWindow');
+            const tooltip = document.getElementById('chatTooltip');
+            if(tooltip) tooltip.style.display = 'none';
+            if(win.style.display === 'none') {
+                win.style.display = 'flex';
+                if(currentChatId) {
+                    document.getElementById('chatLoginPhase').style.display = 'none';
+                    document.getElementById('chatMessagingPhase').style.display = 'flex';
+                    renderCustomerMessages();
+                    startChatPolling();
+                }
+            } else {
+                win.style.display = 'none';
+                if(chatPolling) clearInterval(chatPolling);
+            }
+        }
+
+        function startCustomerChat() {
+            const name = document.getElementById('customerNameInput').value.trim();
+            if(!name) return;
+            
+            customerName = name;
+            currentChatId = 'chat_' + Date.now();
+            localStorage.setItem('kbclaza_current_chat_id', currentChatId);
+            localStorage.setItem('kbclaza_current_chat_name', customerName);
+            
+            let chats = JSON.parse(localStorage.getItem('kbclaza_chats')) || [];
+            chats.push({
+                id: currentChatId,
+                enterpriseId: enterpriseId,
+                customerName: customerName,
+                messages: []
+            });
+            localStorage.setItem('kbclaza_chats', JSON.stringify(chats));
+            
+            document.getElementById('chatLoginPhase').style.display = 'none';
+            document.getElementById('chatMessagingPhase').style.display = 'flex';
+            startChatPolling();
+        }
+
+        function sendCustomerMessage() {
+            const input = document.getElementById('customerChatInput');
+            const text = input.value.trim();
+            if(!text || !currentChatId) return;
+            
+            let chats = JSON.parse(localStorage.getItem('kbclaza_chats')) || [];
+            const chat = chats.find(c => c.id === currentChatId);
+            if(chat) {
+                chat.messages.push({
+                    sender: 'customer',
+                    text: text,
+                    timestamp: Date.now()
+                });
+                localStorage.setItem('kbclaza_chats', JSON.stringify(chats));
+                input.value = '';
+                renderCustomerMessages(chats);
+            }
+        }
+
+        function renderCustomerMessages(chatsData) {
+            let chats = chatsData || JSON.parse(localStorage.getItem('kbclaza_chats')) || [];
+            const chat = chats.find(c => c.id === currentChatId);
+            if(!chat) return;
+            
+            const msgsEl = document.getElementById('customerChatMessages');
+            msgsEl.innerHTML = '';
+            
+            chat.messages.forEach(msg => {
+                const isCustomer = msg.sender === 'customer';
+                const div = document.createElement('div');
+                div.style.display = 'flex';
+                div.style.flexDirection = 'column';
+                div.style.alignItems = isCustomer ? 'flex-end' : 'flex-start';
+                
+                div.innerHTML = `
+                    <div style="max-width: 80%; padding: 10px 14px; border-radius: 16px; font-size: 14px; ${isCustomer ? 'background: var(--primary); color: white; border-bottom-right-radius: 4px;' : 'background: #e2e8f0; color: var(--text-dark); border-bottom-left-radius: 4px;'}">
+                        ${msg.text}
+                    </div>
+                    <div style="font-size: 11px; color: var(--text-muted); margin-top: 4px; padding: 0 4px;">
+                        ${new Date(msg.timestamp).toLocaleTimeString('vi-VN', {hour: '2-digit', minute:'2-digit'})}
+                    </div>
+                `;
+                msgsEl.appendChild(div);
+            });
+            msgsEl.scrollTop = msgsEl.scrollHeight;
+        }
+
+        function startChatPolling() {
+            if(chatPolling) clearInterval(chatPolling);
+            chatPolling = setInterval(() => {
+                if(document.getElementById('chatWindow').style.display === 'flex') {
+                    renderCustomerMessages();
+                }
+            }, 2000);
+        }
+        function showCompanyIntro() {
+            document.getElementById('mainLandingContent').style.display = 'none';
+            document.getElementById('companyIntroContent').style.display = 'block';
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        }
+
+        function hideCompanyIntro() {
+            document.getElementById('companyIntroContent').style.display = 'none';
+            document.getElementById('mainLandingContent').style.display = 'block';
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        }
+    </script>
+
+    <!-- Chat Widget -->
+    <div id="customerChatWidget" style="position: fixed; bottom: 24px; right: 24px; z-index: 1000;">
+        <!-- Chat Call-to-action Tooltip -->
+        <div id="chatTooltip" style="position: absolute; bottom: 75px; right: 0; background: var(--primary); color: white; padding: 6px 16px; border-radius: 20px; font-size: 14px; font-weight: 600; white-space: nowrap; box-shadow: 0 4px 10px rgba(0,0,0,0.2); animation: bounceChat 2s infinite ease-in-out; cursor: pointer; display: flex; flex-direction: column; align-items: center;" onclick="toggleChatWindow()">
+            Tư vấn ngay
+            <!-- Arrow pointing down -->
+            <div style="position: absolute; bottom: -6px; right: 24px; width: 0; height: 0; border-left: 6px solid transparent; border-right: 6px solid transparent; border-top: 6px solid var(--primary);"></div>
+        </div>
+
+        <!-- Chat Button -->
+        <button id="chatToggleBtn" onclick="toggleChatWindow()" style="width: 60px; height: 60px; border-radius: 50%; background: var(--primary); color: white; border: none; box-shadow: 0 4px 15px rgba(0,0,0,0.2); font-size: 24px; cursor: pointer; display: flex; align-items: center; justify-content: center; transition: transform 0.3s;" onmouseover="this.style.transform='scale(1.1)'" onmouseout="this.style.transform='scale(1)'">
+            <i class="fa-solid fa-comments"></i>
+        </button>
+
+        <!-- Chat Window -->
+        <div id="chatWindow" style="position: absolute; bottom: 80px; right: 0; width: 350px; max-height: calc(100vh - 120px); height: 500px; background: white; border-radius: 12px; box-shadow: 0 10px 30px rgba(0,0,0,0.15); display: none; flex-direction: column; overflow: hidden; border: 1px solid var(--border-color); transform-origin: bottom right; animation: scaleUp 0.3s ease; z-index: 1001;">
+            <div style="background: var(--primary); color: white; padding: 16px; font-weight: 600; display: flex; justify-content: space-between; align-items: center;">
+                <div>
+                    <div style="font-size: 16px;">Chat với Lụa Nha Xá</div>
+                    <div style="font-size: 12px; opacity: 0.8;">Chúng tôi luôn sẵn sàng hỗ trợ!</div>
+                </div>
+                <button onclick="toggleChatWindow()" style="background: transparent; border: none; color: white; cursor: pointer; font-size: 18px;"><i class="fa-solid fa-times"></i></button>
+            </div>
+            
+            <div id="chatLoginPhase" style="padding: 24px; flex: 1; display: flex; flex-direction: column; justify-content: center; text-align: center;">
+                <i class="fa-regular fa-face-smile" style="font-size: 48px; color: var(--primary); margin-bottom: 16px;"></i>
+                <h4 style="margin-bottom: 8px;">Chào bạn!</h4>
+                <p style="color: var(--text-muted); font-size: 14px; margin-bottom: 24px;">Vui lòng nhập tên để bắt đầu trò chuyện cùng chúng tôi nhé.</p>
+                <input type="text" id="customerNameInput" class="form-control" placeholder="Tên của bạn..." style="margin-bottom: 16px; border: 1px solid var(--border-color); border-radius: 6px; padding: 10px; width: 100%; box-sizing: border-box;" onkeypress="if(event.key==='Enter') startCustomerChat()">
+                <button class="btn-pill" onclick="startCustomerChat()" style="width: 100%; border-radius: 6px; box-sizing: border-box; cursor: pointer;">Bắt đầu Chat</button>
+            </div>
+
+            <div id="chatMessagingPhase" style="display: none; flex: 1; flex-direction: column;">
+                <div id="customerChatMessages" style="flex: 1; padding: 16px; overflow-y: auto; display: flex; flex-direction: column; gap: 12px; background: #fafafa;">
+                    <!-- Messages go here -->
+                </div>
+                <div style="padding: 12px; background: white; border-top: 1px solid var(--border-color); display: flex; gap: 8px;">
+                    <input type="text" id="customerChatInput" class="form-control" placeholder="Nhập tin nhắn..." style="flex: 1; border: 1px solid var(--border-color); border-radius: 20px; padding: 8px 16px; outline: none; box-sizing: border-box;" onkeypress="if(event.key==='Enter') sendCustomerMessage()">
+                    <button onclick="sendCustomerMessage()" style="width: 40px; height: 40px; border-radius: 50%; background: var(--primary); color: white; border: none; display: flex; align-items: center; justify-content: center; cursor: pointer;"><i class="fa-solid fa-paper-plane"></i></button>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <style>
+        @keyframes scaleUp {
+            from { opacity: 0; transform: scale(0.8); }
+            to { opacity: 1; transform: scale(1); }
+        }
+        @keyframes bounceChat {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-10px); }
+        }
+    </style>
+</body>
+</html>
+

@@ -1,0 +1,180 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Việt Casual — Thời Trang Hàng Ngày</title>
+    <link href="https://fonts.googleapis.com/css2?family=Be+Vietnam+Pro:wght@300;400;500;600;700&family=Playfair+Display:ital,wght@0,600;0,700;1,400&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        :root {
+            --primary: #2b4c7e; /* Navy Blue */
+            --accent: #a0b2c6;
+            --bg: #f8fafc;
+            --text: #1e293b;
+            --muted: #64748b;
+            --white: #ffffff;
+        }
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body {
+            font-family: 'Be Vietnam Pro', sans-serif;
+            background: var(--bg);
+            color: var(--text);
+            line-height: 1.6;
+        }
+        .container {
+            max-width: 1000px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+        header {
+            padding: 24px 0;
+            border-bottom: 1px solid rgba(43, 76, 126, 0.1);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        .logo {
+            font-family: 'Playfair Display', serif;
+            font-size: 24px;
+            font-weight: 700;
+            color: var(--primary);
+        }
+        .logo span { color: var(--accent); }
+        .hero {
+            padding: 60px 0;
+            text-align: center;
+            background: radial-gradient(circle at top, #eef2f7 0%, var(--bg) 70%);
+        }
+        .hero h1 {
+            font-family: 'Playfair Display', serif;
+            font-size: clamp(32px, 5vw, 46px);
+            color: var(--primary);
+            line-height: 1.25;
+            margin-bottom: 20px;
+        }
+        .hero p {
+            max-width: 600px;
+            margin: 0 auto 32px;
+            color: var(--muted);
+            font-size: 16px;
+        }
+        .btn {
+            background: var(--primary);
+            color: white;
+            padding: 12px 28px;
+            border-radius: 100px;
+            text-decoration: none;
+            font-weight: 600;
+            display: inline-block;
+            transition: all 0.2s;
+            box-shadow: 0 4px 12px rgba(43, 76, 126, 0.2);
+            border: none;
+            cursor: pointer;
+        }
+        .btn:hover {
+            background: var(--accent);
+            color: var(--primary);
+            transform: translateY(-2px);
+        }
+        .products-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+            gap: 24px;
+            margin-bottom: 48px;
+        }
+        .product-card {
+            background: var(--white);
+            border: 1px solid rgba(0,0,0,0.05);
+            border-radius: 12px;
+            overflow: hidden;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.02);
+            transition: all 0.25s;
+        }
+        .product-card:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 8px 25px rgba(0,0,0,0.06);
+        }
+        .product-image {
+            height: 200px;
+            background: #f1f5f9;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        .product-image img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+        .product-info {
+            padding: 16px;
+            text-align: center;
+        }
+        .product-title {
+            font-size: 15px;
+            font-weight: 600;
+            margin-bottom: 8px;
+            color: var(--primary);
+        }
+        .product-price {
+            font-weight: 700;
+            color: var(--primary);
+            margin-bottom: 12px;
+        }
+        footer {
+            padding: 32px 0;
+            text-align: center;
+            border-top: 1px solid rgba(43, 76, 126, 0.1);
+            color: var(--muted);
+            font-size: 13px;
+        }
+    </style>
+
+    <script>
+        // Migrate old VietShop/KBC localStorage data to KBCLAZA
+        (function() {
+            const keys = ['cart', 'custom_products', 'deleted_products', 'categories', 'enterprises', 'orders', 'deleted_enterprises'];
+            keys.forEach(key => {
+                let oldData = localStorage.getItem('kbcshop_' + key) || localStorage.getItem('vietshop_' + key);
+                if (oldData && !localStorage.getItem('kbclaza_' + key)) {
+                    localStorage.setItem('kbclaza_' + key, oldData);
+                }
+            });
+        })();
+    </script>
+</head>
+<body>
+
+<div class="container">
+    <header>
+        <div class="logo">Việt<span>Casual</span></div>
+        <div style="font-size:14px; font-weight:500; color:var(--muted);"><i class="fa-solid fa-shirt"></i> Everyday Wear</div>
+    </header>
+    
+    <section class="hero">
+        <h1>Phong Cách Thời Trang Tự Nhiên & Năng Động</h1>
+        <p>Những mẫu sơ mi, quần đũi thoáng mát từ chất liệu tự nhiên, mang lại sự dễ chịu tuyệt đối cho các hoạt động hàng ngày.</p>
+        <button class="btn" onclick="alert('Đang kết nối...')">Xem Sản Phẩm</button>
+    </section>
+
+    <div class="products-grid">
+        <div class="product-card">
+            <div class="product-image">
+                <img src="https://images.unsplash.com/photo-1584916201218-f4242ceb4809?w=300&h=300&fit=crop" alt="Áo sơ mi đũi">
+            </div>
+            <div class="product-info">
+                <div class="product-title">Áo Sơ Mi Nam Vải Đũi Tự Nhiên</div>
+                <div class="product-price">380.000đ</div>
+                <button class="btn" style="padding: 8px 16px; font-size: 13px;" onclick="alert('Đã thêm Sơ mi đũi vào giỏ hàng!')">Mua Ngay</button>
+            </div>
+        </div>
+    </div>
+
+    <footer>
+        <p>&copy; 2026 Việt Casual. All rights reserved.</p>
+    </footer>
+</div>
+
+</body>
+</html>
