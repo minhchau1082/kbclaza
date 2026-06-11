@@ -1,0 +1,21 @@
+name: Tự động Deploy lên VPS
+on:
+  push:
+    branches:
+      - main
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - name: 🚚 Lấy code mới nhất
+        uses: actions/checkout@v3
+
+      - name: 🚀 Copy code sang VPS
+        uses: appleboy/scp-action@master
+        with:
+          host: ${{ secrets.VPS_IP }}
+          username: root
+          password: ${{ secrets.VPS_PASSWORD }}
+          port: ${{ secrets.VPS_PORT }}
+          source: "."
+          target: "/var/www/html/"
