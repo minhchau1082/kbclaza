@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>VietShop Admin Dashboard</title>
+    <title>KBCLAZA Admin Dashboard</title>
     <!-- Fonts: Be Vietnam Pro & Playfair Display -->
     <link href="https://fonts.googleapis.com/css2?family=Be+Vietnam+Pro:wght@300;400;500;600;700&family=Playfair+Display:wght@600;700&display=swap" rel="stylesheet">
     <!-- Font Awesome -->
@@ -13,7 +13,7 @@
 
     <style>
         :root {
-            /* VietShop Brand Colors */
+            /* KBCLAZA Brand Colors */
             --primary: #1a6b3a;
             --primary-dark: #114d29;
             --primary-light: #e8f5ee;
@@ -402,6 +402,85 @@
         }
         .btn-outline:hover { background-color: var(--bg-body); }
 
+        /* Filter Dropdown */
+        .filter-dropdown {
+            position: absolute;
+            top: calc(100% + 8px);
+            right: 0;
+            background: white;
+            border-radius: 8px;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.15);
+            width: 250px;
+            z-index: 1000;
+            border: 1px solid var(--border-color);
+            text-align: left;
+        }
+        .filter-header {
+            padding: 16px;
+            font-weight: 700;
+            font-size: 14px;
+            color: var(--text-dark);
+            border-bottom: 1px solid var(--border-color);
+            text-transform: uppercase;
+        }
+        .filter-list {
+            padding: 8px 0;
+            max-height: 400px;
+            overflow-y: auto;
+        }
+        .filter-item-title {
+            padding: 12px 16px;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            color: var(--text-dark);
+            font-weight: 600;
+            transition: all 0.2s;
+            margin: 0 8px;
+            border-radius: 6px;
+        }
+        .filter-item-title:hover {
+            background-color: var(--bg-body);
+        }
+        .filter-item-title.active {
+            background-color: var(--primary);
+            color: white;
+        }
+        .filter-item-title.active i {
+            color: white;
+        }
+        .filter-item-title i {
+            width: 20px;
+            text-align: center;
+            color: #555;
+            font-size: 16px;
+        }
+        .filter-sublist {
+            display: none;
+            background-color: transparent;
+            margin-left: 26px;
+            padding: 4px 0 8px;
+        }
+        .filter-sublist.active {
+            display: block;
+        }
+        .filter-subitem {
+            padding: 8px 16px;
+            cursor: pointer;
+            font-size: 14px;
+            color: var(--text-muted);
+            transition: all 0.2s;
+            font-weight: 500;
+        }
+        .filter-subitem:hover {
+            color: var(--primary);
+        }
+        .filter-subitem.active {
+            color: var(--primary);
+            font-weight: 600;
+        }
+
         .data-table {
             width: 100%;
             border-collapse: collapse;
@@ -579,43 +658,60 @@
         }
 
     </style>
+
+    <script>
+        // Migrate old VietShop/KBC localStorage data to KBCLAZA
+        (function() {
+            const keys = ['cart', 'custom_products', 'deleted_products', 'categories', 'enterprises', 'orders', 'deleted_enterprises'];
+            keys.forEach(key => {
+                let oldData = localStorage.getItem('kbcshop_' + key) || localStorage.getItem('vietshop_' + key);
+                if (oldData && !localStorage.getItem('kbclaza_' + key)) {
+                    localStorage.setItem('kbclaza_' + key, oldData);
+                }
+            });
+        })();
+    </script>
 </head>
 <body>
 
     <!-- SIDEBAR -->
     <aside class="sidebar">
-        <a href="vietshop-marketplace.html" class="sidebar-logo">
-            Việt<span>Shop</span>
+        <a href="kbclaza-marketplace.html" class="sidebar-logo" style="display: flex; align-items: center; gap: 8px;">
+            <img src="logo_kimbao.png" alt="Kim Bảo" style="height: 32px; width: auto; display: block; object-fit: contain;">
+            KBC<span>LAZA</span>
         </a>
         <div class="sidebar-menu">
             <div class="menu-group">NỀN TẢNG</div>
-            <div class="menu-item active" onclick="switchTab('dashboard', this)">
+            <div class="menu-item active" id="menu-item-dashboard" onclick="switchTab('dashboard', this)">
                 <i class="fa-solid fa-house"></i> Tổng quát
             </div>
-            <div class="menu-item">
+            <div class="menu-item" id="menu-item-users">
                 <i class="fa-solid fa-users"></i> Người dùng
             </div>
-            <div class="menu-item">
-                <i class="fa-regular fa-file-lines"></i> Tài liệu <i class="fa-solid fa-chevron-down menu-item-chevron"></i>
+            <div class="menu-item" id="menu-item-categories" onclick="switchTab('categories', this)">
+                <i class="fa-solid fa-list"></i> Danh mục
             </div>
-            <div class="menu-item" onclick="switchTab('enterprises', this)">
+            <div class="menu-item" id="menu-item-enterprises" onclick="switchTab('enterprises', this)">
                 <i class="fa-solid fa-building"></i> Doanh nghiệp
             </div>
-            <div class="menu-item" onclick="switchTab('orders', this)">
+            <div class="menu-item" id="menu-item-orders" onclick="switchTab('orders', this)">
                 <i class="fa-solid fa-cart-shopping"></i> Đơn hàng
             </div>
-            <div class="menu-item" onclick="switchTab('products', this)">
+            <div class="menu-item" id="menu-item-products" onclick="switchTab('products', this)">
                 <i class="fa-solid fa-box-open"></i> Sản phẩm <i class="fa-solid fa-chevron-down menu-item-chevron"></i>
             </div>
-            <div class="menu-item">
+            <div class="menu-item" id="menu-item-chat" onclick="switchTab('chat', this)">
+                <i class="fa-regular fa-comments"></i> Tin nhắn khách hàng
+            </div>
+            <div class="menu-item" id="menu-item-reviews">
                 <i class="fa-solid fa-star"></i> Đánh giá trải nghiệm
             </div>
 
-            <div class="menu-group">TÀI NGUYÊN</div>
-            <div class="menu-item">
+            <div class="menu-group" id="menu-group-resources">TÀI NGUYÊN</div>
+            <div class="menu-item" id="menu-item-media">
                 <i class="fa-regular fa-image"></i> Phương tiện
             </div>
-            <div class="menu-item">
+            <div class="menu-item" id="menu-item-settings">
                 <i class="fa-solid fa-gear"></i> Cài đặt
             </div>
         </div>
@@ -642,6 +738,36 @@
         <!-- CONTENT AREA -->
         <div class="content-area">
             
+            <!-- VIEW: CHAT -->
+            <div id="view-chat" class="view-section">
+                <div class="page-header">
+                    <div class="page-title">
+                        <h2>Tin nhắn khách hàng</h2>
+                        <p>Hỗ trợ trực tiếp từ Landing Page</p>
+                    </div>
+                </div>
+                <div style="display: flex; gap: 20px; height: 600px; background: white; border-radius: 10px; border: 1px solid var(--border-color); overflow: hidden;">
+                    <!-- Chat Sidebar (Customer List) -->
+                    <div style="width: 300px; border-right: 1px solid var(--border-color); display: flex; flex-direction: column;">
+                        <div style="padding: 16px; border-bottom: 1px solid var(--border-color); font-weight: 600;">Danh sách hội thoại</div>
+                        <div id="adminChatList" style="flex: 1; overflow-y: auto;">
+                            <!-- List populated by JS -->
+                        </div>
+                    </div>
+                    <!-- Chat Main Area -->
+                    <div style="flex: 1; display: flex; flex-direction: column; background: #fafafa;">
+                        <div id="adminChatHeader" style="padding: 16px; border-bottom: 1px solid var(--border-color); font-weight: 600; background: white;">Chọn một cuộc hội thoại</div>
+                        <div id="adminChatMessages" style="flex: 1; padding: 16px; overflow-y: auto; display: flex; flex-direction: column; gap: 12px;">
+                            <!-- Messages populated by JS -->
+                        </div>
+                        <div style="padding: 16px; background: white; border-top: 1px solid var(--border-color); display: flex; gap: 12px;">
+                            <input type="text" id="adminChatInput" class="form-control" placeholder="Nhập tin nhắn..." onkeypress="if(event.key==='Enter') sendAdminMessage()" disabled>
+                            <button class="btn btn-primary" onclick="sendAdminMessage()" id="adminChatBtn" disabled><i class="fa-solid fa-paper-plane"></i></button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
             <!-- VIEW: DASHBOARD -->
             <div id="view-dashboard" class="view-section active">
                 <div class="page-header">
@@ -674,8 +800,8 @@
                     <!-- Stat 2 -->
                     <div class="stat-card">
                         <div class="stat-header">
-                            <span class="stat-title">Sản phẩm (Tài liệu)</span>
-                            <div class="stat-icon purple"><i class="fa-regular fa-file-lines"></i></div>
+                            <span class="stat-title">Sản phẩm (Danh mục)</span>
+                            <div class="stat-icon purple"><i class="fa-solid fa-list"></i></div>
                         </div>
                         <div class="stat-value">222</div>
                         <div class="stat-change">
@@ -732,7 +858,78 @@
                             <i class="fa-solid fa-magnifying-glass"></i>
                             <input type="text" placeholder="Tìm kiếm sản phẩm...">
                         </div>
-                        <button class="btn btn-outline"><i class="fa-solid fa-filter"></i> Bộ lọc</button>
+                        <div style="position: relative;" id="filterContainer">
+                            <button class="btn btn-outline" onclick="toggleFilterDropdown()"><i class="fa-solid fa-filter"></i> Bộ lọc</button>
+                            
+                            <div id="filterDropdown" class="filter-dropdown" style="display: none;">
+                                <div class="filter-header">DANH MỤC</div>
+                                <div class="filter-list">
+                                    <div class="filter-item">
+                                        <div class="filter-item-title" onclick="toggleFilterSub('sub-clothes', this)">
+                                            <i class="fa-solid fa-shirt"></i> Quần áo
+                                        </div>
+                                        <div class="filter-sublist" id="sub-clothes">
+                                            <div class="filter-subitem" onclick="filterBySupplier('Áo Dài Hà Nội')">Áo Dài Hà Nội</div>
+                                            <div class="filter-subitem" onclick="filterBySupplier('Thời Trang Nam')">Thời Trang Nam</div>
+                                        </div>
+                                    </div>
+                                    <div class="filter-item">
+                                        <div class="filter-item-title" onclick="toggleFilterSub('sub-food', this)">
+                                            <i class="fa-solid fa-bowl-food"></i> Thực phẩm
+                                        </div>
+                                        <div class="filter-sublist" id="sub-food">
+                                            <div class="filter-subitem" onclick="filterBySupplier('Mật Ong Tây Bắc')">Mật Ong Tây Bắc</div>
+                                            <div class="filter-subitem" onclick="filterBySupplier('Đặc Sản Vùng Miền')">Đặc Sản Vùng Miền</div>
+                                        </div>
+                                    </div>
+                                    <div class="filter-item">
+                                        <div class="filter-item-title" onclick="toggleFilterSub('sub-cosmetics', this)">
+                                            <i class="fa-solid fa-spa"></i> Mỹ phẩm
+                                        </div>
+                                        <div class="filter-sublist" id="sub-cosmetics">
+                                            <div class="filter-subitem" onclick="filterBySupplier('Mỹ Phẩm Hữu Cơ')">Mỹ Phẩm Hữu Cơ</div>
+                                            <div class="filter-subitem" onclick="filterBySupplier('Tinh Dầu Thiên Nhiên')">Tinh Dầu Thiên Nhiên</div>
+                                        </div>
+                                    </div>
+                                    <div class="filter-item">
+                                        <div class="filter-item-title" onclick="toggleFilterSub('sub-silk', this)">
+                                            <i class="fa-solid fa-scroll"></i> Lụa
+                                        </div>
+                                        <div class="filter-sublist" id="sub-silk">
+                                            <div class="filter-subitem" onclick="filterBySupplier('Thực Liên Silk')">Thực Liên Silk - Lụa Nha Xá</div>
+                                            <div class="filter-subitem" onclick="filterBySupplier('Lụa Mai Hương')">Lụa Mai Hương</div>
+                                            <div class="filter-subitem" onclick="filterBySupplier('Lụa Vạn Phúc')">Lụa Vạn Phúc</div>
+                                            <div class="filter-subitem" onclick="filterBySupplier('Lụa Bảo Lộc')">Lụa Bảo Lộc</div>
+                                            <div class="filter-subitem" onclick="filterBySupplier('Lụa Mã Châu')">Lụa Mã Châu</div>
+                                        </div>
+                                    </div>
+                                    <div class="filter-item">
+                                        <div class="filter-item-title" onclick="toggleFilterSub('sub-crafts', this)">
+                                            <i class="fa-solid fa-palette"></i> Thủ công
+                                        </div>
+                                        <div class="filter-sublist" id="sub-crafts">
+                                            <div class="filter-subitem" onclick="filterBySupplier('Kỷ Nguyên Gốm')">Kỷ Nguyên Gốm</div>
+                                            <div class="filter-subitem" onclick="filterBySupplier('Gốm Sứ Bát Tràng')">Gốm Sứ Bát Tràng</div>
+                                        </div>
+                                    </div>
+                                    <div class="filter-item">
+                                        <div class="filter-item-title" onclick="toggleFilterSub('sub-decor', this)">
+                                            <i class="fa-solid fa-house"></i> Nội thất
+                                        </div>
+                                        <div class="filter-sublist" id="sub-decor">
+                                            <div class="filter-subitem" onclick="filterBySupplier('Nội Thất Gỗ Xanh')">Nội Thất Gỗ Xanh</div>
+                                            <div class="filter-subitem" onclick="filterBySupplier('Trang Trí Nhà Cửa')">Trang Trí Nhà Cửa</div>
+                                        </div>
+                                    </div>
+                                    
+                                    <div class="filter-item" style="border-top: 1px solid var(--border-color); margin-top: 8px; padding-top: 8px;">
+                                        <div class="filter-item-title" onclick="filterBySupplier('')" style="color: var(--primary);">
+                                            <i class="fa-solid fa-rotate-right" style="color: var(--primary);"></i> Tất cả sản phẩm
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
                     </div>
                     <table class="data-table">
                         <thead>
@@ -752,14 +949,43 @@
                 </div>
             </div>
 
+            <!-- VIEW: CATEGORIES -->
+            <div id="view-categories" class="view-section">
+                <div class="page-header">
+                    <div class="page-title">
+                        <h2>Quản lý Danh mục</h2>
+                        <p>Các nhóm sản phẩm và dịch vụ trên nền tảng KBCLAZA.</p>
+                    </div>
+                    <button class="btn btn-primary" onclick="openCategoryModal()">
+                        <i class="fa-solid fa-plus"></i> Thêm Danh mục
+                    </button>
+                </div>
+
+                <div class="table-card">
+                    <table class="data-table">
+                        <thead>
+                            <tr>
+                                <th>Icon</th>
+                                <th>Tên Danh Mục</th>
+                                <th>Định Danh (ID)</th>
+                                <th>Thao tác</th>
+                            </tr>
+                        </thead>
+                        <tbody id="adminCategoriesTableBody">
+                            <!-- Rendered dynamically -->
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+
             <!-- VIEW: ENTERPRISES -->
             <div id="view-enterprises" class="view-section">
                 <div class="page-header">
                     <div class="page-title">
                         <h2>Quản lý Doanh nghiệp</h2>
-                        <p>Đối tác kinh doanh trên nền tảng VietShop.</p>
+                        <p>Đối tác kinh doanh trên nền tảng KBCLAZA.</p>
                     </div>
-                    <button class="btn btn-primary">
+                    <button class="btn btn-primary" onclick="openEnterpriseModal()">
                         <i class="fa-solid fa-plus"></i> Thêm doanh nghiệp
                     </button>
                 </div>
@@ -776,59 +1002,8 @@
                                 <th>Thao tác</th>
                             </tr>
                         </thead>
-                        <tbody>
-                            <tr>
-                                <td><strong>Thực Liên Silk - Lụa Nha Xá</strong></td>
-                                <td>Lụa tơ tằm</td>
-                                <td>Phạm Văn Thực</td>
-                                <td>30</td>
-                                <td><span class="badge badge-success">Đã duyệt</span></td>
-                                <td>
-                                    <div class="action-btns">
-                                        <button class="btn-icon" title="Sửa doanh nghiệp"><i class="fa-regular fa-pen-to-square"></i></button>
-                                        <button class="btn-icon" title="Cấu hình Landing Page" onclick="openLandingModal('lua', 'Thực Liên Silk - Lụa Nha Xá')"><i class="fa-solid fa-laptop-code"></i></button>
-                                    </div>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td><strong>Kỷ Nguyên Gốm Bát Tràng</strong></td>
-                                <td>Gốm sứ & Mỹ nghệ</td>
-                                <td>Nguyễn Văn B</td>
-                                <td>15</td>
-                                <td><span class="badge badge-success">Đã duyệt</span></td>
-                                <td>
-                                    <div class="action-btns">
-                                        <button class="btn-icon" title="Sửa doanh nghiệp"><i class="fa-regular fa-pen-to-square"></i></button>
-                                        <button class="btn-icon" title="Cấu hình Landing Page" onclick="openLandingModal('crafts', 'Kỷ Nguyên Gốm Bát Tràng')"><i class="fa-solid fa-laptop-code"></i></button>
-                                    </div>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td><strong>Mật Ong Tây Bắc</strong></td>
-                                <td>Thực phẩm & Đặc sản</td>
-                                <td>Trần Văn C</td>
-                                <td>12</td>
-                                <td><span class="badge badge-success">Đã duyệt</span></td>
-                                <td>
-                                    <div class="action-btns">
-                                        <button class="btn-icon" title="Sửa doanh nghiệp"><i class="fa-regular fa-pen-to-square"></i></button>
-                                        <button class="btn-icon" title="Cấu hình Landing Page" onclick="openLandingModal('organic', 'Mật Ong Tây Bắc')"><i class="fa-solid fa-laptop-code"></i></button>
-                                    </div>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td><strong>Áo Dài Hà Nội</strong></td>
-                                <td>Quần áo & Thời trang</td>
-                                <td>Lê Thị D</td>
-                                <td>8</td>
-                                <td><span class="badge badge-success">Đã duyệt</span></td>
-                                <td>
-                                    <div class="action-btns">
-                                        <button class="btn-icon" title="Sửa doanh nghiệp"><i class="fa-regular fa-pen-to-square"></i></button>
-                                        <button class="btn-icon" title="Cấu hình Landing Page" onclick="openLandingModal('aodai', 'Áo Dài Hà Nội')"><i class="fa-solid fa-laptop-code"></i></button>
-                                    </div>
-                                </td>
-                            </tr>
+                        <tbody id="adminEnterprisesTableBody">
+                            <!-- Rendered dynamically -->
                         </tbody>
                     </table>
                 </div>
@@ -885,6 +1060,108 @@
         </div>
     </main>
 
+    <!-- ADD/EDIT CATEGORY MODAL -->
+    <div class="modal-overlay" id="categoryModal">
+        <div class="modal">
+            <div class="modal-header">
+                <h3>Thêm Danh Mục Mới</h3>
+                <button class="close-modal" onclick="closeCategoryModal()">&times;</button>
+            </div>
+            <div class="modal-body">
+                <form id="categoryForm" onsubmit="saveCategory(event)">
+                    <div class="form-group">
+                        <label>Tên Danh Mục</label>
+                        <input type="text" id="catName" class="form-control" placeholder="Ví dụ: Quần áo" required>
+                    </div>
+                    <div class="form-group">
+                        <label>Định Danh (ID) - Dùng cho Landing Page URL</label>
+                        <input type="text" id="catIdInput" class="form-control" placeholder="Ví dụ: clothes, food..." required>
+                    </div>
+                    <div class="form-group">
+                        <label>Icon Danh Mục (FontAwesome class)</label>
+                        <input type="text" id="catIcon" class="form-control" placeholder="Ví dụ: fa-solid fa-shirt" required>
+                    </div>
+
+                    <div class="modal-footer" style="padding:0; border-top:none; margin-top:24px;">
+                        <button type="button" class="btn btn-outline" onclick="closeCategoryModal()">Hủy</button>
+                        <button type="submit" class="btn btn-primary">Lưu danh mục</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <!-- ADD/EDIT ENTERPRISE MODAL -->
+    <div class="modal-overlay" id="enterpriseModal">
+        <div class="modal">
+            <div class="modal-header">
+                <h3>Thêm Doanh Nghiệp Mới</h3>
+                <button class="close-modal" onclick="closeEnterpriseModal()">&times;</button>
+            </div>
+            <div class="modal-body">
+                <form id="enterpriseForm" onsubmit="saveEnterprise(event)">
+                    <div class="form-group">
+                        <label>Tên Doanh Nghiệp</label>
+                        <input type="text" id="entName" class="form-control" placeholder="Nhập tên doanh nghiệp..." required>
+                    </div>
+                    
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label>Ngành Hàng</label>
+                            <input type="text" id="entCategory" class="form-control" placeholder="Ví dụ: Lụa tơ tằm" required>
+                        </div>
+                        <div class="form-group">
+                            <label>Người Đại Diện</label>
+                            <input type="text" id="entOwner" class="form-control" placeholder="Tên người đại diện..." required>
+                        </div>
+                    </div>
+
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label>Sản Phẩm Đang Bán</label>
+                            <input type="number" id="entProductsCount" class="form-control" placeholder="0" required>
+                        </div>
+                        <div class="form-group">
+                            <label>Trạng Thái</label>
+                            <select id="entStatus" class="form-control" required>
+                                <option value="Đã duyệt">Đã duyệt</option>
+                                <option value="Chờ duyệt">Chờ duyệt</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label>Liên kết Landing Page (Định danh tĩnh)</label>
+                        <input type="text" id="entLandingUrl" class="form-control" placeholder="Ví dụ: lua, aodai, organic..." required>
+                    </div>
+
+                    <div class="form-group">
+                        <label>Hình ảnh đại diện doanh nghiệp *</label>
+                        <div class="image-picker-container" id="entImagePicker">
+                            <div class="image-picker-preview" id="entImgPreview" style="display:none; position:relative; width:100%; height:180px; border-radius:8px; overflow:hidden; border:1px solid var(--border-color); margin-bottom:10px;">
+                                <img src="" id="entImgSrc" style="width:100%; height:100%; object-fit:cover;">
+                                <button type="button" class="btn-icon delete" style="position:absolute; top:8px; right:8px; background:white; box-shadow:0 2px 6px rgba(0,0,0,0.15);" onclick="removePickedImage('entImgSrc', 'entImgPreview', 'entImgPlaceholder', 'entImgUrl')" title="Xóa ảnh"><i class="fa-regular fa-trash-can"></i></button>
+                            </div>
+                            <div class="image-picker-placeholder" id="entImgPlaceholder" contenteditable="true" style="border:2px dashed var(--border-color); border-radius:8px; padding:30px; text-align:center; cursor:pointer; background:#fafafa; transition:all 0.2s; outline:none; caret-color:transparent;">
+                                <i class="fa-solid fa-plus" style="font-size:32px; color:var(--text-muted); margin-bottom:12px; display:block;"></i>
+                                <span style="font-size:14px; font-weight:600; color:var(--text-dark); display:block; margin-bottom:12px;">Tải ảnh lên, chọn từ thư viện, hoặc dán ảnh (Ctrl+V)</span>
+                                <div style="display:flex; gap:10px; justify-content:center;">
+                                    <button type="button" class="btn btn-outline" style="padding:6px 12px; font-size:12px;" onclick="triggerLocalUpload('entFileInput')"><i class="fa-solid fa-upload"></i> Tải ảnh lên</button>
+                                </div>
+                            </div>
+                            <input type="file" id="entFileInput" accept="image/*" style="display:none;" onchange="handleLocalImageUpload(this, 'entImgSrc', 'entImgPreview', 'entImgPlaceholder', 'entImgUrl')">
+                            <input type="hidden" id="entImgUrl" required>
+                        </div>
+                    </div>
+
+                    <div class="modal-footer" style="padding:0; border-top:none; margin-top:24px;">
+                        <button type="button" class="btn btn-outline" onclick="closeEnterpriseModal()">Hủy</button>
+                        <button type="submit" class="btn btn-primary">Lưu doanh nghiệp</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
     <!-- ADD PRODUCT MODAL -->
     <div class="modal-overlay" id="productModal">
         <div class="modal">
@@ -927,7 +1204,7 @@
                     <div class="form-row">
                         <div class="form-group">
                             <label>Giá bán (VNĐ)</label>
-                            <input type="number" id="prodPrice" class="form-control" placeholder="0" required>
+                            <input type="text" id="prodPrice" class="form-control" placeholder="0" oninput="formatCurrencyInput(this)" required>
                         </div>
                         <div class="form-group">
                             <label>Số lượng tồn kho</label>
@@ -942,9 +1219,9 @@
                                 <img src="" id="prodImgSrc" style="width:100%; height:100%; object-fit:cover;">
                                 <button type="button" class="btn-icon delete" style="position:absolute; top:8px; right:8px; background:white; box-shadow:0 2px 6px rgba(0,0,0,0.15);" onclick="removePickedImage('prodImgSrc', 'prodImgPreview', 'prodImgPlaceholder', 'prodImgUrl')" title="Xóa ảnh"><i class="fa-regular fa-trash-can"></i></button>
                             </div>
-                            <div class="image-picker-placeholder" id="prodImgPlaceholder" style="border:2px dashed var(--border-color); border-radius:8px; padding:30px; text-align:center; cursor:pointer; background:#fafafa; transition:all 0.2s;">
+                            <div class="image-picker-placeholder" id="prodImgPlaceholder" contenteditable="true" style="border:2px dashed var(--border-color); border-radius:8px; padding:30px; text-align:center; cursor:pointer; background:#fafafa; transition:all 0.2s; outline:none; caret-color:transparent;">
                                 <i class="fa-solid fa-plus" style="font-size:32px; color:var(--text-muted); margin-bottom:12px; display:block;"></i>
-                                <span style="font-size:14px; font-weight:600; color:var(--text-dark); display:block; margin-bottom:12px;">Tải ảnh lên hoặc chọn từ thư viện</span>
+                                <span style="font-size:14px; font-weight:600; color:var(--text-dark); display:block; margin-bottom:12px;">Tải ảnh lên, chọn từ thư viện, hoặc dán ảnh (Ctrl+V)</span>
                                 <div style="display:flex; gap:10px; justify-content:center;">
                                     <button type="button" class="btn btn-outline" style="padding:6px 12px; font-size:12px;" onclick="triggerLocalUpload('productFileInput')"><i class="fa-solid fa-upload"></i> Tải ảnh lên</button>
                                     <button type="button" class="btn btn-outline" style="padding:6px 12px; font-size:12px;" onclick="openImageLibraryModal('prodImgSrc', 'prodImgPreview', 'prodImgPlaceholder', 'prodImgUrl')"><i class="fa-regular fa-image"></i> Thư viện</button>
@@ -954,11 +1231,11 @@
                             <input type="file" id="productFileInput" style="display:none;" accept="image/*" onchange="handleLocalImageUpload(this, 'prodImgSrc', 'prodImgPreview', 'prodImgPlaceholder', 'prodImgUrl')">
                         </div>
                     </div>
+                    <div class="modal-footer" style="padding:0; border-top:none; margin-top:24px;">
+                        <button type="button" class="btn btn-outline" onclick="closeModal()">Hủy</button>
+                        <button type="submit" class="btn btn-primary">Lưu sản phẩm</button>
+                    </div>
                 </form>
-            </div>
-            <div class="modal-footer">
-                <button class="btn btn-outline" onclick="closeModal()">Hủy</button>
-                <button class="btn btn-primary" onclick="saveProduct(event)">Lưu sản phẩm</button>
             </div>
         </div>
     </div>
@@ -996,9 +1273,9 @@
                                 <img src="" id="landingImgSrc" style="width:100%; height:100%; object-fit:cover;">
                                 <button type="button" class="btn-icon delete" style="position:absolute; top:8px; right:8px; background:white; box-shadow:0 2px 6px rgba(0,0,0,0.15);" onclick="removePickedImage('landingImgSrc', 'landingImgPreview', 'landingImgPlaceholder', 'landingImgUrl')" title="Xóa ảnh"><i class="fa-regular fa-trash-can"></i></button>
                             </div>
-                            <div class="image-picker-placeholder" id="landingImgPlaceholder" style="border:2px dashed var(--border-color); border-radius:8px; padding:30px; text-align:center; cursor:pointer; background:#fafafa; transition:all 0.2s;">
+                            <div class="image-picker-placeholder" id="landingImgPlaceholder" contenteditable="true" style="border:2px dashed var(--border-color); border-radius:8px; padding:30px; text-align:center; cursor:pointer; background:#fafafa; transition:all 0.2s; outline:none; caret-color:transparent;">
                                 <i class="fa-solid fa-plus" style="font-size:32px; color:var(--text-muted); margin-bottom:12px; display:block;"></i>
-                                <span style="font-size:14px; font-weight:600; color:var(--text-dark); display:block; margin-bottom:12px;">Tải ảnh lên hoặc chọn từ thư viện</span>
+                                <span style="font-size:14px; font-weight:600; color:var(--text-dark); display:block; margin-bottom:12px;">Tải ảnh lên, chọn từ thư viện, hoặc dán ảnh (Ctrl+V)</span>
                                 <div style="display:flex; gap:10px; justify-content:center;">
                                     <button type="button" class="btn btn-outline" style="padding:6px 12px; font-size:12px;" onclick="triggerLocalUpload('landingFileInput')"><i class="fa-solid fa-upload"></i> Tải ảnh lên</button>
                                     <button type="button" class="btn btn-outline" style="padding:6px 12px; font-size:12px;" onclick="openImageLibraryModal('landingImgSrc', 'landingImgPreview', 'landingImgPlaceholder', 'landingImgUrl')"><i class="fa-regular fa-image"></i> Thư viện</button>
@@ -1049,7 +1326,8 @@
     <!-- SCRIPTS -->
     <script>
         // --- AUTH CHECK ---
-        if (localStorage.getItem('isAdminLoggedIn') !== 'true') {
+        const loginState = localStorage.getItem('isAdminLoggedIn');
+        if (loginState !== 'true' && loginState !== 'enterprise') {
             window.location.href = 'admin-login.html';
         }
 
@@ -1169,6 +1447,49 @@
             }
         }
 
+        // Global Paste Event Listener to allow pasting images directly into active modals
+        document.addEventListener('paste', function(e) {
+            let imgId, previewId, placeholderId, urlInputId;
+
+            // Determine which modal is active
+            if (document.getElementById('productModal').classList.contains('active')) {
+                imgId = 'prodImgSrc'; previewId = 'prodImgPreview'; placeholderId = 'prodImgPlaceholder'; urlInputId = 'prodImgUrl';
+            } else if (document.getElementById('enterpriseModal').classList.contains('active')) {
+                imgId = 'entImgSrc'; previewId = 'entImgPreview'; placeholderId = 'entImgPlaceholder'; urlInputId = 'entImgUrl';
+            } else if (document.getElementById('landingModal').classList.contains('active')) {
+                imgId = 'landingImgSrc'; previewId = 'landingImgPreview'; placeholderId = 'landingImgPlaceholder'; urlInputId = 'landingImgUrl';
+            } else {
+                return; // No relevant modal is open
+            }
+
+            const items = (e.clipboardData || e.originalEvent.clipboardData).items;
+            for (let index in items) {
+                const item = items[index];
+                if (item.kind === 'file' && item.type.includes('image/')) {
+                    const blob = item.getAsFile();
+                    const reader = new FileReader();
+                    reader.onload = function(event) {
+                        const base64Url = event.target.result;
+                        document.getElementById(imgId).src = base64Url;
+                        document.getElementById(previewId).style.display = 'block';
+                        document.getElementById(placeholderId).style.display = 'none';
+                        document.getElementById(urlInputId).value = base64Url;
+                    };
+                    reader.readAsDataURL(blob);
+                    e.preventDefault(); // Prevent default paste behavior
+                } else if (item.kind === 'string' && item.type === 'text/plain') {
+                    item.getAsString(function(text) {
+                        if (text.match(/\.(jpeg|jpg|gif|png|webp)/i) || text.startsWith('http') || text.startsWith('data:image')) {
+                            document.getElementById(imgId).src = text;
+                            document.getElementById(previewId).style.display = 'block';
+                            document.getElementById(placeholderId).style.display = 'none';
+                            document.getElementById(urlInputId).value = text;
+                        }
+                    });
+                }
+            }
+        });
+
         function removePickedImage(imgId, previewId, placeholderId, urlInputId) {
             document.getElementById(imgId).src = '';
             document.getElementById(previewId).style.display = 'none';
@@ -1186,45 +1507,28 @@
 
             const breadcrumbMap = {
                 'dashboard': '<i class="fa-regular fa-window-maximize"></i> Tổng quát',
+                'categories': '<i class="fa-solid fa-list"></i> Quản lý Danh mục',
                 'products': '<i class="fa-solid fa-box-open"></i> Quản lý Sản phẩm',
                 'enterprises': '<i class="fa-solid fa-building"></i> Quản lý Doanh nghiệp',
-                'orders': '<i class="fa-solid fa-cart-shopping"></i> Quản lý Đơn hàng'
+                'orders': '<i class="fa-solid fa-cart-shopping"></i> Quản lý Đơn hàng',
+                'chat': '<i class="fa-regular fa-comments"></i> Tin nhắn khách hàng'
             };
             document.getElementById('breadcrumbText').innerHTML = breadcrumbMap[tabId];
         }
 
         // --- PRODUCT MANAGEMENT ---
         const defaultProducts = [
-            {
-                id: 'default_1',
-                name: 'Lụa Trơn Màu Đỏ Đô',
-                supplier: 'Thực Liên Silk',
-                category: 'silk',
-                price: 690000,
-                stock: '150 mét',
-                img: 'https://images.unsplash.com/photo-1584916201218-f4242ceb4809?w=100&fit=crop',
-                status: 'Đang bán'
-            },
-            {
-                id: 'default_2',
-                name: 'Mật Ong Bạc Hà Hữu Cơ',
-                supplier: 'Mật Ong Tây Bắc',
-                category: 'food',
-                price: 450000,
-                stock: '80 hũ',
-                img: 'https://images.unsplash.com/photo-1587049352846-4a222e784d38?w=100&fit=crop',
-                status: 'Đang bán'
-            },
-            {
-                id: 'default_3',
-                name: 'Bình Hoa Gốm Chu Đậu',
-                supplier: 'Kỷ Nguyên Gốm',
-                category: 'crafts',
-                price: 3500000,
-                stock: '5 bình',
-                img: 'https://images.unsplash.com/photo-1612196808214-b8e1d6145a8c?w=100&fit=crop',
-                status: 'Sắp hết'
-            }
+            { id: 'aodai-court-gold', name: 'Áo Dài Vàng Cung Đình', supplier: 'Thực Liên Silk', category: 'silk', price: 2850000, stock: '50 bộ', img: 'https://images.unsplash.com/photo-1583089892943-e02e5b017b6a?w=600&auto=format&fit=crop&q=80', status: 'Đang bán' },
+            { id: 'aodai-jade-green', name: 'Áo Dài Lụa Vân Xanh Ngọc', supplier: 'Thực Liên Silk', category: 'silk', price: 2950000, stock: '40 bộ', img: 'https://images.unsplash.com/photo-1576016770956-debb63d90029?w=600&auto=format&fit=crop&q=80', status: 'Đang bán' },
+            { id: 'aodai-antique', name: 'Áo Dài Cổ Phục Ngũ Thân', supplier: 'Thực Liên Silk', category: 'silk', price: 3200000, stock: '30 bộ', img: 'https://images.unsplash.com/photo-1534126511673-b6899657816a?w=600&auto=format&fit=crop&q=80', status: 'Đang bán' },
+            { id: 'lt1', name: 'Lụa Tơ Tằm Trơn Cao Cấp', supplier: 'Thực Liên Silk', category: 'silk', price: 690000, stock: '150 mét', img: 'https://images.unsplash.com/photo-1596464716127-f2a82984de30?w=400&fit=crop', status: 'Đang bán' },
+            { id: 'lt2', name: 'Lụa Satin Ánh Đen', supplier: 'Thực Liên Silk', category: 'silk', price: 750000, stock: '100 mét', img: 'https://images.unsplash.com/photo-1629198688000-71f23e745b6e?w=400&fit=crop', status: 'Đang bán' },
+            { id: 'lt3', name: 'Lụa Tơ Nhện Tuyết Trắng', supplier: 'Thực Liên Silk', category: 'silk', price: 820000, stock: '80 mét', img: 'https://images.unsplash.com/photo-1584441405886-bc91be61e56a?w=400&fit=crop', status: 'Đang bán' },
+            { id: 'lh1', name: 'Lụa Jacquard Hoa Mai Vàng', supplier: 'Thực Liên Silk', category: 'silk', price: 950000, stock: '100 mét', img: 'https://images.unsplash.com/photo-1574343162293-6e3a6a9b4946?w=400&fit=crop', status: 'Đang bán' },
+            { id: 'lh2', name: 'Lụa In Hoa Cúc Tím', supplier: 'Thực Liên Silk', category: 'silk', price: 890000, stock: '60 mét', img: 'https://images.unsplash.com/photo-1594911130612-40fdb9b2d861?w=400&fit=crop', status: 'Đang bán' },
+            { id: 'lh3', name: 'Lụa Gấm Thêu Sen', supplier: 'Thực Liên Silk', category: 'silk', price: 1200000, stock: '40 mét', img: 'https://images.unsplash.com/photo-1586790170083-2f9ceadc732d?w=400&fit=crop', status: 'Đang bán' },
+            { id: 'default_2', name: 'Mật Ong Bạc Hà Hữu Cơ', supplier: 'Mật Ong Tây Bắc', category: 'food', price: 450000, stock: '80 hũ', img: 'https://images.unsplash.com/photo-1587049352846-4a222e784d38?w=100&fit=crop', status: 'Đang bán' },
+            { id: 'default_3', name: 'Bình Hoa Gốm Chu Đậu', supplier: 'Kỷ Nguyên Gốm', category: 'crafts', price: 3500000, stock: '5 bình', img: 'https://images.unsplash.com/photo-1612196808214-b8e1d6145a8c?w=100&fit=crop', status: 'Sắp hết' }
         ];
 
         const catNameMap = {
@@ -1237,18 +1541,86 @@
         };
 
         function getProductsList() {
-            const listStr = localStorage.getItem('vietshop_custom_products');
+            const listStr = localStorage.getItem('kbclaza_custom_products');
             return listStr ? JSON.parse(listStr) : [];
         }
 
-        function renderAdminProducts() {
+        let activeSupplierFilter = '';
+
+        function toggleFilterDropdown() {
+            const dropdown = document.getElementById('filterDropdown');
+            dropdown.style.display = dropdown.style.display === 'none' ? 'block' : 'none';
+        }
+
+        function toggleFilterSub(id, element) {
+            const sub = document.getElementById(id);
+            const isExpanding = sub.style.display !== 'block';
+            
+            document.querySelectorAll('.filter-sublist').forEach(el => el.style.display = 'none');
+            document.querySelectorAll('.filter-item-title').forEach(el => el.classList.remove('active'));
+            
+            if (isExpanding) {
+                sub.style.display = 'block';
+                element.classList.add('active');
+            }
+        }
+
+        function filterBySupplier(supplierName) {
+            activeSupplierFilter = supplierName;
+            document.getElementById('filterDropdown').style.display = 'none';
+            document.querySelectorAll('.filter-subitem').forEach(el => el.classList.remove('active'));
+            if (event && event.target && event.target.classList) {
+                event.target.classList.add('active');
+            }
+            renderAdminProducts();
+        }
+
+        document.addEventListener('click', function(e) {
+            const container = document.getElementById('filterContainer');
+            if (container && !container.contains(e.target)) {
+                const dropdown = document.getElementById('filterDropdown');
+                if (dropdown) dropdown.style.display = 'none';
+            }
+        });
+
+        function getMergedProducts() {
             const customProducts = getProductsList();
-            const allProducts = defaultProducts.concat(customProducts);
+            const deletedProductsStr = localStorage.getItem('kbclaza_deleted_products');
+            const deletedProducts = deletedProductsStr ? JSON.parse(deletedProductsStr) : [];
+            
+            const merged = [...defaultProducts];
+            
+            customProducts.forEach(cp => {
+                const idx = merged.findIndex(p => p.id === cp.id);
+                if (idx !== -1) {
+                    merged[idx] = cp;
+                } else {
+                    merged.push(cp);
+                }
+            });
+            return merged.filter(p => !deletedProducts.includes(p.id));
+        }
+
+        function formatCurrencyInput(input) {
+            let value = input.value.replace(/[^0-9]/g, '');
+            if (value) {
+                input.value = Number(value).toLocaleString('vi-VN').replace(/,/g, '.');
+            } else {
+                input.value = '';
+            }
+        }
+
+        function renderAdminProducts() {
+            const allProducts = getMergedProducts();
             const tbody = document.getElementById('adminProductsTableBody');
             tbody.innerHTML = '';
 
             allProducts.forEach(p => {
-                const isCustom = p.id.toString().startsWith('custom_');
+                if (activeSupplierFilter && p.supplier !== activeSupplierFilter) {
+                    return;
+                }
+
+                const isDefault = defaultProducts.some(dp => dp.id === p.id);
                 const catName = catNameMap[p.category] || p.category;
                 
                 const tr = document.createElement('tr');
@@ -1268,11 +1640,8 @@
                     <td><span class="badge ${p.status === 'Sắp hết' ? 'badge-warning' : 'badge-success'}">${p.status}</span></td>
                     <td>
                         <div class="action-btns">
-                            ${isCustom ? `
-                                <button class="btn-icon delete" title="Xóa sản phẩm" onclick="deleteProduct('${p.id}')"><i class="fa-regular fa-trash-can"></i></button>
-                            ` : `
-                                <span style="font-size:11px; color:var(--text-muted); font-style:italic;">Mặc định</span>
-                            `}
+                            <button class="btn-icon" title="Sửa sản phẩm" onclick="editProduct('${p.id}')"><i class="fa-regular fa-pen-to-square"></i></button>
+                            <button class="btn-icon delete" title="Xóa sản phẩm" onclick="deleteProduct('${p.id}')"><i class="fa-regular fa-trash-can"></i></button>
                         </div>
                     </td>
                 `;
@@ -1280,12 +1649,36 @@
             });
         }
 
+        let editingProductId = null;
+
+        function editProduct(id) {
+            const allProducts = getMergedProducts();
+            const product = allProducts.find(p => p.id === id);
+            if (!product) return;
+
+            editingProductId = id;
+            document.querySelector('#productModal .modal-header h3').innerText = 'Sửa Sản Phẩm';
+            
+            document.getElementById('prodName').value = product.name;
+            document.getElementById('prodSupplier').value = product.supplier;
+            document.getElementById('prodCategory').value = product.category;
+            document.getElementById('prodPrice').value = Number(product.price).toLocaleString('vi-VN').replace(/,/g, '.');
+            document.getElementById('prodStock').value = product.stock;
+            
+            document.getElementById('prodImgSrc').src = product.img;
+            document.getElementById('prodImgPreview').style.display = 'block';
+            document.getElementById('prodImgPlaceholder').style.display = 'none';
+            document.getElementById('prodImgUrl').value = product.img;
+
+            modalOverlay.classList.add('active');
+        }
+
         function saveProduct(event) {
             event.preventDefault();
             const name = document.getElementById('prodName').value;
             const supplier = document.getElementById('prodSupplier').value;
             const category = document.getElementById('prodCategory').value;
-            const price = Number(document.getElementById('prodPrice').value);
+            const price = Number(document.getElementById('prodPrice').value.replace(/[^0-9]/g, ''));
             const stock = document.getElementById('prodStock').value;
             const img = document.getElementById('prodImgUrl').value;
 
@@ -1304,7 +1697,7 @@
             const url = urlMap[supplier] || 'landingpage/lua/index.html';
 
             const newProduct = {
-                id: 'custom_' + Date.now(),
+                id: editingProductId ? editingProductId : ('custom_' + Date.now()),
                 name,
                 supplier,
                 category,
@@ -1316,10 +1709,24 @@
             };
 
             const list = getProductsList();
-            list.push(newProduct);
-            localStorage.setItem('vietshop_custom_products', JSON.stringify(list));
+            if (editingProductId) {
+                const idx = list.findIndex(p => p.id === editingProductId);
+                if (idx !== -1) {
+                    list[idx] = newProduct;
+                } else {
+                    list.push(newProduct);
+                }
+            } else {
+                list.push(newProduct);
+            }
+            try {
+                localStorage.setItem('kbclaza_custom_products', JSON.stringify(list));
+            } catch (e) {
+                alert('Lỗi: Dung lượng ảnh quá lớn! Vui lòng tải ảnh khác nhẹ hơn hoặc dùng link ảnh để không bị đầy bộ nhớ.');
+                return;
+            }
 
-            alert('Thêm sản phẩm mới thành công!');
+            alert(editingProductId ? 'Cập nhật sản phẩm thành công!' : 'Thêm sản phẩm mới thành công!');
             closeModal();
             
             // Reset Form & Image Picker
@@ -1333,7 +1740,15 @@
             if (confirm('Bạn có chắc chắn muốn xóa sản phẩm này?')) {
                 let list = getProductsList();
                 list = list.filter(p => p.id !== id);
-                localStorage.setItem('vietshop_custom_products', JSON.stringify(list));
+                localStorage.setItem('kbclaza_custom_products', JSON.stringify(list));
+                
+                const deletedProductsStr = localStorage.getItem('kbclaza_deleted_products');
+                const deletedProducts = deletedProductsStr ? JSON.parse(deletedProductsStr) : [];
+                if (!deletedProducts.includes(id)) {
+                    deletedProducts.push(id);
+                    localStorage.setItem('kbclaza_deleted_products', JSON.stringify(deletedProducts));
+                }
+                
                 renderAdminProducts();
             }
         }
@@ -1343,7 +1758,7 @@
             'lua': {
                 logoText: 'Thực Liên Silk - Lụa Nha Xá',
                 heroTitle: 'Lụa Tơ Tằm Nha Xá Đích Thực',
-                heroDesc: '100% tơ tằm tự nhiên cao cấp, dệt thủ công dưới đôi bàn tay tài hoa của nghệ nhân Kim Bảo. Sang trọng, rủ nhẹ và an toàn tuyệt đối cho làn da.',
+                heroDesc: 'Kế thừa tinh hoa từ làng nghề Nha Xá trăm năm, 𝗧𝗵𝘂̛̣𝗰 𝗟𝗶𝗲̂𝗻 𝗦𝗶𝗹𝗸 tự hào mang đến những thước Lụa Tơ Tằm nguyên bản và dịch vụ may đo cao cấp. Với lợi thế là xưởng sản xuất trực tiếp, chúng tôi cam kết mang lại chất lượng thượng hạng cùng mức giá tận gốc, tôn vinh trọn vẹn nét duyên dáng của bạn.',
                 heroImg: 'https://images.unsplash.com/photo-1583089892943-e02e5b017b6a?w=800&auto=format&fit=crop&q=80'
             },
             'crafts': {
@@ -1424,6 +1839,8 @@
         const libModalOverlay = document.getElementById('imageLibraryModal');
         
         function openModal() {
+            editingProductId = null;
+            document.querySelector('#productModal .modal-header h3').innerText = 'Thêm Sản Phẩm Mới';
             document.getElementById('addProductForm').reset();
             removePickedImage('prodImgSrc', 'prodImgPreview', 'prodImgPlaceholder', 'prodImgUrl');
             modalOverlay.classList.add('active');
@@ -1492,6 +1909,262 @@
             }
         });
 
+        // --- CATEGORY MANAGEMENT ---
+        const defaultCategories = [
+            { id: 'clothes', name: 'Quần áo', icon: 'fa-solid fa-shirt' },
+            { id: 'food', name: 'Thực phẩm', icon: 'fa-solid fa-bowl-food' },
+            { id: 'cosmetics', name: 'Mỹ phẩm', icon: 'fa-solid fa-spa' },
+            { id: 'silk', name: 'Lụa', icon: 'fa-solid fa-scroll' },
+            { id: 'crafts', name: 'Thủ công', icon: 'fa-solid fa-palette' },
+            { id: 'decor', name: 'Nội thất', icon: 'fa-solid fa-house' }
+        ];
+
+        function getCategoriesList() {
+            const listStr = localStorage.getItem('kbclaza_categories');
+            return listStr ? JSON.parse(listStr) : [];
+        }
+
+        function getMergedCategories() {
+            const custom = getCategoriesList();
+            const merged = [...defaultCategories];
+            custom.forEach(cc => {
+                const idx = merged.findIndex(c => c.id === cc.id);
+                if (idx !== -1) merged[idx] = cc;
+                else merged.push(cc);
+            });
+            return merged;
+        }
+
+        function renderAdminCategories() {
+            const allCategories = getMergedCategories();
+            const tbody = document.getElementById('adminCategoriesTableBody');
+            if (!tbody) return;
+            tbody.innerHTML = '';
+
+            allCategories.forEach(cat => {
+                const isDefault = defaultCategories.some(dc => dc.id === cat.id);
+                const tr = document.createElement('tr');
+                tr.innerHTML = `
+                    <td><i class="${cat.icon}" style="font-size:20px; color:var(--primary);"></i></td>
+                    <td><strong>${cat.name}</strong></td>
+                    <td>${cat.id}</td>
+                    <td>
+                        <div class="action-btns">
+                            <button class="btn-icon" title="Sửa danh mục" onclick="editCategory('${cat.id}')"><i class="fa-regular fa-pen-to-square"></i></button>
+                            ${!isDefault ? `
+                                <button class="btn-icon delete" title="Xóa danh mục" onclick="deleteCategory('${cat.id}')"><i class="fa-regular fa-trash-can"></i></button>
+                            ` : ''}
+                        </div>
+                    </td>
+                `;
+                tbody.appendChild(tr);
+            });
+        }
+
+        let editingCategoryId = null;
+
+        function openCategoryModal() {
+            editingCategoryId = null;
+            document.getElementById('categoryForm').reset();
+            document.getElementById('catIdInput').readOnly = false;
+            document.querySelector('#categoryModal .modal-header h3').innerText = 'Thêm Danh Mục Mới';
+            document.getElementById('categoryModal').classList.add('active');
+        }
+
+        function closeCategoryModal() {
+            document.getElementById('categoryModal').classList.remove('active');
+        }
+
+        function editCategory(id) {
+            const allCategories = getMergedCategories();
+            const cat = allCategories.find(c => c.id === id);
+            if (!cat) return;
+
+            editingCategoryId = id;
+            document.querySelector('#categoryModal .modal-header h3').innerText = 'Sửa Danh Mục';
+            
+            document.getElementById('catName').value = cat.name;
+            document.getElementById('catIdInput').value = cat.id;
+            document.getElementById('catIdInput').readOnly = true; // don't change ID of existing category
+            document.getElementById('catIcon').value = cat.icon;
+            
+            document.getElementById('categoryModal').classList.add('active');
+        }
+
+        function saveCategory(e) {
+            e.preventDefault();
+            const newCat = {
+                id: document.getElementById('catIdInput').value,
+                name: document.getElementById('catName').value,
+                icon: document.getElementById('catIcon').value
+            };
+
+            let list = getCategoriesList();
+            const isDefault = defaultCategories.some(dc => dc.id === newCat.id);
+            
+            if (editingCategoryId || isDefault) {
+                const idx = list.findIndex(c => c.id === newCat.id);
+                if (idx !== -1) {
+                    list[idx] = newCat;
+                } else {
+                    list.push(newCat);
+                }
+            } else {
+                list.push(newCat);
+            }
+
+            localStorage.setItem('kbclaza_categories', JSON.stringify(list));
+            renderAdminCategories();
+            closeCategoryModal();
+        }
+
+        function deleteCategory(id) {
+            if(confirm('Bạn có chắc chắn muốn xóa danh mục này?')) {
+                let list = getCategoriesList();
+                list = list.filter(c => c.id !== id);
+                localStorage.setItem('kbclaza_categories', JSON.stringify(list));
+                renderAdminCategories();
+            }
+        }
+
+        // --- ENTERPRISE MANAGEMENT ---
+        const defaultEnterprises = [
+            { id: 'ent-1', name: 'Thực Liên Silk - Lụa Nha Xá', category: 'Lụa tơ tằm', owner: 'Phạm Văn Thực', productsCount: 30, status: 'Đã duyệt', url: 'lua', img: 'https://images.unsplash.com/photo-1583089892943-e02e5b017b6a?w=100&fit=crop' },
+            { id: 'ent-2', name: 'Kỷ Nguyên Gốm Bát Tràng', category: 'Gốm sứ & Mỹ nghệ', owner: 'Nguyễn Văn B', productsCount: 15, status: 'Đã duyệt', url: 'crafts', img: 'https://images.unsplash.com/photo-1612196808214-b8e1d6145a8c?w=100&fit=crop' },
+            { id: 'ent-3', name: 'Mật Ong Tây Bắc', category: 'Thực phẩm & Đặc sản', owner: 'Trần Văn C', productsCount: 12, status: 'Đã duyệt', url: 'organic', img: 'https://images.unsplash.com/photo-1587049352846-4a222e784d38?w=100&fit=crop' },
+            { id: 'ent-4', name: 'Áo Dài Hà Nội', category: 'Quần áo & Thời trang', owner: 'Lê Thị D', productsCount: 8, status: 'Đã duyệt', url: 'aodai', img: 'https://images.unsplash.com/photo-1621184455862-c163dfb30e0f?w=100&fit=crop' }
+        ];
+
+        function getEnterprisesList() {
+            const listStr = localStorage.getItem('kbclaza_enterprises');
+            return listStr ? JSON.parse(listStr) : [];
+        }
+
+        function getMergedEnterprises() {
+            const custom = getEnterprisesList();
+            const merged = [...defaultEnterprises];
+            custom.forEach(ce => {
+                const idx = merged.findIndex(e => e.id === ce.id);
+                if (idx !== -1) merged[idx] = ce;
+                else merged.push(ce);
+            });
+            return merged;
+        }
+
+        function renderAdminEnterprises() {
+            const allEnterprises = getMergedEnterprises();
+            const tbody = document.getElementById('adminEnterprisesTableBody');
+            if (!tbody) return;
+            tbody.innerHTML = '';
+
+            allEnterprises.forEach(ent => {
+                const isDefault = defaultEnterprises.some(de => de.id === ent.id);
+                const tr = document.createElement('tr');
+                tr.innerHTML = `
+                    <td>
+                        <div class="product-cell">
+                            <img src="${ent.img || 'logo_kimbao.png'}" alt="${ent.name}">
+                            <span class="product-name">${ent.name}</span>
+                        </div>
+                    </td>
+                    <td>${ent.category}</td>
+                    <td>${ent.owner}</td>
+                    <td>${ent.productsCount}</td>
+                    <td><span class="badge ${ent.status === 'Đã duyệt' ? 'badge-success' : 'badge-warning'}">${ent.status}</span></td>
+                    <td>
+                        <div class="action-btns">
+                            <button class="btn-icon" title="Sửa doanh nghiệp" onclick="editEnterprise('${ent.id}')"><i class="fa-regular fa-pen-to-square"></i></button>
+                            <button class="btn-icon" title="Cấu hình Landing Page" onclick="openLandingModal('${ent.url}', '${ent.name}')"><i class="fa-solid fa-laptop-code"></i></button>
+                            ${!isDefault ? `
+                                <button class="btn-icon delete" title="Xóa doanh nghiệp" onclick="deleteEnterprise('${ent.id}')"><i class="fa-regular fa-trash-can"></i></button>
+                            ` : ''}
+                        </div>
+                    </td>
+                `;
+                tbody.appendChild(tr);
+            });
+        }
+
+        let editingEnterpriseId = null;
+
+        function openEnterpriseModal() {
+            editingEnterpriseId = null;
+            document.getElementById('enterpriseForm').reset();
+            document.querySelector('#enterpriseModal .modal-header h3').innerText = 'Thêm Doanh Nghiệp Mới';
+            removePickedImage('entImgSrc', 'entImgPreview', 'entImgPlaceholder', 'entImgUrl');
+            document.getElementById('enterpriseModal').classList.add('active');
+        }
+
+        function closeEnterpriseModal() {
+            document.getElementById('enterpriseModal').classList.remove('active');
+        }
+
+        function editEnterprise(id) {
+            const allEnterprises = getMergedEnterprises();
+            const ent = allEnterprises.find(e => e.id === id);
+            if (!ent) return;
+
+            editingEnterpriseId = id;
+            document.querySelector('#enterpriseModal .modal-header h3').innerText = 'Sửa Doanh Nghiệp';
+            
+            document.getElementById('entName').value = ent.name;
+            document.getElementById('entCategory').value = ent.category;
+            document.getElementById('entOwner').value = ent.owner;
+            document.getElementById('entProductsCount').value = ent.productsCount;
+            document.getElementById('entStatus').value = ent.status;
+            document.getElementById('entLandingUrl').value = ent.url;
+            
+            if (ent.img) {
+                document.getElementById('entImgSrc').src = ent.img;
+                document.getElementById('entImgPreview').style.display = 'block';
+                document.getElementById('entImgPlaceholder').style.display = 'none';
+                document.getElementById('entImgUrl').value = ent.img;
+            } else {
+                removePickedImage('entImgSrc', 'entImgPreview', 'entImgPlaceholder', 'entImgUrl');
+            }
+
+            document.getElementById('enterpriseModal').classList.add('active');
+        }
+
+        function saveEnterprise(e) {
+            e.preventDefault();
+            const newEnt = {
+                id: editingEnterpriseId || 'ent_' + Date.now(),
+                name: document.getElementById('entName').value,
+                category: document.getElementById('entCategory').value,
+                owner: document.getElementById('entOwner').value,
+                productsCount: parseInt(document.getElementById('entProductsCount').value) || 0,
+                status: document.getElementById('entStatus').value,
+                url: document.getElementById('entLandingUrl').value,
+                img: document.getElementById('entImgUrl').value
+            };
+
+            let list = getEnterprisesList();
+            if (editingEnterpriseId) {
+                const idx = list.findIndex(ent => ent.id === editingEnterpriseId);
+                if (idx !== -1) {
+                    list[idx] = newEnt;
+                } else {
+                    list.push(newEnt); // Update default
+                }
+            } else {
+                list.push(newEnt);
+            }
+
+            localStorage.setItem('kbclaza_enterprises', JSON.stringify(list));
+            renderAdminEnterprises();
+            closeEnterpriseModal();
+        }
+
+        function deleteEnterprise(id) {
+            if(confirm('Bạn có chắc chắn muốn xóa doanh nghiệp này?')) {
+                let list = getEnterprisesList();
+                list = list.filter(ent => ent.id !== id);
+                localStorage.setItem('kbclaza_enterprises', JSON.stringify(list));
+                renderAdminEnterprises();
+            }
+        }
+
         // --- ORDER MANAGEMENT ---
         const defaultOrders = [
             {
@@ -1519,7 +2192,7 @@
         ];
 
         function getOrdersList() {
-            const listStr = localStorage.getItem('vietshop_orders');
+            const listStr = localStorage.getItem('kbclaza_orders');
             return listStr ? JSON.parse(listStr) : [];
         }
 
@@ -1570,7 +2243,7 @@
             const idx = list.findIndex(o => o.id === id);
             if (idx !== -1) {
                 list[idx].status = 'Hoàn thành';
-                localStorage.setItem('vietshop_orders', JSON.stringify(list));
+                localStorage.setItem('kbclaza_orders', JSON.stringify(list));
                 alert('Đã cập nhật đơn hàng thành Hoàn thành!');
                 renderAdminOrders();
                 return;
@@ -1584,17 +2257,269 @@
             if (confirm('Bạn có chắc chắn muốn xóa đơn hàng này?')) {
                 let list = getOrdersList();
                 list = list.filter(o => o.id !== id);
-                localStorage.setItem('vietshop_orders', JSON.stringify(list));
+                localStorage.setItem('kbclaza_orders', JSON.stringify(list));
                 renderAdminOrders();
             }
         }
 
+        // --- CHAT MANAGEMENT ---
+        let currentChatSession = null;
+        let chatInterval = null;
+
+        function getChats() {
+            const chatsStr = localStorage.getItem('kbclaza_chats');
+            return chatsStr ? JSON.parse(chatsStr) : [];
+        }
+
+        function saveChats(chats) {
+            localStorage.setItem('kbclaza_chats', JSON.stringify(chats));
+        }
+
+        function renderAdminChat() {
+            const role = localStorage.getItem('isAdminLoggedIn');
+            const entId = localStorage.getItem('currentEnterpriseId');
+            
+            let chats = getChats();
+            
+            // Filter chats for this enterprise if not super admin
+            if (role === 'enterprise' && entId) {
+                chats = chats.filter(c => c.enterpriseId === entId);
+            }
+
+            const listEl = document.getElementById('adminChatList');
+            if(!listEl) return;
+            
+            listEl.innerHTML = '';
+
+            if (chats.length === 0) {
+                listEl.innerHTML = '<div style="padding: 16px; color: var(--text-muted); text-align: center;">Chưa có tin nhắn nào.</div>';
+                return;
+            }
+
+            // Sort by latest message
+            chats.sort((a, b) => {
+                const timeA = a.messages.length > 0 ? a.messages[a.messages.length - 1].timestamp : 0;
+                const timeB = b.messages.length > 0 ? b.messages[b.messages.length - 1].timestamp : 0;
+                return timeB - timeA;
+            });
+
+            chats.forEach(chat => {
+                const latestMsg = chat.messages.length > 0 ? chat.messages[chat.messages.length - 1] : null;
+                let preview = latestMsg ? (latestMsg.sender === 'admin' ? 'Bạn: ' : '') + latestMsg.text : 'Bắt đầu trò chuyện';
+                
+                // Truncate
+                if(preview.length > 30) preview = preview.substring(0, 30) + '...';
+
+                const div = document.createElement('div');
+                div.style.padding = '12px 16px';
+                div.style.borderBottom = '1px solid var(--border-color)';
+                div.style.cursor = 'pointer';
+                div.style.transition = 'background 0.2s';
+                
+                if (currentChatSession === chat.id) {
+                    div.style.backgroundColor = 'var(--primary-light)';
+                    div.style.borderLeft = '4px solid var(--primary)';
+                } else {
+                    div.style.borderLeft = '4px solid transparent';
+                    div.onmouseover = () => div.style.backgroundColor = '#f8f9fa';
+                    div.onmouseout = () => div.style.backgroundColor = 'transparent';
+                }
+
+                div.onclick = () => selectAdminChat(chat.id);
+
+                div.innerHTML = `
+                    <div style="font-weight: 600; font-size: 14px; margin-bottom: 4px;">Khách: ${chat.customerName}</div>
+                    <div style="font-size: 13px; color: var(--text-muted);">${preview}</div>
+                `;
+                listEl.appendChild(div);
+            });
+            
+            // Re-render messages if a chat is selected
+            if (currentChatSession) {
+                renderAdminChatMessages();
+            }
+        }
+
+        function selectAdminChat(chatId) {
+            currentChatSession = chatId;
+            document.getElementById('adminChatInput').disabled = false;
+            document.getElementById('adminChatBtn').disabled = false;
+            
+            const chats = getChats();
+            const chat = chats.find(c => c.id === chatId);
+            if(chat) {
+                document.getElementById('adminChatHeader').innerText = 'Đang chat với: ' + chat.customerName;
+            }
+            
+            renderAdminChat(); // Re-render list to highlight
+        }
+
+        function renderAdminChatMessages() {
+            const chats = getChats();
+            const chat = chats.find(c => c.id === currentChatSession);
+            const msgsEl = document.getElementById('adminChatMessages');
+            if(!msgsEl || !chat) return;
+            
+            msgsEl.innerHTML = '';
+            
+            chat.messages.forEach(msg => {
+                const isAdmin = msg.sender === 'admin';
+                const div = document.createElement('div');
+                div.style.display = 'flex';
+                div.style.flexDirection = 'column';
+                div.style.alignItems = isAdmin ? 'flex-end' : 'flex-start';
+                div.style.marginBottom = '8px';
+                
+                div.innerHTML = `
+                    <div style="max-width: 70%; padding: 10px 14px; border-radius: 12px; font-size: 14px; ${isAdmin ? 'background: var(--primary); color: white; border-bottom-right-radius: 4px;' : 'background: #e2e8f0; color: var(--text-dark); border-bottom-left-radius: 4px;'}">
+                        ${msg.text}
+                    </div>
+                    <div style="font-size: 11px; color: var(--text-muted); margin-top: 4px; padding: 0 4px;">
+                        ${new Date(msg.timestamp).toLocaleTimeString('vi-VN', {hour: '2-digit', minute:'2-digit'})}
+                    </div>
+                `;
+                msgsEl.appendChild(div);
+            });
+            
+            // Auto scroll to bottom
+            msgsEl.scrollTop = msgsEl.scrollHeight;
+        }
+
+        function sendAdminMessage() {
+            const input = document.getElementById('adminChatInput');
+            const text = input.value.trim();
+            if(!text || !currentChatSession) return;
+            
+            const chats = getChats();
+            const chat = chats.find(c => c.id === currentChatSession);
+            if(chat) {
+                chat.messages.push({
+                    sender: 'admin',
+                    text: text,
+                    timestamp: Date.now()
+                });
+                saveChats(chats);
+                input.value = '';
+                renderAdminChat();
+            }
+        }
+
+        // Modified render functions to respect RBAC
+        const originalRenderAdminProducts = renderAdminProducts;
+        renderAdminProducts = function() {
+            const role = localStorage.getItem('isAdminLoggedIn');
+            const entId = localStorage.getItem('currentEnterpriseId');
+            
+            if (role === 'enterprise' && entId) {
+                // Determine supplier name based on entId
+                const ents = getMergedEnterprises();
+                const myEnt = ents.find(e => e.url === entId || e.id === entId);
+                if (myEnt) {
+                    activeSupplierFilter = myEnt.name; // Force filter
+                    // Hide filter UI so they can't change it
+                    const filterContainer = document.getElementById('filterContainer');
+                    if(filterContainer) filterContainer.style.display = 'none';
+                }
+            }
+            originalRenderAdminProducts();
+        };
+
+        const originalRenderAdminOrders = renderAdminOrders;
+        renderAdminOrders = function() {
+            const role = localStorage.getItem('isAdminLoggedIn');
+            const entId = localStorage.getItem('currentEnterpriseId');
+            
+            let customOrders = getOrdersList();
+            let allOrders = defaultOrders.concat(customOrders);
+            
+            if (role === 'enterprise' && entId) {
+                const ents = getMergedEnterprises();
+                const myEnt = ents.find(e => e.url === entId || e.id === entId);
+                if (myEnt) {
+                    allOrders = allOrders.filter(o => o.supplier === myEnt.name);
+                }
+            }
+
+            const tbody = document.getElementById('adminOrdersTableBody');
+            tbody.innerHTML = '';
+
+            allOrders.forEach(o => {
+                const isCustom = o.id.toString().startsWith('#VS-');
+                let badgeClass = 'badge-warning';
+                if (o.status === 'Hoàn thành') badgeClass = 'badge-success';
+                else if (o.status === 'Đã thanh toán') badgeClass = 'badge-info';
+                else if (o.status === 'Đang giao') badgeClass = 'badge-info';
+
+                const tr = document.createElement('tr');
+                tr.innerHTML = `
+                    <td><strong>${o.id}</strong></td>
+                    <td>
+                        <div><strong>${o.customer}</strong></div>
+                        <div style="font-size:12px; color:var(--text-muted);">${o.phone}</div>
+                        <div style="font-size:12px; color:var(--text-muted);">${o.address}</div>
+                    </td>
+                    <td>${o.products}</td>
+                    <td>${o.supplier}</td>
+                    <td>${o.total}</td>
+                    <td><span class="badge ${badgeClass}">${o.status}</span></td>
+                    <td>
+                        <div class="action-btns">
+                            ${o.status !== 'Hoàn thành' ? `
+                                <button class="btn-icon" title="Duyệt đơn / Hoàn thành" onclick="approveOrder('${o.id}')"><i class="fa-solid fa-check"></i></button>
+                            ` : ''}
+                            ${isCustom && !o.id.toString().startsWith('#VS-00') ? `
+                                <button class="btn-icon delete" title="Xóa đơn hàng" onclick="deleteOrder('${o.id}')"><i class="fa-regular fa-trash-can"></i></button>
+                            ` : ''}
+                        </div>
+                    </td>
+                `;
+                tbody.appendChild(tr);
+            });
+        };
+
         // --- ON INITIALIZE ---
         window.addEventListener('DOMContentLoaded', () => {
+            const role = localStorage.getItem('isAdminLoggedIn');
+            
+            if (!role) {
+                window.location.href = 'admin-login.html';
+                return;
+            }
+
+            // RBAC Enforcement
+            if (role === 'enterprise') {
+                // Hide features enterprise admins shouldn't see
+                document.getElementById('menu-item-dashboard').style.display = 'none';
+                document.getElementById('menu-item-users').style.display = 'none';
+                document.getElementById('menu-item-categories').style.display = 'none';
+                document.getElementById('menu-item-enterprises').style.display = 'none';
+                document.getElementById('menu-group-resources').style.display = 'none';
+                document.getElementById('menu-item-media').style.display = 'none';
+                document.getElementById('menu-item-settings').style.display = 'none';
+                
+                // Default to Chat tab
+                switchTab('chat', document.getElementById('menu-item-chat'));
+            } else {
+                // Super Admin should not see enterprise chat
+                const chatMenuItem = document.getElementById('menu-item-chat');
+                if (chatMenuItem) chatMenuItem.style.display = 'none';
+            }
+
             renderAdminProducts();
+            renderAdminCategories();
+            renderAdminEnterprises();
             renderAdminOrders();
+            renderAdminChat();
+            
+            // Poll for chat updates
+            chatInterval = setInterval(() => {
+                if(document.getElementById('view-chat').classList.contains('active')) {
+                    renderAdminChat();
+                }
+            }, 2000);
         });
     </script>
 
 </body>
 </html>
+

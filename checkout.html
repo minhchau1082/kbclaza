@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Thanh Toán - Thực Liên Silk | VietShop</title>
+    <title>Thanh Toán - Thực Liên Silk | KBCLAZA</title>
     <link href="https://fonts.googleapis.com/css2?family=Be+Vietnam+Pro:wght@300;400;500;600;700&family=Playfair+Display:ital,wght@0,600;0,700;1,600&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
@@ -409,13 +409,26 @@
             .sidebar::before { display: none; }
         }
     </style>
+
+    <script>
+        // Migrate old VietShop/KBC localStorage data to KBCLAZA
+        (function() {
+            const keys = ['cart', 'custom_products', 'deleted_products', 'categories', 'enterprises', 'orders', 'deleted_enterprises'];
+            keys.forEach(key => {
+                let oldData = localStorage.getItem('kbcshop_' + key) || localStorage.getItem('vietshop_' + key);
+                if (oldData && !localStorage.getItem('kbclaza_' + key)) {
+                    localStorage.setItem('kbclaza_' + key, oldData);
+                }
+            });
+        })();
+    </script>
 </head>
 <body>
 
     <div class="checkout-container">
         <!-- LEFT COLUMN -->
         <main class="main-content">
-            <a href="vietshop-marketplace.html" class="header-logo">
+            <a href="kbclaza-marketplace.html" class="header-logo">
                 <img src="LOGO_KIMBAO (2).png" alt="Kim Bảo" style="height: 50px; object-fit: contain;">
             </a>
 
@@ -703,7 +716,7 @@
         // Load cart from localStorage
         function loadCart() {
             const cartList = document.getElementById('checkoutProductList');
-            let cart = JSON.parse(localStorage.getItem('vietshop_cart')) || [];
+            let cart = JSON.parse(localStorage.getItem('kbclaza_cart')) || [];
             
             if (cart.length === 0) {
                 // Auto-populate a default test item to prevent empty cart blocking
@@ -713,7 +726,7 @@
                     img: "https://images.unsplash.com/photo-1596464716127-f2a82984de30?w=100&fit=crop",
                     spec: "4 mét"
                 }];
-                localStorage.setItem('vietshop_cart', JSON.stringify(cart));
+                localStorage.setItem('kbclaza_cart', JSON.stringify(cart));
             }
 
             cartList.innerHTML = '';
@@ -748,9 +761,9 @@
         }
 
         function removeItem(index) {
-            let cart = JSON.parse(localStorage.getItem('vietshop_cart')) || [];
+            let cart = JSON.parse(localStorage.getItem('kbclaza_cart')) || [];
             cart.splice(index, 1);
-            localStorage.setItem('vietshop_cart', JSON.stringify(cart));
+            localStorage.setItem('kbclaza_cart', JSON.stringify(cart));
             loadCart();
         }
 
@@ -766,7 +779,7 @@
             const customerName = (lastName + ' ' + firstName).trim() || contact;
             const fullAddress = `${address}${apartment ? ', ' + apartment : ''}, ${city}`;
 
-            let cart = JSON.parse(localStorage.getItem('vietshop_cart')) || [];
+            let cart = JSON.parse(localStorage.getItem('kbclaza_cart')) || [];
             const productsListStr = cart.map(item => `${item.name} (${item.spec})`).join(', ');
 
             let supplier = 'Thực Liên Silk';
@@ -795,9 +808,9 @@
                 status: status
             };
 
-            let orders = JSON.parse(localStorage.getItem('vietshop_orders')) || [];
+            let orders = JSON.parse(localStorage.getItem('kbclaza_orders')) || [];
             orders.unshift(newOrder);
-            localStorage.setItem('vietshop_orders', JSON.stringify(orders));
+            localStorage.setItem('kbclaza_orders', JSON.stringify(orders));
         }
 
         // Handle checkout button
@@ -836,7 +849,7 @@
             }
 
             // Check if cart is empty
-            let cart = JSON.parse(localStorage.getItem('vietshop_cart')) || [];
+            let cart = JSON.parse(localStorage.getItem('kbclaza_cart')) || [];
             if (cart.length === 0) {
                 alert('Giỏ hàng của bạn đang trống!');
                 return;
@@ -848,8 +861,8 @@
             if (isPickup) {
                 saveOrderToLocalStorage(orderId, 'COD', 'Chờ xử lý');
                 alert('Đặt hàng thành công! Vui lòng đến trực tiếp cửa hàng Kim Bảo để nhận hàng và thanh toán nhé.');
-                localStorage.removeItem('vietshop_cart'); // Clear cart
-                window.location.href = 'vietshop-marketplace.html';
+                localStorage.removeItem('kbclaza_cart'); // Clear cart
+                window.location.href = 'kbclaza-marketplace.html';
                 return;
             }
 
@@ -879,8 +892,8 @@
                 // Handle COD
                 saveOrderToLocalStorage(orderId, 'COD', 'Chờ xử lý');
                 alert('Đặt hàng thành công! Vui lòng thanh toán khi nhận hàng. Đơn hàng của bạn đã được lưu lại hệ thống.');
-                localStorage.removeItem('vietshop_cart'); // Clear cart
-                window.location.href = 'vietshop-marketplace.html';
+                localStorage.removeItem('kbclaza_cart'); // Clear cart
+                window.location.href = 'kbclaza-marketplace.html';
             }
         }
 
@@ -942,8 +955,8 @@
             if (!activeOrderId) return;
             saveOrderToLocalStorage(activeOrderId, 'SePay', 'Đã thanh toán');
             alert('SePay Webhook: Đã nhận thanh toán thành công! Đơn hàng của bạn đã được lưu lại hệ thống.');
-            localStorage.removeItem('vietshop_cart'); // Clear cart
-            window.location.href = 'vietshop-marketplace.html';
+            localStorage.removeItem('kbclaza_cart'); // Clear cart
+            window.location.href = 'kbclaza-marketplace.html';
         }
 
         // Initialize cart on load
@@ -953,3 +966,4 @@
     </script>
 </body>
 </html>
+

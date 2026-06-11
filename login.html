@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Đăng nhập — ViệtShop & Kim Bao KBC</title>
+    <title>Đăng nhập — KBCLAZA & Kim Bao KBC</title>
     <link href="https://fonts.googleapis.com/css2?family=Be+Vietnam+Pro:wght@300;400;500;600;700;800&family=Playfair+Display:ital,wght@0,600;0,700;1,600&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
@@ -439,26 +439,32 @@
             }
         }
     </style>
+
+    <script>
+        // Migrate old VietShop/KBC localStorage data to KBCLAZA
+        (function() {
+            const keys = ['cart', 'custom_products', 'deleted_products', 'categories', 'enterprises', 'orders', 'deleted_enterprises'];
+            keys.forEach(key => {
+                let oldData = localStorage.getItem('kbcshop_' + key) || localStorage.getItem('vietshop_' + key);
+                if (oldData && !localStorage.getItem('kbclaza_' + key)) {
+                    localStorage.setItem('kbclaza_' + key, oldData);
+                }
+            });
+        })();
+    </script>
 </head>
 <body>
 
 <div class="login-fullscreen-container">
     <!-- Left Panel -->
     <div class="login-left-panel">
-        <a href="vietshop-marketplace.html" class="back-to-home">
+        <a href="kbclaza-marketplace.html" class="back-to-home">
             <i class="fa-solid fa-arrow-left"></i> Quay lại cửa hàng
         </a>
         
         <div class="kbc-logo-header">
             <div class="kbc-logo-img">
-                <svg viewBox="0 0 120 120" width="56" height="56">
-                    <path d="M 60 20 C 70 40, 85 45, 95 60 C 105 75, 90 95, 60 95 C 30 95, 15 75, 25 60 C 35 45, 50 40, 60 20 Z" fill="#1a6b3a" />
-                    <path d="M 60 30 C 68 45, 80 50, 88 62 C 95 72, 85 88, 60 88 C 35 88, 25 72, 32 62 C 40 50, 52 45, 60 30 Z" fill="#fff" />
-                    <path d="M 35 70 Q 60 90 85 70" fill="none" stroke="#c0392b" stroke-width="8" stroke-linecap="round" />
-                    <circle cx="60" cy="55" r="12" fill="#f0a500" />
-                    <rect x="30" y="88" width="60" height="18" rx="4" fill="#1a6b3a"/>
-                    <text x="60" y="100" text-anchor="middle" fill="#fff" font-size="9" font-weight="800" font-family="sans-serif">VIETSHOP</text>
-                </svg>
+                <img src="logo_kimbao.png" alt="Kim Bảo" style="height: 56px; width: auto; display: block; object-fit: contain;">
             </div>
             <div class="kbc-logo-text">
                 <h3 style="font-family: 'Playfair Display', serif; font-size: 24px; color: var(--primary);">Việt<span style="color: var(--accent);">Shop</span></h3>
@@ -505,7 +511,7 @@
                 <div class="kbc-feat-icon"><i class="fa-solid fa-circle-check"></i></div>
                 <div>
                     <h4>Cam Kết Chính Hãng & Xác Thực</h4>
-                    <p>Mỗi sản phẩm, gian hàng xuất hiện trên ViệtShop đều được xác minh rõ ràng về nguồn gốc xuất xứ và kiểm định chất lượng.</p>
+                    <p>Mỗi sản phẩm, gian hàng xuất hiện trên KBCLAZA đều được xác minh rõ ràng về nguồn gốc xuất xứ và kiểm định chất lượng.</p>
                 </div>
             </div>
         </div>
@@ -558,16 +564,30 @@
 
     function handleLoginSubmit(e) {
         e.preventDefault();
-        const email = document.getElementById('loginEmail').value;
-        const pass = document.getElementById('loginPassword').value;
+        const email = document.getElementById('loginEmail').value.trim().toLowerCase();
+        const pass = document.getElementById('loginPassword').value.trim();
         
         if (email === 'admin' && pass === '123456') {
             localStorage.setItem('isAdminLoggedIn', 'true');
+            localStorage.removeItem('currentEnterpriseId');
             window.location.href = 'admin.html';
+        } else if (pass === '123456') {
+            let enterprises = [];
+            try { enterprises = JSON.parse(localStorage.getItem('kbclaza_enterprises')) || []; } catch(e) {}
+            const validEnt = enterprises.find(ent => ent.url === email) || (email === 'lua' ? { url: 'lua', name: 'Lụa Nha Xá' } : null);
+            if (validEnt) {
+                localStorage.setItem('isAdminLoggedIn', 'enterprise');
+                localStorage.setItem('currentEnterpriseId', validEnt.url);
+                window.location.href = 'admin.html';
+            } else if (email && pass) {
+                localStorage.setItem('isLoggedIn', 'true');
+                localStorage.setItem('justLoggedIn', 'true');
+                window.location.href = 'kbclaza-marketplace.html';
+            }
         } else if (email && pass) {
             localStorage.setItem('isLoggedIn', 'true');
             localStorage.setItem('justLoggedIn', 'true'); // Flag to show toast back on marketplace
-            window.location.href = 'vietshop-marketplace.html';
+            window.location.href = 'kbclaza-marketplace.html';
         }
     }
 
@@ -634,3 +654,4 @@
 
 </body>
 </html>
+

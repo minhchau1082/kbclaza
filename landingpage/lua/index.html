@@ -11,19 +11,23 @@
     
     <style>
         :root {
-            --primary: #7a0621;
-            --primary-hover: #5e0419;
-            --primary-light: #fbeee8;
-            --accent: #3d7c47;
-            --accent-light: #eaf4ec;
-            --bg-cream: #fdfaf4;
+            --primary: #721121;
+            --primary-hover: #4b0913;
+            --primary-light: #f9ecee;
+            --accent: #c5a059;
+            --accent-light: #fbf5e9;
+            --bg-cream: #fdfbf7;
             --bg-white: #ffffff;
-            --text-dark: #2d2424;
-            --text-muted: #6b5c5c;
-            --border-color: #ebdcd6;
+            --text-dark: #1a1111;
+            --text-muted: #4a3838;
+            --border-color: #eedddf;
             --gold: #d4af37;
-            --shadow: rgba(122, 6, 33, 0.08);
-            --transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            --shadow: rgba(114, 17, 33, 0.12);
+            --transition: all 0.35s cubic-bezier(0.4, 0, 0.2, 1);
+            
+            /* Silk / Traditional Pattern */
+            --pattern-opacity: 0.04;
+            --bg-pattern: url("data:image/svg+xml,%3Csvg width='40' height='40' viewBox='0 0 40 40' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M20 20.5V18H0v-2h20v-2H0v-2h20v-2H0V8h20V6H0V4h20V2H0V0h22v20h2V0h2v20h2V0h2v20h2V0h2v20h2V0h2v20h2v2H20v-1.5zM0 20h2v20H0V20zm4 0h2v20H4V20zm4 0h2v20H8V20zm4 0h2v20h-2V20zm4 0h2v20h-2V20zm4 4h20v2H20v-2zm0 4h20v2H20v-2zm0 4h20v2H20v-2zm0 4h20v2H20v-2z' fill='%23721121' fill-opacity='0.05' fill-rule='evenodd'/%3E%3C/svg%3E");
         }
 
         * {
@@ -38,6 +42,7 @@
             color: var(--text-dark);
             line-height: 1.6;
             overflow-x: hidden;
+            font-weight: 500;
         }
 
         /* Utility classes */
@@ -169,8 +174,10 @@
         /* HERO SECTION (Image 1) */
         .hero {
             padding: 60px 0 80px;
-            background: linear-gradient(135deg, #fffcfb 0%, #fdf5f2 100%);
+            background: linear-gradient(135deg, #fffcfb 0%, #fdf5f2 100%), var(--bg-pattern);
+            background-blend-mode: overlay;
             overflow: hidden;
+            position: relative;
         }
 
         .hero .container {
@@ -255,8 +262,9 @@
             position: relative;
             border-radius: 24px;
             overflow: hidden;
-            box-shadow: 0 20px 40px rgba(0,0,0,0.06);
+            box-shadow: 0 25px 50px rgba(114, 17, 33, 0.15);
             aspect-ratio: 1 / 1;
+            border: 8px solid white;
         }
 
         .hero-image {
@@ -274,6 +282,9 @@
         .catalog {
             padding: 80px 0;
             background-color: var(--bg-white);
+            background-image: linear-gradient(rgba(255, 255, 255, 0.85), rgba(255, 255, 255, 0.85)), url('silk-bg-1.png');
+            background-repeat: repeat;
+            background-blend-mode: normal;
         }
 
         .section-header {
@@ -324,6 +335,20 @@
             border-color: var(--primary);
             color: var(--bg-white);
             box-shadow: 0 4px 12px rgba(122, 6, 33, 0.2);
+        }
+
+        .hidden-tab {
+            display: none;
+        }
+
+        .tab-filters.expanded .hidden-tab {
+            display: inline-block;
+            animation: fadeIn 0.3s ease;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(-5px); }
+            to { opacity: 1; transform: translateY(0); }
         }
 
         .product-grid {
@@ -417,6 +442,9 @@
         /* MAGAZINE & TRUST SECTION (Image 3) */
         .trust-section {
             background-color: var(--bg-cream);
+            background-image: linear-gradient(rgba(253, 251, 247, 0.85), rgba(253, 251, 247, 0.85)), url('silk-bg-2.png');
+            background-repeat: repeat;
+            background-blend-mode: normal;
             padding: 0 0 80px;
             overflow: hidden;
         }
@@ -473,11 +501,12 @@
             max-width: 750px;
             margin: 60px auto 0;
             text-align: center;
-            background-color: var(--bg-white);
+            background-color: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(10px);
             padding: 48px;
             border-radius: 24px;
-            box-shadow: 0 10px 40px rgba(122, 6, 33, 0.04);
-            border: 1px solid #f6f0ec;
+            box-shadow: 0 15px 50px rgba(114, 17, 33, 0.08);
+            border: 1px solid rgba(255,255,255,0.8);
         }
 
         .trust-content h3 {
@@ -569,6 +598,9 @@
         .comparison {
             padding: 80px 0;
             background-color: var(--bg-white);
+            background-image: linear-gradient(rgba(255, 255, 255, 0.85), rgba(255, 255, 255, 0.85)), url('silk-bg-3.png');
+            background-repeat: repeat;
+            background-blend-mode: normal;
         }
 
         .comparison-header {
@@ -643,8 +675,12 @@
         /* BRAND VALUES SECTION (Image 5) */
         .brand-values {
             padding: 80px 0;
-            background-color: var(--bg-white);
+            background-color: var(--bg-cream);
+            background-image: linear-gradient(rgba(253, 251, 247, 0.85), rgba(253, 251, 247, 0.85)), url('silk-bg-4.png');
+            background-repeat: repeat;
+            background-blend-mode: normal;
             border-top: 1px solid #f6f0ec;
+            position: relative;
         }
 
         .brand-values-header {
@@ -743,6 +779,69 @@
 
         .brand-values-cta .trust-shipping-pills {
             margin-top: 20px;
+        }
+
+        /* BRAND STORY SECTION */
+        .brand-story {
+            padding: 80px 0;
+            background-color: var(--bg-white);
+            border-top: 1px solid #f6f0ec;
+        }
+
+        .story-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 60px;
+            align-items: center;
+        }
+
+        .story-image-box {
+            border-radius: 20px;
+            overflow: hidden;
+            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.08);
+            position: relative;
+        }
+
+        .story-image-box img {
+            width: 100%;
+            height: auto;
+            display: block;
+            object-fit: cover;
+            aspect-ratio: 4 / 3;
+            transition: var(--transition);
+        }
+
+        .story-image-box:hover img {
+            transform: scale(1.05);
+        }
+
+        .story-content h2 {
+            font-size: 32px;
+            font-weight: 800;
+            color: var(--text-dark);
+            margin-bottom: 16px;
+            line-height: 1.3;
+        }
+
+        .story-content h2 span {
+            color: var(--primary);
+            font-family: 'Playfair Display', serif;
+            font-style: italic;
+        }
+
+        .story-content p {
+            font-size: 15px;
+            color: var(--text-muted);
+            line-height: 1.8;
+            margin-bottom: 20px;
+            font-weight: 500;
+        }
+
+        @media (max-width: 900px) {
+            .story-grid {
+                grid-template-columns: 1fr;
+                gap: 40px;
+            }
         }
 
         /* Footer */
@@ -998,7 +1097,303 @@
                 padding: 24px;
             }
         }
+
+        /* Scroll Animations */
+        .animate-on-scroll {
+            opacity: 0;
+            transform: translateY(30px);
+            transition: opacity 0.8s ease-out, transform 0.8s ease-out;
+            will-change: opacity, transform;
+        }
+
+        .animate-on-scroll.is-visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+        /* --- COMPANY INTRO SUBPAGE --- */
+        #companyIntroContent {
+            background-color: var(--bg-cream);
+            background-image: linear-gradient(rgba(253, 251, 247, 0.95), rgba(253, 251, 247, 0.95)), url('silk-bg-2.png');
+            background-repeat: repeat;
+            padding-bottom: 80px;
+        }
+
+        .intro-header {
+            text-align: center;
+            padding: 60px 0 40px;
+        }
+
+        .intro-header h1 {
+            font-size: 36px;
+            font-weight: 800;
+            color: var(--text-dark);
+            margin-bottom: 16px;
+        }
+        
+        .intro-header h1 span {
+            color: var(--primary);
+            font-family: 'Playfair Display', serif;
+            font-style: italic;
+        }
+
+        .intro-top-grid {
+            display: grid;
+            grid-template-columns: 1fr 2fr;
+            gap: 40px;
+            align-items: center;
+            margin-bottom: 80px;
+            background: var(--bg-white);
+            padding: 40px;
+            border-radius: 20px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.03);
+            border: 1px solid var(--border-color);
+        }
+
+        .intro-logo-box {
+            text-align: center;
+            padding: 30px;
+            border: 1px solid var(--border-color);
+            border-radius: 16px;
+            background: var(--bg-cream);
+        }
+
+        .intro-logo-box .logo-text {
+            font-family: 'Be Vietnam Pro', sans-serif;
+            font-weight: 800;
+            font-size: 28px;
+            color: var(--primary);
+            letter-spacing: -0.5px;
+        }
+        
+        .intro-logo-box .logo-sub {
+            font-family: 'Playfair Display', serif;
+            font-style: italic;
+            color: var(--gold);
+            font-size: 16px;
+        }
+
+        .intro-text p {
+            font-size: 15px;
+            color: var(--text-muted);
+            line-height: 1.8;
+            margin-bottom: 16px;
+            font-weight: 500;
+        }
+
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 24px;
+            margin-bottom: 80px;
+        }
+
+        .stat-card {
+            background: var(--bg-white);
+            padding: 30px 20px;
+            border-radius: 16px;
+            text-align: center;
+            border: 1px solid var(--border-color);
+            box-shadow: 0 5px 20px rgba(0,0,0,0.02);
+            transition: var(--transition);
+        }
+
+        .stat-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 15px 30px rgba(0,0,0,0.05);
+            border-color: var(--primary);
+        }
+
+        .stat-icon {
+            font-size: 32px;
+            color: var(--primary);
+            margin-bottom: 16px;
+        }
+
+        .stat-card h3 {
+            font-size: 32px;
+            font-weight: 800;
+            color: var(--text-dark);
+            margin-bottom: 8px;
+        }
+        
+        .stat-card p {
+            font-size: 14px;
+            color: var(--text-muted);
+            font-weight: 600;
+        }
+
+        .vision-mission {
+            text-align: center;
+            margin-bottom: 80px;
+        }
+        
+        .vision-mission h2 {
+            font-size: 28px;
+            font-weight: 800;
+            color: var(--text-dark);
+            margin-bottom: 16px;
+        }
+
+        .split-image-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            border-radius: 24px;
+            overflow: hidden;
+            box-shadow: 0 15px 40px rgba(0,0,0,0.08);
+            margin-top: 40px;
+            height: 500px;
+        }
+
+        .split-box {
+            position: relative;
+            background-size: cover;
+            background-position: center;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .split-box::before {
+            content: '';
+            position: absolute;
+            inset: 0;
+            background: linear-gradient(to top, rgba(0,0,0,0.8), rgba(0,0,0,0.2));
+        }
+
+        .split-box h3 {
+            position: relative;
+            color: white;
+            font-size: 36px;
+            font-weight: 800;
+            text-shadow: 0 2px 10px rgba(0,0,0,0.5);
+            font-family: 'Playfair Display', serif;
+        }
+
+        .team-section {
+            text-align: center;
+        }
+
+        .team-section h2 {
+            font-size: 28px;
+            font-weight: 800;
+            color: var(--text-dark);
+            margin-bottom: 40px;
+            position: relative;
+            display: inline-block;
+        }
+
+        .team-section h2::after {
+            content: '';
+            position: absolute;
+            bottom: -10px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 60px;
+            height: 3px;
+            background: var(--primary);
+        }
+
+        .team-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 24px;
+            margin-top: 40px;
+        }
+
+        .team-card {
+            background: var(--bg-white);
+            border-radius: 16px;
+            overflow: hidden;
+            border: 1px solid var(--border-color);
+            transition: var(--transition);
+        }
+
+        .team-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 15px 30px rgba(0,0,0,0.06);
+        }
+
+        .team-img-box {
+            height: 250px;
+            overflow: hidden;
+        }
+
+        .team-img-box img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: var(--transition);
+        }
+
+        .team-card:hover .team-img-box img {
+            transform: scale(1.05);
+        }
+
+        .team-info {
+            padding: 20px;
+        }
+
+        .team-info h4 {
+            font-size: 16px;
+            font-weight: 800;
+            color: var(--text-dark);
+            margin-bottom: 4px;
+        }
+
+        .team-info p {
+            font-size: 13px;
+            color: var(--text-muted);
+        }
+        
+        @media (max-width: 900px) {
+            .intro-top-grid, .split-image-grid {
+                grid-template-columns: 1fr;
+            }
+            .stats-grid, .team-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+        }
+        @media (max-width: 600px) {
+            .stats-grid, .team-grid {
+                grid-template-columns: 1fr;
+            }
+        }
     </style>
+
+    <script>
+        // Migrate old VietShop/KBC localStorage data to KBCLAZA
+        (function() {
+            const keys = ['cart', 'custom_products', 'deleted_products', 'categories', 'enterprises', 'orders', 'deleted_enterprises'];
+            keys.forEach(key => {
+                let oldData = localStorage.getItem('kbcshop_' + key) || localStorage.getItem('vietshop_' + key);
+                if (oldData && !localStorage.getItem('kbclaza_' + key)) {
+                    localStorage.setItem('kbclaza_' + key, oldData);
+                }
+            });
+        })();
+
+        // Intersection Observer for scroll animations
+        document.addEventListener("DOMContentLoaded", function() {
+            const observerOptions = {
+                root: null,
+                rootMargin: '0px',
+                threshold: 0.15
+            };
+
+            const observer = new IntersectionObserver((entries, observer) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.classList.add('is-visible');
+                        observer.unobserve(entry.target);
+                    }
+                });
+            }, observerOptions);
+
+            document.querySelectorAll('.animate-on-scroll').forEach(el => {
+                observer.observe(el);
+            });
+        });
+    </script>
 </head>
 <body>
 
@@ -1019,13 +1414,15 @@
         </div>
     </header>
 
+    <div id="mainLandingContent">
+
     <!-- SECTION 1: HERO (Image 1) -->
     <section class="hero">
         <div class="container">
-            <div class="hero-content">
+            <div class="hero-content animate-on-scroll">
                 <span class="badge-pill">Tôn Vinh Nghệ Dệt Truyền Thống</span>
                 <h1>Lụa Tơ Tằm Nha Xá Đích Thực</h1>
-                <p class="hero-desc">100% tơ tằm tự nhiên cao cấp, dệt thủ công dưới đôi bàn tay tài hoa của nghệ nhân Kim Bảo. Sang trọng, rủ nhẹ và an toàn tuyệt đối cho làn da.</p>
+                <p class="hero-desc">Kế thừa tinh hoa từ làng nghề Nha Xá trăm năm, 𝗧𝗵𝘂̛̣𝗰 𝗟𝗶𝗲̂𝗻 𝗦𝗶𝗹𝗸 tự hào mang đến những thước Lụa Tơ Tằm nguyên bản và dịch vụ may đo cao cấp. Với lợi thế là xưởng sản xuất trực tiếp, chúng tôi cam kết mang lại chất lượng thượng hạng cùng mức giá tận gốc, tôn vinh trọn vẹn nét duyên dáng của bạn.</p>
                 <div class="hero-rating">
                     <div class="stars">
                         <i class="fa-solid fa-star"></i>
@@ -1042,7 +1439,7 @@
                     <span class="trust-item"><i class="fa-solid fa-shield-halved"></i> Kiểm định 100% tơ tằm</span>
                 </div>
             </div>
-            <div class="hero-image-wrapper">
+            <div class="hero-image-wrapper animate-on-scroll">
                 <!-- High-quality image representing a woman in traditional Vietnamese light blue Ao Dai inside a wooden room -->
                 <img src="https://images.unsplash.com/photo-1583089892943-e02e5b017b6a?w=800&auto=format&fit=crop&q=80" alt="Nghệ nhân Thực Liên Silk - Lụa Nha Xá" class="hero-image">
             </div>
@@ -1052,15 +1449,40 @@
     <!-- SECTION 2: CATALOG & FILTERS (Image 2) -->
     <section class="catalog" id="collection">
         <div class="container">
-            <div class="section-header">
+            <div class="section-header animate-on-scroll">
                 <h2>Khám Phá <span>Bộ Sưu Tập</span></h2>
             </div>
             
             <!-- Category Tabs -->
-            <div class="tab-filters">
-                <button class="tab-btn active" onclick="switchCategory('silk-plain', this)">Lụa Trơn Nguyên Bản</button>
-                <button class="tab-btn" onclick="switchCategory('silk-pattern', this)">Lụa Hoa Văn</button>
-                <button class="tab-btn" onclick="switchCategory('ao-dai', this)">Áo Dài May Sẵn</button>
+            <div class="tab-filters" id="categoryTabs">
+                <button class="tab-btn" onclick="switchCategory('vong-lua', this)">Vòng lụa tơ tằm</button>
+                <button class="tab-btn" onclick="switchCategory('ba-ba', this)">Bà ba tơ tằm</button>
+                <button class="tab-btn" onclick="switchCategory('khan-lua', this)">Khăn lụa tơ tằm</button>
+                <button class="tab-btn" onclick="switchCategory('non-lua', this)">Nón lụa tơ tằm</button>
+                <button class="tab-btn" onclick="switchCategory('ao-dai', this)">Áo dài</button>
+                
+                <div style="position: relative; display: inline-block;">
+                    <button class="tab-btn" id="btnMoreTabs" onclick="toggleMoreTabsDropdown(event)" style="border-style: dashed; color: var(--primary);">Xem thêm <i class="fa-solid fa-chevron-down"></i></button>
+                    <div id="moreTabsDropdown" style="display: none; position: absolute; top: 100%; right: 0; background: white; border: 1px solid var(--border-color); border-radius: 8px; z-index: 100; padding: 12px 0; min-width: 220px; box-shadow: 0 10px 25px rgba(0,0,0,0.1); text-align: left; margin-top: 8px;">
+                        <ul style="list-style: none; margin: 0; padding: 0;">
+                            <li><a href="javascript:void(0)" onclick="switchCategory('tho-roi', document.getElementById('btnMoreTabs')); closeMoreTabsDropdown()" style="display: block; padding: 8px 20px; color: var(--text-dark); text-decoration: none; font-size: 14px; transition: 0.2s;" onmouseover="this.style.color='var(--primary)'" onmouseout="this.style.color='var(--text-dark)'"><span style="color: var(--accent); margin-right: 8px;">•</span> Thọ Rơi</a></li>
+                            <li><a href="javascript:void(0)" onclick="switchCategory('lua-vang', document.getElementById('btnMoreTabs')); closeMoreTabsDropdown()" style="display: block; padding: 8px 20px; color: var(--text-dark); text-decoration: none; font-size: 14px; transition: 0.2s;" onmouseover="this.style.color='var(--primary)'" onmouseout="this.style.color='var(--text-dark)'"><span style="color: var(--accent); margin-right: 8px;">•</span> Lụa Vàng</a></li>
+                            <li><a href="javascript:void(0)" onclick="switchCategory('lua-hong', document.getElementById('btnMoreTabs')); closeMoreTabsDropdown()" style="display: block; padding: 8px 20px; color: var(--text-dark); text-decoration: none; font-size: 14px; transition: 0.2s;" onmouseover="this.style.color='var(--primary)'" onmouseout="this.style.color='var(--text-dark)'"><span style="color: var(--accent); margin-right: 8px;">•</span> Lụa Hồng</a></li>
+                            <li><a href="javascript:void(0)" onclick="switchCategory('lua-hoa-cai', document.getElementById('btnMoreTabs')); closeMoreTabsDropdown()" style="display: block; padding: 8px 20px; color: var(--text-dark); text-decoration: none; font-size: 14px; transition: 0.2s;" onmouseover="this.style.color='var(--primary)'" onmouseout="this.style.color='var(--text-dark)'"><span style="color: var(--accent); margin-right: 8px;">•</span> Lụa Hoa Cải</a></li>
+                            <li><a href="javascript:void(0)" onclick="switchCategory('lua-cham-bi', document.getElementById('btnMoreTabs')); closeMoreTabsDropdown()" style="display: block; padding: 8px 20px; color: var(--text-dark); text-decoration: none; font-size: 14px; transition: 0.2s;" onmouseover="this.style.color='var(--primary)'" onmouseout="this.style.color='var(--text-dark)'"><span style="color: var(--accent); margin-right: 8px;">•</span> Lụa Chấm Bi</a></li>
+                            <li><a href="javascript:void(0)" onclick="switchCategory('vai-lua-tron', document.getElementById('btnMoreTabs')); closeMoreTabsDropdown()" style="display: block; padding: 8px 20px; color: var(--text-dark); text-decoration: none; font-size: 14px; transition: 0.2s;" onmouseover="this.style.color='var(--primary)'" onmouseout="this.style.color='var(--text-dark)'"><span style="color: var(--accent); margin-right: 8px;">•</span> Vải Lụa Trơn</a></li>
+                            <li><a href="javascript:void(0)" onclick="switchCategory('lua-hoa-mai', document.getElementById('btnMoreTabs')); closeMoreTabsDropdown()" style="display: block; padding: 8px 20px; color: var(--text-dark); text-decoration: none; font-size: 14px; transition: 0.2s;" onmouseover="this.style.color='var(--primary)'" onmouseout="this.style.color='var(--text-dark)'"><span style="color: var(--accent); margin-right: 8px;">•</span> Lụa Hoa Mai</a></li>
+                            <li><a href="javascript:void(0)" onclick="switchCategory('lua-hoa-beo', document.getElementById('btnMoreTabs')); closeMoreTabsDropdown()" style="display: block; padding: 8px 20px; color: var(--text-dark); text-decoration: none; font-size: 14px; transition: 0.2s;" onmouseover="this.style.color='var(--primary)'" onmouseout="this.style.color='var(--text-dark)'"><span style="color: var(--accent); margin-right: 8px;">•</span> Lụa Hoa Bèo</a></li>
+                            <li><a href="javascript:void(0)" onclick="switchCategory('lua-canh', document.getElementById('btnMoreTabs')); closeMoreTabsDropdown()" style="display: block; padding: 8px 20px; color: var(--text-dark); text-decoration: none; font-size: 14px; transition: 0.2s;" onmouseover="this.style.color='var(--primary)'" onmouseout="this.style.color='var(--text-dark)'"><span style="color: var(--accent); margin-right: 8px;">•</span> Lụa Canh</a></li>
+                            <li><a href="javascript:void(0)" onclick="switchCategory('lua-duoi-cong', document.getElementById('btnMoreTabs')); closeMoreTabsDropdown()" style="display: block; padding: 8px 20px; color: var(--text-dark); text-decoration: none; font-size: 14px; transition: 0.2s;" onmouseover="this.style.color='var(--primary)'" onmouseout="this.style.color='var(--text-dark)'"><span style="color: var(--accent); margin-right: 8px;">•</span> Lụa Đuôi Công</a></li>
+                            <li><a href="javascript:void(0)" onclick="switchCategory('lua-chuon-chuon', document.getElementById('btnMoreTabs')); closeMoreTabsDropdown()" style="display: block; padding: 8px 20px; color: var(--text-dark); text-decoration: none; font-size: 14px; transition: 0.2s;" onmouseover="this.style.color='var(--primary)'" onmouseout="this.style.color='var(--text-dark)'"><span style="color: var(--accent); margin-right: 8px;">•</span> Lụa Chuồn Chuồn</a></li>
+                            <li><a href="javascript:void(0)" onclick="switchCategory('lua-dong-tien', document.getElementById('btnMoreTabs')); closeMoreTabsDropdown()" style="display: block; padding: 8px 20px; color: var(--text-dark); text-decoration: none; font-size: 14px; transition: 0.2s;" onmouseover="this.style.color='var(--primary)'" onmouseout="this.style.color='var(--text-dark)'"><span style="color: var(--accent); margin-right: 8px;">•</span> Lụa Đồng Tiền</a></li>
+                            <li><a href="javascript:void(0)" onclick="switchCategory('nhung-the', document.getElementById('btnMoreTabs')); closeMoreTabsDropdown()" style="display: block; padding: 8px 20px; color: var(--text-dark); text-decoration: none; font-size: 14px; transition: 0.2s;" onmouseover="this.style.color='var(--primary)'" onmouseout="this.style.color='var(--text-dark)'"><span style="color: var(--accent); margin-right: 8px;">•</span> Nhung The Tơ Tằm</a></li>
+                            <li><a href="javascript:void(0)" onclick="switchCategory('bit-mat', document.getElementById('btnMoreTabs')); closeMoreTabsDropdown()" style="display: block; padding: 8px 20px; color: var(--text-dark); text-decoration: none; font-size: 14px; transition: 0.2s;" onmouseover="this.style.color='var(--primary)'" onmouseout="this.style.color='var(--text-dark)'"><span style="color: var(--accent); margin-right: 8px;">•</span> Bịt Mắt Ngủ bằng Lụa</a></li>
+                            <li><a href="javascript:void(0)" onclick="switchCategory('lua-bo-cong-anh', document.getElementById('btnMoreTabs')); closeMoreTabsDropdown()" style="display: block; padding: 8px 20px; color: var(--text-dark); text-decoration: none; font-size: 14px; transition: 0.2s;" onmouseover="this.style.color='var(--primary)'" onmouseout="this.style.color='var(--text-dark)'"><span style="color: var(--accent); margin-right: 8px;">•</span> Lụa Bồ Công Anh</a></li>
+                        </ul>
+                    </div>
+                </div>
             </div>
 
             <!-- Products Grid -->
@@ -1069,7 +1491,7 @@
             </div>
             
             <div style="text-align: center; margin-top: 40px;">
-                <button class="btn-pill" style="border-radius: 4px; min-width: 200px; background-color: transparent; border: 2px solid var(--primary); color: var(--primary); transition: all 0.3s ease;" onmouseover="this.style.backgroundColor='var(--primary)'; this.style.color='white';" onmouseout="this.style.backgroundColor='transparent'; this.style.color='var(--primary)';">Xem Thêm (30+ Sản Phẩm)</button>
+                <button class="btn-pill" onclick="showAllProducts(this)" style="border-radius: 4px; min-width: 200px; background-color: transparent; border: 2px solid var(--primary); color: var(--primary); transition: all 0.3s ease;" onmouseover="this.style.backgroundColor='var(--primary)'; this.style.color='white';" onmouseout="this.style.backgroundColor='transparent'; this.style.color='var(--primary)';">Xem Thêm (30+ Sản Phẩm)</button>
             </div>
         </div>
     </section>
@@ -1100,31 +1522,33 @@
         </div>
 
         <div class="container">
-            <div class="trust-content">
+            <div class="trust-content animate-on-scroll">
                 <span class="badge-pill" style="margin-bottom: 16px;">Cam Kết Chất Lượng</span>
                 <h3>Chất Lượng Lụa Bạn <span>Hoàn Toàn Tin Tưởng</span></h3>
                 
                 <div class="trust-list">
-                    <div class="trust-list-item">
-                        <i class="fa-solid fa-check"></i>
-                        <div>
-                            <strong>100% Tơ tằm nguyên bản</strong>
-                            <span>Hoàn toàn tự nhiên, nói không với pha trộn nilon hay polyester.</span>
-                        </div>
+                    <p style="margin-bottom: 20px; font-weight: 500; font-size: 16px; line-height: 1.6; color: var(--text-dark);">
+                        Sản phẩm bên em là Chất liệu Lụa Tơ Tằm Nha Xá thiên nhiên 100% được dệt thủ công tại làng nghề.
+                    </p>
+                    <div class="trust-list-item" style="margin-bottom: 12px; align-items: flex-start;">
+                        <i class="fa-solid fa-check" style="margin-top: 4px;"></i>
+                        <span style="font-size: 15px;">Mỏng – Nhẹ nhàng – Mềm mại - có khả năng thấm hút mồ hôi tốt.</span>
                     </div>
-                    <div class="trust-list-item">
-                        <i class="fa-solid fa-check"></i>
-                        <div>
-                            <strong>Nhuộm màu an toàn</strong>
-                            <span>Quy trình nhuộm thân thiện môi trường, an toàn tuyệt đối với cả làn da nhạy cảm.</span>
-                        </div>
+                    <div class="trust-list-item" style="margin-bottom: 12px; align-items: flex-start;">
+                        <i class="fa-solid fa-check" style="margin-top: 4px;"></i>
+                        <span style="font-size: 15px;">Chất liệu an toàn từ tự nhiên, thân thiện với môi trường.</span>
                     </div>
-                    <div class="trust-list-item">
-                        <i class="fa-solid fa-check"></i>
-                        <div>
-                            <strong>Dệt tay truyền thống</strong>
-                            <span>Thực hiện tỉ mỉ bởi những nghệ nhân giàu kinh nghiệm của làng dệt Nha Xá.</span>
-                        </div>
+                    <div class="trust-list-item" style="margin-bottom: 12px; align-items: flex-start;">
+                        <i class="fa-solid fa-check" style="margin-top: 4px;"></i>
+                        <span style="font-size: 15px;">Mát mẻ vào mùa hè, ấm áp vào mùa đông.</span>
+                    </div>
+                    <div class="trust-list-item" style="margin-bottom: 12px; align-items: flex-start;">
+                        <i class="fa-solid fa-check" style="margin-top: 4px;"></i>
+                        <span style="font-size: 15px;">Có ánh sắc ngọc trai tôn lên sự sang trọng cho người sử dụng.</span>
+                    </div>
+                    <div class="trust-list-item" style="margin-bottom: 12px; align-items: flex-start;">
+                        <i class="fa-solid fa-check" style="margin-top: 4px;"></i>
+                        <span style="font-size: 15px;">Vải giữ bụi kém, khử mùi nên trang phục sạch và thơm lâu hơn các loại vải thông thường.</span>
                     </div>
                 </div>
 
@@ -1141,41 +1565,41 @@
     <!-- SECTION 4: MARKET COMPARISON (Image 4) -->
     <section class="comparison">
         <div class="container">
-            <div class="comparison-header">
-                <h2>Thị trường tràn ngập lụa pha nilon kém chất lượng.<br>Đây là cách <span>Lụa Nha Xá</span> giữ vững giá trị truyền thống</h2>
+            <div class="comparison-header animate-on-scroll">
+                <h2>Dịch Vụ Tư Vấn Tận Tâm.<br>Nhận <span>Thiết Kế & May Đo</span> Theo Yêu Cầu</h2>
             </div>
 
             <div class="comparison-grid">
                 <!-- Card 1 -->
-                <div class="comparison-card">
+                <div class="comparison-card animate-on-scroll">
                     <div class="comparison-img-box">
-                        <img src="https://images.unsplash.com/photo-1534126511673-b6899657816a?w=500&auto=format&fit=crop&q=80" alt="Lụa pha nilon thị trường">
+                        <img src="https://images.unsplash.com/photo-1534126511673-b6899657816a?w=500&auto=format&fit=crop&q=80" alt="Tư Vấn Báo Giá">
                     </div>
                     <div class="comparison-body">
-                        <h4>Thực Trạng Thị Trường</h4>
-                        <p>Nhiều nơi bán lụa pha nilon, bóng bẩy nhưng gây bí bách, tích điện và dễ hỏng. Rất khó để phân biệt nếu chỉ nhìn qua ảnh.</p>
+                        <h4>Tư Vấn & Báo Giá</h4>
+                        <p>Dạ mỗi bộ sản phẩm đều có giá riêng từng mẫu khác nhau ạ.<br>Chị đang ưng ý sản phẩm nào vui lòng gửi ảnh để em báo giá và tư vấn kĩ hơn cho chị nhé! ❤️</p>
                     </div>
                 </div>
 
                 <!-- Card 2 -->
-                <div class="comparison-card">
+                <div class="comparison-card animate-on-scroll">
                     <div class="comparison-img-box">
-                        <img src="https://images.unsplash.com/photo-1610116306796-6fea9f4fae38?w=500&auto=format&fit=crop&q=80" alt="Khung cửi dệt lụa truyền thống">
+                        <img src="https://images.unsplash.com/photo-1610116306796-6fea9f4fae38?w=500&auto=format&fit=crop&q=80" alt="May Đo Cá Nhân">
                     </div>
                     <div class="comparison-body">
-                        <h4>Tiêu Chuẩn Của Chúng Tôi</h4>
-                        <p>Kiên định với máy cửi gỗ truyền thống và 100% tơ tằm tự nhiên. Từng sợi lụa được dệt thủ công tỉ mỉ, mang cái hồn của làng nghề trăm tuổi.</p>
+                        <h4>May Đo Cá Nhân</h4>
+                        <p>Bên em thiết kế theo màu sắc và số đo cá nhân. Chị chọn mẫu và màu bên em sẽ may theo số đo cho mình nha.<br>Thời gian hoàn thiện sản phẩm dự kiến khoảng 7-10 ngày (chưa tính vận chuyển) ạ.</p>
                     </div>
                 </div>
 
                 <!-- Card 3 -->
-                <div class="comparison-card">
+                <div class="comparison-card animate-on-scroll">
                     <div class="comparison-img-box">
-                        <img src="https://images.unsplash.com/photo-1576016770956-debb63d90029?w=500&auto=format&fit=crop&q=80" alt="Ứng dụng lụa hiện đại">
+                        <img src="https://images.unsplash.com/photo-1576016770956-debb63d90029?w=500&auto=format&fit=crop&q=80" alt="Đa Dạng Mẫu Mã">
                     </div>
                     <div class="comparison-body">
-                        <h4>Sự Đổi Mới</h4>
-                        <p>Kết hợp chất lượng truyền thống với bảng màu hiện đại, sang trọng. Ứng dụng cao trong may mặc cao cấp, mang lại vẻ đẹp vượt thời gian.</p>
+                        <h4>Đa Dạng Mẫu Mã</h4>
+                        <p>Lụa tơ tằm nhuộm thủ công, 10.000 màu, 1.000 hoa văn đa dạng thay đổi liên tục. Chị chọn mẫu và màu trên fanpage rồi gửi số đo 3 vòng, chiều cao, cân nặng bên em sẽ may ạ.</p>
                     </div>
                 </div>
             </div>
@@ -1185,7 +1609,7 @@
     <!-- SECTION 5: BRAND VALUES & FINAL CTA (Image 5) -->
     <section class="brand-values">
         <div class="container">
-            <div class="brand-values-header">
+            <div class="brand-values-header animate-on-scroll">
                 <span class="badge-pill">Thương Hiệu Lụa Số #1</span>
                 <h2>Tôn Vinh <span class="highlight-box">Vẻ Đẹp Của Bạn</span></h2>
             </div>
@@ -1197,28 +1621,28 @@
 
                 <div class="values-list">
                     <!-- Value 1 -->
-                    <div class="value-card">
+                    <div class="value-card animate-on-scroll">
                         <div class="value-icon"><i class="fa-solid fa-leaf"></i></div>
                         <h4>100% Tơ Tằm Tự Nhiên</h4>
                         <p>Mềm mại, óng ả và an toàn tuyệt đối cho làn da. Không gây kích ứng, bảo vệ vẻ đẹp tự nhiên của bạn.</p>
                     </div>
 
                     <!-- Value 2 -->
-                    <div class="value-card">
+                    <div class="value-card animate-on-scroll">
                         <div class="value-icon"><i class="fa-solid fa-wind"></i></div>
                         <h4>Thoáng Mát & Thấm Hút</h4>
                         <p>Điều hòa nhiệt độ cơ thể xuất sắc: mát mẻ vào mùa hè, ấm áp vào mùa đông. Cảm giác nhẹ tựa lông hồng.</p>
                     </div>
 
                     <!-- Value 3 -->
-                    <div class="value-card">
+                    <div class="value-card animate-on-scroll">
                         <div class="value-icon"><i class="fa-solid fa-scroll"></i></div>
                         <h4>Dệt Thủ Công Truyền Thống</h4>
                         <p>Sản xuất dưới đôi bàn tay tài hoa của Nghệ nhân Phạm Văn Thực - Kế thừa tinh hoa làng nghề hàng trăm năm.</p>
                     </div>
 
                     <!-- Value 4 -->
-                    <div class="value-card">
+                    <div class="value-card animate-on-scroll">
                         <div class="value-icon"><i class="fa-solid fa-gem"></i></div>
                         <h4>Sang Trọng Đẳng Cấp</h4>
                         <p>Độ bóng tinh tế tự nhiên của sợi tơ tằm mang lại vẻ đẹp quý phái, đẳng cấp khác biệt vượt thời gian.</p>
@@ -1235,6 +1659,325 @@
             </div>
         </div>
     </section>
+
+    <!-- BRAND STORY -->
+    <section class="brand-story">
+        <div class="container">
+            <div class="story-grid">
+                <div class="story-image-box animate-on-scroll">
+                    <img src="silk-story.png" alt="Nghệ nhân dệt lụa Nha Xá">
+                </div>
+                <div class="story-content animate-on-scroll">
+                    <div class="badge-pill" style="margin-bottom: 16px; background-color: var(--bg-cream); border: 1px solid var(--border-color); color: var(--text-dark);">Câu Chuyện Thương Hiệu</div>
+                    <h2>Khởi Nguồn Từ <span>Làng Nghề Lụa Trăm Năm</span></h2>
+                    <p>Tọa lạc tại làng nghề dệt lụa truyền thống Nha Xá (Hà Nam) với bề dày lịch sử hàng trăm năm, <strong>Thực Liên Silk</strong> tự hào là người kế thừa và phát huy trọn vẹn những tinh hoa dệt lụa của cha ông.</p>
+                    <p>Trái ngược với các sản phẩm lụa công nghiệp đại trà, mỗi thước lụa tại Thực Liên Silk đều trải qua quá trình ươm tơ, dệt vải và nhuộm thủ công vô cùng tỉ mỉ bởi đôi bàn tay tài hoa của nghệ nhân Phạm Văn Thực. Chúng tôi cam kết sử dụng 100% sợi tơ tằm tự nhiên thượng hạng.</p>
+                    <p>Lụa Nha Xá tại Thực Liên Silk mang nét đặc trưng riêng biệt: độ bóng mướt tinh tế, mượt mà khi chạm vào da, ấm áp khi đông về và mát rượi lúc hè sang. Đến với chúng tôi, bạn không chỉ mua một sản phẩm thời trang cao cấp, mà còn đang lưu giữ một di sản văn hóa vô giá của dân tộc.</p>
+                    <button class="btn-pill" style="margin-top: 24px;" onclick="showCompanyIntro()">Xem Chi Tiết Giới Thiệu <i class="fa-solid fa-arrow-right" style="margin-left: 8px;"></i></button>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    </div><!-- END mainLandingContent -->
+
+    <!-- SUBPAGE: COMPANY INTRO -->
+    <div id="companyIntroContent" style="display: none;">
+        <div class="nav-back" style="padding: 20px 24px; cursor: pointer; display: inline-flex; width: auto; white-space: nowrap;" onclick="hideCompanyIntro()">
+            <i class="fa-solid fa-arrow-left"></i> <span>Quay lại trang chính</span>
+        </div>
+        
+        <div class="container">
+            <div class="intro-header">
+                <h1>Giới thiệu chi tiết <span>Thực Liên Silk - Lụa Nha Xá</span></h1>
+                <p style="color: var(--text-muted);">Hành trình gìn giữ di sản lụa tơ tằm nguyên bản từ làng nghề trăm năm.</p>
+            </div>
+
+            <div class="intro-top-grid">
+                <div class="intro-logo-box">
+                    <div class="logo-text">THỰC LIÊN SILK</div>
+                    <div class="logo-sub">TINH HOA LỤA NHA XÁ</div>
+                </div>
+                <div class="intro-text">
+                    <p>Chúng tôi tự hào là cầu nối đưa những tinh hoa của văn hóa truyền thống, của lịch sử làng nghề Nha Xá vang danh hòa nhịp theo xu hướng thời đại cùng hướng đến một cái đẹp sang trọng và nguyên bản. Từ những sợi tơ tằm tự nhiên 100% mang đậm bản sắc vùng miền, mỗi thước lụa được chúng tôi dệt nên đều là một câu chuyện sống động về đôi bàn tay khéo léo của người nghệ nhân.</p>
+                    <p>Không chỉ dừng lại ở việc sản xuất và kinh doanh, Thực Liên Silk còn là nơi bảo tồn và phát huy giá trị di sản phi vật thể. Mỗi sản phẩm của chúng tôi đều gắn liền với tâm huyết lưu giữ truyền thống dân tộc, để khách hàng không chỉ mặc một tấm lụa đẹp, mà còn cảm nhận được cái hồn cốt tinh túy bất tận của Việt Nam.</p>
+                </div>
+            </div>
+
+            <div class="stats-grid">
+                <div class="stat-card">
+                    <div class="stat-icon"><i class="fa-solid fa-users-gear"></i></div>
+                    <h3>50+</h3>
+                    <p>Năm kinh nghiệm gia truyền</p>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-icon"><i class="fa-solid fa-medal"></i></div>
+                    <h3>15+</h3>
+                    <p>Chứng nhận & Giải thưởng</p>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-icon"><i class="fa-solid fa-gem"></i></div>
+                    <h3>100%</h3>
+                    <p>Tơ tằm tự nhiên cao cấp</p>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-icon"><i class="fa-solid fa-heart"></i></div>
+                    <h3>10K+</h3>
+                    <p>Khách hàng tin dùng</p>
+                </div>
+            </div>
+
+            <div class="vision-mission">
+                <h2>Tầm nhìn - Sứ mệnh - Giá trị cốt lõi</h2>
+                <p style="color: var(--text-muted); max-width: 600px; margin: 0 auto;">Mỗi đường tơ, mỗi nhịp thoi đều hướng tới bảo tồn cội nguồn và tôn vinh vẻ đẹp thanh lịch, sang trọng của người phụ nữ Việt Nam.</p>
+                
+                <style>
+                    /* Vision Slider */
+                    .vision-slider-container {
+                        position: relative;
+                        max-width: 1000px;
+                        margin: 40px auto 0;
+                        border-radius: 24px;
+                        overflow: hidden;
+                        box-shadow: 0 15px 40px rgba(0,0,0,0.08);
+                        aspect-ratio: 16/9;
+                        min-height: 400px;
+                    }
+                    .vision-slides {
+                        display: flex;
+                        width: 300%;
+                        height: 100%;
+                        transition: transform 0.8s cubic-bezier(0.25, 1, 0.5, 1);
+                    }
+                    .vision-slide {
+                        width: 33.333%;
+                        height: 100%;
+                        position: relative;
+                        background-size: cover;
+                        background-position: center;
+                    }
+                    .vision-slide::before {
+                        content: '';
+                        position: absolute;
+                        inset: 0;
+                        background: linear-gradient(to right, rgba(26, 17, 17, 0.8) 0%, rgba(26, 17, 17, 0.1) 100%);
+                    }
+                    .vision-slide-content {
+                        position: relative;
+                        z-index: 2;
+                        padding: 60px;
+                        color: white;
+                        height: 100%;
+                        display: flex;
+                        flex-direction: column;
+                        justify-content: center;
+                        max-width: 600px;
+                        text-align: left;
+                    }
+                    .vision-slide-content h3 {
+                        font-size: 42px;
+                        font-weight: 800;
+                        font-family: 'Playfair Display', serif;
+                        letter-spacing: 2px;
+                        margin-bottom: 24px;
+                        text-shadow: 0 2px 10px rgba(0,0,0,0.5);
+                        color: #fcebd0;
+                    }
+                    .vision-slide-content p {
+                        font-size: 16px;
+                        line-height: 1.8;
+                        color: rgba(255,255,255,0.95);
+                        text-shadow: 0 1px 5px rgba(0,0,0,0.5);
+                    }
+                    .vision-slider-nav {
+                        position: absolute;
+                        top: 50%;
+                        transform: translateY(-50%);
+                        width: 100%;
+                        display: flex;
+                        justify-content: space-between;
+                        padding: 0 20px;
+                        z-index: 3;
+                        pointer-events: none;
+                    }
+                    .vision-nav-btn {
+                        width: 48px;
+                        height: 48px;
+                        border-radius: 50%;
+                        background: rgba(255,255,255,0.15);
+                        backdrop-filter: blur(8px);
+                        border: 1px solid rgba(255,255,255,0.3);
+                        color: white;
+                        font-size: 20px;
+                        display: flex;
+                        align-items: center;
+                        justify-content: center;
+                        cursor: pointer;
+                        pointer-events: auto;
+                        transition: all 0.3s ease;
+                    }
+                    .vision-nav-btn:hover {
+                        background: rgba(255,255,255,0.9);
+                        color: var(--primary);
+                        transform: scale(1.1);
+                    }
+                    .vision-indicators {
+                        position: absolute;
+                        bottom: 30px;
+                        left: 50%;
+                        transform: translateX(-50%);
+                        display: flex;
+                        gap: 12px;
+                        z-index: 3;
+                    }
+                    .vision-dot {
+                        width: 10px;
+                        height: 10px;
+                        border-radius: 50%;
+                        background: rgba(255,255,255,0.4);
+                        cursor: pointer;
+                        transition: all 0.3s ease;
+                    }
+                    .vision-dot.active {
+                        background: #fcebd0;
+                        transform: scale(1.3);
+                    }
+                    @media (max-width: 768px) {
+                        .vision-slide-content { padding: 30px; }
+                        .vision-slide-content h3 { font-size: 28px; }
+                        .vision-slider-container { aspect-ratio: 4/3; }
+                    }
+                </style>
+
+                <div class="vision-slider-container" id="visionSlider">
+                    <div class="vision-slides" id="visionSlides">
+                        <!-- Slide 1 -->
+                        <div class="vision-slide" style="background-image: url('https://images.unsplash.com/photo-1616166418838-89f92d47cc4c?q=80&w=1200&auto=format&fit=crop');">
+                            <div class="vision-slide-content">
+                                <h3>Tầm Nhìn</h3>
+                                <p>Tầm nhìn của chúng tôi là trở thành thương hiệu lụa truyền thống hàng đầu, kiến tạo và kết nối các giá trị văn hóa, di sản, mang lại giá trị lâu dài cho cộng đồng. Chúng tôi khao khát đưa lụa Nha Xá vươn tầm quốc tế, khẳng định đẳng cấp tơ tằm nguyên bản của Việt Nam trên bản đồ thời trang thế giới.</p>
+                            </div>
+                        </div>
+                        <!-- Slide 2 -->
+                        <div class="vision-slide" style="background-image: url('https://images.unsplash.com/photo-1596464518116-2fb94711f181?q=80&w=1200&auto=format&fit=crop');">
+                            <div class="vision-slide-content">
+                                <h3>Sứ Mệnh</h3>
+                                <p>Thực Liên Silk mang sứ mệnh bảo tồn, gìn giữ và tôn vinh những tinh hoa của nghề dệt lụa trăm năm. Chúng tôi nỗ lực không ngừng để tạo ra những thước lụa mềm mại, sang trọng, đồng thời tạo sinh kế bền vững cho những người thợ thủ công lành nghề tại làng Nha Xá.</p>
+                            </div>
+                        </div>
+                        <!-- Slide 3 -->
+                        <div class="vision-slide" style="background-image: url('https://images.unsplash.com/photo-1516086208573-00e1cc478cb6?q=80&w=1200&auto=format&fit=crop');">
+                            <div class="vision-slide-content">
+                                <h3>Giá Trị Cốt Lõi</h3>
+                                <p>Chất lượng thượng hạng - Trách nhiệm cộng đồng - Bảo tồn di sản. Mỗi đường tơ, mỗi nhịp thoi đều là sự kết tinh của cái đẹp tự nhiên và mồ hôi của người nghệ nhân. Chúng tôi cam kết tuyệt đối về chất lượng sản phẩm thân thiện với sức khỏe và môi trường.</p>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="vision-slider-nav">
+                        <button class="vision-nav-btn" onclick="prevVisionSlide()"><i class="fa-solid fa-chevron-left"></i></button>
+                        <button class="vision-nav-btn" onclick="nextVisionSlide()"><i class="fa-solid fa-chevron-right"></i></button>
+                    </div>
+
+                    <div class="vision-indicators">
+                        <div class="vision-dot active" onclick="goToVisionSlide(0)"></div>
+                        <div class="vision-dot" onclick="goToVisionSlide(1)"></div>
+                        <div class="vision-dot" onclick="goToVisionSlide(2)"></div>
+                    </div>
+                </div>
+
+                <script>
+                    let currentVisionSlide = 0;
+                    const totalVisionSlides = 3;
+                    let visionSlideInterval;
+
+                    function updateVisionSlider() {
+                        const slides = document.getElementById('visionSlides');
+                        const dots = document.querySelectorAll('.vision-dot');
+                        slides.style.transform = `translateX(-${currentVisionSlide * 33.333}%)`;
+                        dots.forEach((dot, index) => {
+                            dot.classList.toggle('active', index === currentVisionSlide);
+                        });
+                    }
+
+                    function nextVisionSlide() {
+                        currentVisionSlide = (currentVisionSlide + 1) % totalVisionSlides;
+                        updateVisionSlider();
+                        resetVisionInterval();
+                    }
+
+                    function prevVisionSlide() {
+                        currentVisionSlide = (currentVisionSlide - 1 + totalVisionSlides) % totalVisionSlides;
+                        updateVisionSlider();
+                        resetVisionInterval();
+                    }
+
+                    function goToVisionSlide(index) {
+                        currentVisionSlide = index;
+                        updateVisionSlider();
+                        resetVisionInterval();
+                    }
+
+                    function resetVisionInterval() {
+                        clearInterval(visionSlideInterval);
+                        visionSlideInterval = setInterval(nextVisionSlide, 5000);
+                    }
+
+                    // Start auto slide
+                    visionSlideInterval = setInterval(nextVisionSlide, 5000);
+                </script>
+            </div>
+
+            <div class="team-section">
+                <h2>Lãnh đạo & Đội ngũ</h2>
+                <p style="color: var(--text-muted); max-width: 700px; margin: 0 auto 40px;">Đội ngũ chuyên gia và nghệ nhân giàu kinh nghiệm, am hiểu sâu sắc về lụa truyền thống. Chúng tôi không ngừng gìn giữ, lan tỏa giá trị di sản cùng tinh hoa lụa Nha Xá.</p>
+                
+                <div class="team-grid">
+                    <!-- Nghệ nhân -->
+                    <div class="team-card">
+                        <div class="team-img-box">
+                            <img src="https://images.unsplash.com/photo-1560250097-0b93528c311a?w=400&auto=format&fit=crop" alt="Nghệ nhân Phạm Văn Thực">
+                        </div>
+                        <div class="team-info">
+                            <h4>Phạm Văn Thực</h4>
+                            <p>Nghệ nhân Dệt lụa cao cấp</p>
+                        </div>
+                    </div>
+                    <!-- Đại diện -->
+                    <div class="team-card">
+                        <div class="team-img-box">
+                            <img src="https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?w=400&auto=format&fit=crop" alt="Bà Nguyễn Thị B">
+                        </div>
+                        <div class="team-info">
+                            <h4>Trần Thu Liên</h4>
+                            <p>Giám đốc Sáng tạo</p>
+                        </div>
+                    </div>
+                    <!-- Thợ dệt -->
+                    <div class="team-card">
+                        <div class="team-img-box">
+                            <img src="https://images.unsplash.com/photo-1580489944761-15a19d654956?w=400&auto=format&fit=crop" alt="Thợ dệt">
+                        </div>
+                        <div class="team-info">
+                            <h4>Lê Mai Chi</h4>
+                            <p>Quản đốc Xưởng dệt</p>
+                        </div>
+                    </div>
+                    <!-- Tư vấn -->
+                    <div class="team-card">
+                        <div class="team-img-box">
+                            <img src="https://images.unsplash.com/photo-1598550874175-4d0ef436c909?w=400&auto=format&fit=crop" alt="Chuyên viên tư vấn">
+                        </div>
+                        <div class="team-info">
+                            <h4>Hoàng Minh Tú</h4>
+                            <p>Chuyên gia Tư vấn Lụa</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+        </div>
+    </div>
 
     <!-- Footer -->
     <footer>
@@ -1257,38 +2000,109 @@
     <script>
         // Data for collection tabs
         const productsData = {
-            'silk-plain': [
-                { id: 'lt1', name: 'Lụa Tơ Tằm Trơn Cao Cấp', price: '690.000đ', unit: 'mét', img: 'https://images.unsplash.com/photo-1596464716127-f2a82984de30?w=400&fit=crop' },
-                { id: 'lt2', name: 'Lụa Satin Ánh Đen', price: '750.000đ', unit: 'mét', img: 'https://images.unsplash.com/photo-1629198688000-71f23e745b6e?w=400&fit=crop' },
-                { id: 'lt3', name: 'Lụa Tơ Nhện Tuyết Trắng', price: '820.000đ', unit: 'mét', img: 'https://images.unsplash.com/photo-1584441405886-bc91be61e56a?w=400&fit=crop' }
-            ],
-            'silk-pattern': [
-                { id: 'lh1', name: 'Lụa Jacquard Hoa Mai Vàng', price: '950.000đ', unit: 'mét', img: 'https://images.unsplash.com/photo-1574343162293-6e3a6a9b4946?w=400&fit=crop' },
-                { id: 'lh2', name: 'Lụa In Hoa Cúc Tím', price: '890.000đ', unit: 'mét', img: 'https://images.unsplash.com/photo-1594911130612-40fdb9b2d861?w=400&fit=crop' },
-                { id: 'lh3', name: 'Lụa Gấm Thêu Sen', price: '1.200.000đ', unit: 'mét', img: 'https://images.unsplash.com/photo-1586790170083-2f9ceadc732d?w=400&fit=crop' }
-            ],
+            'vong-lua': [],
+            'ba-ba': [],
+            'khan-lua': [],
+            'non-lua': [],
             'ao-dai': [
                 { id: 'aodai-court-gold', name: 'Áo Dài Vàng Cung Đình', price: '2.850.000đ', unit: 'bộ', img: 'https://images.unsplash.com/photo-1583089892943-e02e5b017b6a?w=600&auto=format&fit=crop&q=80' },
                 { id: 'aodai-jade-green', name: 'Áo Dài Lụa Vân Xanh Ngọc', price: '2.950.000đ', unit: 'bộ', img: 'https://images.unsplash.com/photo-1576016770956-debb63d90029?w=600&auto=format&fit=crop&q=80' },
                 { id: 'aodai-antique', name: 'Áo Dài Cổ Phục Ngũ Thân', price: '3.200.000đ', unit: 'bộ', img: 'https://images.unsplash.com/photo-1534126511673-b6899657816a?w=600&auto=format&fit=crop&q=80' }
-            ]
+            ],
+            'tho-roi': [],
+            'lua-vang': [],
+            'lua-hong': [],
+            'lua-hoa-cai': [],
+            'lua-cham-bi': [],
+            'vai-lua-tron': [
+                { id: 'lt1', name: 'Lụa Tơ Tằm Trơn Cao Cấp', price: '690.000đ', unit: 'mét', img: 'https://images.unsplash.com/photo-1596464716127-f2a82984de30?w=400&fit=crop' },
+                { id: 'lt2', name: 'Lụa Satin Ánh Đen', price: '750.000đ', unit: 'mét', img: 'https://images.unsplash.com/photo-1629198688000-71f23e745b6e?w=400&fit=crop' },
+                { id: 'lt3', name: 'Lụa Tơ Nhện Tuyết Trắng', price: '820.000đ', unit: 'mét', img: 'https://images.unsplash.com/photo-1584441405886-bc91be61e56a?w=400&fit=crop' }
+            ],
+            'lua-hoa-mai': [
+                { id: 'lh1', name: 'Lụa Jacquard Hoa Mai Vàng', price: '950.000đ', unit: 'mét', img: 'https://images.unsplash.com/photo-1574343162293-6e3a6a9b4946?w=400&fit=crop' },
+                { id: 'lh2', name: 'Lụa In Hoa Cúc Tím', price: '890.000đ', unit: 'mét', img: 'https://images.unsplash.com/photo-1594911130612-40fdb9b2d861?w=400&fit=crop' },
+                { id: 'lh3', name: 'Lụa Gấm Thêu Sen', price: '1.200.000đ', unit: 'mét', img: 'https://images.unsplash.com/photo-1586790170083-2f9ceadc732d?w=400&fit=crop' }
+            ],
+            'lua-hoa-beo': [],
+            'lua-canh': [],
+            'lua-duoi-cong': [],
+            'lua-chuon-chuon': [],
+            'lua-dong-tien': [],
+            'nhung-the': [],
+            'bit-mat': [],
+            'lua-bo-cong-anh': []
         };
 
-        let activeCategory = 'silk-plain';
+        let activeCategory = 'ao-dai'; // Default to one with products
         let cartCount = 0;
+        let showingAll = false;
+
+        function toggleMoreTabsDropdown(e) {
+            if (e) e.stopPropagation();
+            const dropdown = document.getElementById('moreTabsDropdown');
+            dropdown.style.display = dropdown.style.display === 'none' ? 'block' : 'none';
+        }
+
+        function closeMoreTabsDropdown() {
+            const dropdown = document.getElementById('moreTabsDropdown');
+            if (dropdown) dropdown.style.display = 'none';
+        }
+
+        document.addEventListener('click', function(e) {
+            const btn = document.getElementById('btnMoreTabs');
+            const dropdown = document.getElementById('moreTabsDropdown');
+            if (btn && dropdown && !btn.contains(e.target) && !dropdown.contains(e.target)) {
+                dropdown.style.display = 'none';
+            }
+        });
+
+        function showAllProducts(btnEl) {
+            showingAll = true;
+            document.querySelectorAll('.tab-btn').forEach(btn => btn.classList.remove('active'));
+            if(btnEl) btnEl.style.display = 'none'; // Hide the button after clicking
+            renderProducts();
+        }
 
         // Render products
         function renderProducts() {
             const grid = document.getElementById('productGrid');
             grid.innerHTML = '';
             
-            const list = productsData[activeCategory];
-            list.forEach((p, index) => {
-                const isFeatured = index < 2; // Make first 2 featured
+            let listToRender = [];
+            
+            if (showingAll) {
+                // Flatten all products
+                for (const cat in productsData) {
+                    listToRender = listToRender.concat(productsData[cat]);
+                }
+            } else {
+                listToRender = productsData[activeCategory] || [];
+            }
+            
+            if (listToRender.length === 0) {
+                grid.innerHTML = '<div style="grid-column: 1/-1; text-align: center; padding: 40px; color: var(--text-muted);">Sản phẩm đang được cập nhật...</div>';
+                return;
+            }
+
+            listToRender.forEach((p, index) => {
+                const isFeatured = index < 2 && !showingAll; // Make first 2 featured only when not showing all
                 const badgeHtml = isFeatured ? `<div style="position: absolute; top: 12px; left: 12px; background: var(--accent); color: white; padding: 4px 10px; font-size: 11px; font-weight: 700; border-radius: 4px; z-index: 1;">NỔI BẬT</div>` : '';
                 
                 const card = document.createElement('div');
-                card.className = 'product-card';
+                card.className = 'product-card animate-on-scroll';
+                
+                // Find actual category key for this product for modal to work properly when showing all
+                let productCat = activeCategory;
+                if (showingAll) {
+                    for (const cat in productsData) {
+                        if (productsData[cat].find(item => item.id === p.id)) {
+                            productCat = cat;
+                            break;
+                        }
+                    }
+                }
+
                 card.innerHTML = `
                     <div class="product-img-box" style="position: relative;">
                         ${badgeHtml}
@@ -1298,8 +2112,8 @@
                         <h4 class="product-name">${p.name}</h4>
                         <div class="product-price">${p.price} <span style="font-size: 13px; font-weight: normal; color: var(--text-muted);">/ ${p.unit}</span></div>
                         <div style="display: flex; gap: 8px;">
-                            <button class="btn-order-outline" style="flex: 1; font-size: 13px;" onclick="openOrderModal('${activeCategory}', '${p.id}')">Chi Tiết</button>
-                            <button class="btn-order-outline" style="flex: 1; font-size: 13px; background-color: var(--primary); color: white;" onclick="openAddToCartModal('${activeCategory}', '${p.id}')">Thêm giỏ hàng</button>
+                            <button class="btn-order-outline" style="flex: 1; font-size: 13px;" onclick="openOrderModal('${productCat}', '${p.id}')">Chi Tiết</button>
+                            <button class="btn-order-outline" style="flex: 1; font-size: 13px; background-color: var(--primary); color: white;" onclick="openAddToCartModal('${productCat}', '${p.id}')">Thêm giỏ hàng</button>
                         </div>
                     </div>
                 `;
@@ -1309,6 +2123,7 @@
 
         // Switch tabs
         function switchCategory(catId, btnEl) {
+            showingAll = false;
             activeCategory = catId;
             
             // Remove active classes
@@ -1317,7 +2132,11 @@
             });
             
             // Add active class
-            btnEl.classList.add('active');
+            if(btnEl) btnEl.classList.add('active');
+            
+            // Show the "Xem thêm 30+ Sản Phẩm" button if it was hidden
+            const seeMoreBtn = document.querySelector('button[onclick^="showAllProducts"]');
+            if(seeMoreBtn) seeMoreBtn.style.display = 'inline-block';
             
             // Re-render
             renderProducts();
@@ -1385,14 +2204,14 @@
             const productImg = document.querySelector('.modal-product-img').src;
             
             // Save to localStorage cart
-            let cart = JSON.parse(localStorage.getItem('vietshop_cart')) || [];
+            let cart = JSON.parse(localStorage.getItem('kbclaza_cart')) || [];
             cart.push({
                 name: productName,
                 price: productPrice,
                 img: productImg,
                 spec: specVal
             });
-            localStorage.setItem('vietshop_cart', JSON.stringify(cart));
+            localStorage.setItem('kbclaza_cart', JSON.stringify(cart));
             
             // Update cart indicator
             cartCount = cart.length;
@@ -1464,51 +2283,94 @@
 
         // Initialize products on load
         window.addEventListener('DOMContentLoaded', () => {
-            // 1. Read landing page configuration
+            // 1. Read landing page configuration (legacy or override)
             const configStr = localStorage.getItem('landingpage_config_lua');
             if (configStr) {
                 try {
                     const config = JSON.parse(configStr);
-                    if (config.logoText) {
-                        document.querySelector('header .logo').innerText = config.logoText;
+                    // Force update if it is the old default text
+                    if (config.heroDesc && (config.heroDesc.includes("100% tơ tằm tự nhiên") || config.heroDesc.includes("chuyên sản xuất các mặt hàng"))) {
+                        config.heroDesc = "Kế thừa tinh hoa từ làng nghề Nha Xá trăm năm, 𝗧𝗵𝘂̛̣𝗰 𝗟𝗶𝗲̂𝗻 𝗦𝗶𝗹𝗸 tự hào mang đến những thước Lụa Tơ Tằm nguyên bản và dịch vụ may đo cao cấp. Với lợi thế là xưởng sản xuất trực tiếp, chúng tôi cam kết mang lại chất lượng thượng hạng cùng mức giá tận gốc, tôn vinh trọn vẹn nét duyên dáng của bạn.";
+                        localStorage.setItem('landingpage_config_lua', JSON.stringify(config));
                     }
-                    if (config.heroTitle) {
-                        document.querySelector('.hero h1').innerText = config.heroTitle;
-                    }
-                    if (config.heroDesc) {
-                        document.querySelector('.hero .hero-desc').innerText = config.heroDesc;
-                    }
-                    if (config.heroImg) {
-                        document.querySelector('.hero-image').src = config.heroImg;
-                    }
+                    
+                    if (config.logoText) document.querySelector('header .logo').innerText = config.logoText;
+                    if (config.heroTitle) document.querySelector('.hero h1').innerText = config.heroTitle;
+                    if (config.heroDesc) document.querySelector('.hero .hero-desc').innerText = config.heroDesc;
+                    if (config.heroImg) document.querySelector('.hero-image').src = config.heroImg;
                 } catch (e) {
                     console.error('Error loading landingpage config', e);
                 }
             }
 
+            // 1.5 Read Enterprise Data to sync Avatar and Name
+            const entStr = localStorage.getItem('kbclaza_enterprises');
+            if (entStr) {
+                try {
+                    const ents = JSON.parse(entStr);
+                    const myEnt = ents.find(e => e.url === 'lua' || e.id === 'ent-1');
+                    if (myEnt) {
+                        // Update title/logo and hero image if available
+                        if (myEnt.name) {
+                            document.querySelector('header .logo').innerText = myEnt.name;
+                            document.querySelector('.hero h1').innerHTML = myEnt.name + ' <br> Lụa Tơ Tằm Thượng Hạng';
+                        }
+                        if (myEnt.img) {
+                            document.querySelector('.hero-image').src = myEnt.img;
+                        }
+                    }
+                } catch (e) {
+                    console.error('Error loading enterprises data', e);
+                }
+            }
+
             // 2. Read custom products and merge
-            const customProductsStr = localStorage.getItem('vietshop_custom_products');
+            const customProductsStr = localStorage.getItem('kbclaza_custom_products');
             if (customProductsStr) {
                 try {
                     const customs = JSON.parse(customProductsStr);
                     customs.forEach(p => {
                         if (p.supplier === 'Thực Liên Silk') {
-                            let tab = 'silk-plain';
-                            const nameLower = p.name.toLowerCase();
-                            if (nameLower.includes('áo dài')) {
-                                tab = 'ao-dai';
-                            } else if (nameLower.includes('hoa') || nameLower.includes('văn') || nameLower.includes('gấm') || nameLower.includes('họa') || nameLower.includes('thêu') || nameLower.includes('in') || nameLower.includes('jacquard')) {
-                                tab = 'silk-pattern';
-                            }
-                            
                             const priceStr = typeof p.price === 'number' ? p.price.toLocaleString('vi-VN') + 'đ' : p.price;
-                            productsData[tab].push({
+                            const newProdObj = {
                                 id: p.id,
                                 name: p.name,
                                 price: priceStr,
                                 unit: p.stock.includes('mét') ? 'mét' : (p.stock.includes('bộ') ? 'bộ' : 'sản phẩm'),
                                 img: p.img
-                            });
+                            };
+                            
+                            // Always remove the product from any existing tabs first (in case it was a default product that got renamed)
+                            for (const t in productsData) {
+                                productsData[t] = productsData[t].filter(existing => existing.id !== p.id);
+                            }
+                            
+                            // Re-categorize the product based on its current name
+                            let tab = 'vai-lua-tron';
+                            const nameNorm = p.name.normalize('NFD').replace(/[\u0300-\u036f]/g, '').toLowerCase();
+                            
+                            if (nameNorm.includes('vong')) tab = 'vong-lua';
+                            else if (nameNorm.includes('ba ba')) tab = 'ba-ba';
+                            else if (nameNorm.includes('khan')) tab = 'khan-lua';
+                            else if (nameNorm.includes('non')) tab = 'non-lua';
+                            else if (nameNorm.includes('ao dai')) tab = 'ao-dai';
+                            else if (nameNorm.includes('tho roi')) tab = 'tho-roi';
+                            else if (nameNorm.includes('vang')) tab = 'lua-vang';
+                            else if (nameNorm.includes('hong')) tab = 'lua-hong';
+                            else if (nameNorm.includes('hoa cai')) tab = 'lua-hoa-cai';
+                            else if (nameNorm.includes('cham bi')) tab = 'lua-cham-bi';
+                            else if (nameNorm.includes('hoa mai')) tab = 'lua-hoa-mai';
+                            else if (nameNorm.includes('hoa beo')) tab = 'lua-hoa-beo';
+                            else if (nameNorm.includes('canh')) tab = 'lua-canh';
+                            else if (nameNorm.includes('duoi cong')) tab = 'lua-duoi-cong';
+                            else if (nameNorm.includes('chuon chuon')) tab = 'lua-chuon-chuon';
+                            else if (nameNorm.includes('dong tien')) tab = 'lua-dong-tien';
+                            else if (nameNorm.includes('nhung')) tab = 'nhung-the';
+                            else if (nameNorm.includes('bit mat')) tab = 'bit-mat';
+                            else if (nameNorm.includes('bo cong anh')) tab = 'lua-bo-cong-anh';
+                            else if (nameNorm.includes('tron') || nameNorm.includes('lua tron')) tab = 'vai-lua-tron';
+                            
+                            productsData[tab].push(newProdObj);
                         }
                     });
                 } catch (e) {
@@ -1516,8 +2378,193 @@
                 }
             }
 
-            renderProducts();
+            // 3. Remove deleted products
+            const deletedStr = localStorage.getItem('kbclaza_deleted_products');
+            if (deletedStr) {
+                try {
+                    const deleted = JSON.parse(deletedStr);
+                    for (const tab in productsData) {
+                        productsData[tab] = productsData[tab].filter(p => !deleted.includes(p.id));
+                    }
+                } catch (e) {
+                    console.error('Error filtering deleted products', e);
+                }
+            }
+
+            // By default, show all products
+            const seeMoreBtn = document.querySelector('button[onclick^="showAllProducts"]');
+            showAllProducts(seeMoreBtn);
         });
+
+        // --- CHAT LOGIC ---
+        const enterpriseId = 'lua';
+        let currentChatId = localStorage.getItem('kbclaza_current_chat_id');
+        let customerName = localStorage.getItem('kbclaza_current_chat_name');
+        let chatPolling = null;
+
+        function toggleChatWindow() {
+            const win = document.getElementById('chatWindow');
+            const tooltip = document.getElementById('chatTooltip');
+            if(tooltip) tooltip.style.display = 'none';
+            if(win.style.display === 'none') {
+                win.style.display = 'flex';
+                if(currentChatId) {
+                    document.getElementById('chatLoginPhase').style.display = 'none';
+                    document.getElementById('chatMessagingPhase').style.display = 'flex';
+                    renderCustomerMessages();
+                    startChatPolling();
+                }
+            } else {
+                win.style.display = 'none';
+                if(chatPolling) clearInterval(chatPolling);
+            }
+        }
+
+        function startCustomerChat() {
+            const name = document.getElementById('customerNameInput').value.trim();
+            if(!name) return;
+            
+            customerName = name;
+            currentChatId = 'chat_' + Date.now();
+            localStorage.setItem('kbclaza_current_chat_id', currentChatId);
+            localStorage.setItem('kbclaza_current_chat_name', customerName);
+            
+            let chats = JSON.parse(localStorage.getItem('kbclaza_chats')) || [];
+            chats.push({
+                id: currentChatId,
+                enterpriseId: enterpriseId,
+                customerName: customerName,
+                messages: []
+            });
+            localStorage.setItem('kbclaza_chats', JSON.stringify(chats));
+            
+            document.getElementById('chatLoginPhase').style.display = 'none';
+            document.getElementById('chatMessagingPhase').style.display = 'flex';
+            startChatPolling();
+        }
+
+        function sendCustomerMessage() {
+            const input = document.getElementById('customerChatInput');
+            const text = input.value.trim();
+            if(!text || !currentChatId) return;
+            
+            let chats = JSON.parse(localStorage.getItem('kbclaza_chats')) || [];
+            const chat = chats.find(c => c.id === currentChatId);
+            if(chat) {
+                chat.messages.push({
+                    sender: 'customer',
+                    text: text,
+                    timestamp: Date.now()
+                });
+                localStorage.setItem('kbclaza_chats', JSON.stringify(chats));
+                input.value = '';
+                renderCustomerMessages(chats);
+            }
+        }
+
+        function renderCustomerMessages(chatsData) {
+            let chats = chatsData || JSON.parse(localStorage.getItem('kbclaza_chats')) || [];
+            const chat = chats.find(c => c.id === currentChatId);
+            if(!chat) return;
+            
+            const msgsEl = document.getElementById('customerChatMessages');
+            msgsEl.innerHTML = '';
+            
+            chat.messages.forEach(msg => {
+                const isCustomer = msg.sender === 'customer';
+                const div = document.createElement('div');
+                div.style.display = 'flex';
+                div.style.flexDirection = 'column';
+                div.style.alignItems = isCustomer ? 'flex-end' : 'flex-start';
+                
+                div.innerHTML = `
+                    <div style="max-width: 80%; padding: 10px 14px; border-radius: 16px; font-size: 14px; ${isCustomer ? 'background: var(--primary); color: white; border-bottom-right-radius: 4px;' : 'background: #e2e8f0; color: var(--text-dark); border-bottom-left-radius: 4px;'}">
+                        ${msg.text}
+                    </div>
+                    <div style="font-size: 11px; color: var(--text-muted); margin-top: 4px; padding: 0 4px;">
+                        ${new Date(msg.timestamp).toLocaleTimeString('vi-VN', {hour: '2-digit', minute:'2-digit'})}
+                    </div>
+                `;
+                msgsEl.appendChild(div);
+            });
+            msgsEl.scrollTop = msgsEl.scrollHeight;
+        }
+
+        function startChatPolling() {
+            if(chatPolling) clearInterval(chatPolling);
+            chatPolling = setInterval(() => {
+                if(document.getElementById('chatWindow').style.display === 'flex') {
+                    renderCustomerMessages();
+                }
+            }, 2000);
+        }
+        function showCompanyIntro() {
+            document.getElementById('mainLandingContent').style.display = 'none';
+            document.getElementById('companyIntroContent').style.display = 'block';
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        }
+
+        function hideCompanyIntro() {
+            document.getElementById('companyIntroContent').style.display = 'none';
+            document.getElementById('mainLandingContent').style.display = 'block';
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        }
     </script>
+
+    <!-- Chat Widget -->
+    <div id="customerChatWidget" style="position: fixed; bottom: 24px; right: 24px; z-index: 1000;">
+        <!-- Chat Call-to-action Tooltip -->
+        <div id="chatTooltip" style="position: absolute; bottom: 75px; right: 0; background: var(--primary); color: white; padding: 6px 16px; border-radius: 20px; font-size: 14px; font-weight: 600; white-space: nowrap; box-shadow: 0 4px 10px rgba(0,0,0,0.2); animation: bounceChat 2s infinite ease-in-out; cursor: pointer; display: flex; flex-direction: column; align-items: center;" onclick="toggleChatWindow()">
+            Tư vấn ngay
+            <!-- Arrow pointing down -->
+            <div style="position: absolute; bottom: -6px; right: 24px; width: 0; height: 0; border-left: 6px solid transparent; border-right: 6px solid transparent; border-top: 6px solid var(--primary);"></div>
+        </div>
+
+        <!-- Chat Button -->
+        <button id="chatToggleBtn" onclick="toggleChatWindow()" style="width: 60px; height: 60px; border-radius: 50%; background: var(--primary); color: white; border: none; box-shadow: 0 4px 15px rgba(0,0,0,0.2); font-size: 24px; cursor: pointer; display: flex; align-items: center; justify-content: center; transition: transform 0.3s;" onmouseover="this.style.transform='scale(1.1)'" onmouseout="this.style.transform='scale(1)'">
+            <i class="fa-solid fa-comments"></i>
+        </button>
+
+        <!-- Chat Window -->
+        <div id="chatWindow" style="position: absolute; bottom: 80px; right: 0; width: 350px; max-height: calc(100vh - 120px); height: 500px; background: white; border-radius: 12px; box-shadow: 0 10px 30px rgba(0,0,0,0.15); display: none; flex-direction: column; overflow: hidden; border: 1px solid var(--border-color); transform-origin: bottom right; animation: scaleUp 0.3s ease; z-index: 1001;">
+            <div style="background: var(--primary); color: white; padding: 16px; font-weight: 600; display: flex; justify-content: space-between; align-items: center;">
+                <div>
+                    <div style="font-size: 16px;">Chat với Lụa Nha Xá</div>
+                    <div style="font-size: 12px; opacity: 0.8;">Chúng tôi luôn sẵn sàng hỗ trợ!</div>
+                </div>
+                <button onclick="toggleChatWindow()" style="background: transparent; border: none; color: white; cursor: pointer; font-size: 18px;"><i class="fa-solid fa-times"></i></button>
+            </div>
+            
+            <div id="chatLoginPhase" style="padding: 24px; flex: 1; display: flex; flex-direction: column; justify-content: center; text-align: center;">
+                <i class="fa-regular fa-face-smile" style="font-size: 48px; color: var(--primary); margin-bottom: 16px;"></i>
+                <h4 style="margin-bottom: 8px;">Chào bạn!</h4>
+                <p style="color: var(--text-muted); font-size: 14px; margin-bottom: 24px;">Vui lòng nhập tên để bắt đầu trò chuyện cùng chúng tôi nhé.</p>
+                <input type="text" id="customerNameInput" class="form-control" placeholder="Tên của bạn..." style="margin-bottom: 16px; border: 1px solid var(--border-color); border-radius: 6px; padding: 10px; width: 100%; box-sizing: border-box;" onkeypress="if(event.key==='Enter') startCustomerChat()">
+                <button class="btn-pill" onclick="startCustomerChat()" style="width: 100%; border-radius: 6px; box-sizing: border-box; cursor: pointer;">Bắt đầu Chat</button>
+            </div>
+
+            <div id="chatMessagingPhase" style="display: none; flex: 1; flex-direction: column;">
+                <div id="customerChatMessages" style="flex: 1; padding: 16px; overflow-y: auto; display: flex; flex-direction: column; gap: 12px; background: #fafafa;">
+                    <!-- Messages go here -->
+                </div>
+                <div style="padding: 12px; background: white; border-top: 1px solid var(--border-color); display: flex; gap: 8px;">
+                    <input type="text" id="customerChatInput" class="form-control" placeholder="Nhập tin nhắn..." style="flex: 1; border: 1px solid var(--border-color); border-radius: 20px; padding: 8px 16px; outline: none; box-sizing: border-box;" onkeypress="if(event.key==='Enter') sendCustomerMessage()">
+                    <button onclick="sendCustomerMessage()" style="width: 40px; height: 40px; border-radius: 50%; background: var(--primary); color: white; border: none; display: flex; align-items: center; justify-content: center; cursor: pointer;"><i class="fa-solid fa-paper-plane"></i></button>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <style>
+        @keyframes scaleUp {
+            from { opacity: 0; transform: scale(0.8); }
+            to { opacity: 1; transform: scale(1); }
+        }
+        @keyframes bounceChat {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-10px); }
+        }
+    </style>
 </body>
 </html>
+
