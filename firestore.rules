@@ -1,0 +1,53 @@
+rules_version = '2';
+service cloud.firestore {
+  match /databases/{database}/documents {
+    
+    // Hàm kiểm tra người dùng đã đăng nhập
+    function isAuthenticated() {
+      return request.auth != null;
+    }
+    
+    // Hàm kiểm tra role (sử dụng Firebase Custom Claims)
+    function hasRole(role) {
+      return isAuthenticated() && request.auth.token.role == role;
+    }
+    
+    // Hàm kiểm tra quyền của chủ cửa hàng (Vendor)
+    function isVendor(vendorId) {
+      return hasRole('vendor') && request.auth.token.vendorId == vendorId;
+    }
+
+    // 1. Collection users
+    match /users/{userId} {
+      // User tự xem/sửa thông tin của mình. Superadmin có toàn quyền.
+      allow read, write: if (isAuthenticated() && request.auth.uid == userId) || hasRole('superadmin');
+    }
+
+    // 2. Collection vendors
+    match /vendors/{vendorId} {
+      // Ai cũng có thể xem thông tin vendor (để hiện lên Landing Page)
+      allow read: if true;
+      // Chỉ superadmin hoặc chính vendor đó mới được sửa
+      allow write: if hasRole('superadmin') || isVendor(vendorId);
+    }
+
+    // 3. Collection products
+    match /products/{productId} {
+      // Ai cũng có thể xem sản phẩm
+      allow read: if true;
+      // Chỉ vendor sở hữu sản phẩm mới được thêm/sửa/xóa
+      allow write: if isVendor(request.resource.data.vendorId) || isVendor(resource.data.vendorId);
+    }
+
+    // 4. Collection orders
+    match /orders/{orderId} {
+      // Customer chỉ xem đơn của mình. Vendor chỉ xem đơn của shop mình.
+      allow read: if (isAuthenticated() && resource.data.customerId == request.auth.uid) || isVendor(resource.data.vendorId);
+      // Customer tạo đơn hàng
+      allow create: if isAuthenticated() && request.resource.data.customerId == request.auth.uid;
+      // Vendor cập nhật trạng thái đơn hàng
+      allow update: if isVendor(resource.data.vendorId);
+      allow delete: if false; // Không cho phép xóa đơn hàng
+    }
+  }
+}

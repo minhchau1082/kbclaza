@@ -10,12 +10,34 @@ jobs:
       - name: 🚚 Lấy code mới nhất
         uses: actions/checkout@v3
 
-      - name: 🚀 Copy code sang VPS
-        uses: appleboy/scp-action@master
+      - name: 🚀 Cài đặt Node.js
+        uses: actions/setup-node@v3
         with:
-          host: ${{ secrets.VPS_IP }}
+          node-version: '20'
+
+      - name: 📦 Cài đặt thư viện và Build (Chạy trực tiếp trên VPS)
+        uses: appleboy/ssh-action@master
+        with:
+          host: ${{ secrets.VPS_IP || secrets.VPS_HOST }}
           username: root
           password: ${{ secrets.VPS_PASSWORD }}
-          port: ${{ secrets.VPS_PORT }}
-          source: "."
-          target: "/var/www/html/"
+          port: ${{ secrets.VPS_PORT || 22 }}
+          script: |
+            cd /var/www/html
+            
+            # Nếu chưa có thư mục kbclaza thì clone về
+            if [ ! -d "kbclaza" ]; then
+              git clone https://github.com/minhchau1082/kbclaza.git
+            fi
+            
+            cd kbclaza
+            git pull origin main
+            
+            # Cài đặt thư viện
+            npm install
+            
+            # Build ứng dụng
+            npm run build
+            
+            # Khởi động lại bằng pm2
+            pm2 restart kbclaza || pm2 start npm --name "kbclaza" -- start
