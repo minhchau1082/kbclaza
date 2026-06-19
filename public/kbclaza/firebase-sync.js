@@ -69,4 +69,6 @@ localStorage.setItem = function(key, value) {
 // Khi trang vừa load xong, tiến hành tải dữ liệu
 window.addEventListener('DOMContentLoaded', () => {
     loadDataFromFirebase();
+    // Tự động tải lại dữ liệu mới nhất mỗi 6 giây (đồng bộ thời gian thực giữa Admin và Landing Page)
+    setInterval(loadDataFromFirebase, 6000);
 });

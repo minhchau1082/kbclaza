@@ -2051,6 +2051,12 @@
         </div>
     </footer>
 
+    <!-- IMAGE LIGHTBOX / ZOOM MODAL -->
+    <div class="modal-overlay" id="imageZoomModal" onclick="closeImageZoomModal()" style="z-index: 2000; background-color: rgba(0, 0, 0, 0.85);">
+        <span class="modal-close" style="color: white; font-size: 40px; cursor: pointer; top: 20px; right: 30px; position: absolute; z-index: 2001;" onclick="closeImageZoomModal()">&times;</span>
+        <img id="zoomedImage" src="" alt="Zoomed Product Image" style="max-width: 90vw; max-height: 90vh; object-fit: contain; border-radius: 8px; box-shadow: 0 10px 30px rgba(0,0,0,0.5);">
+    </div>
+
     <!-- ORDER / CHECKOUT MODAL -->
     <div class="modal-overlay" id="orderModal">
         <div class="modal-container">
@@ -2273,7 +2279,7 @@
                 }
 
                 card.innerHTML = `
-                    <div class="product-img-box" style="position: relative;">
+                    <div class="product-img-box" style="position: relative; cursor: zoom-in;" onclick="openImageZoom('${p.img}')">
                         ${badgeHtml}
                         <img src="${p.img}" alt="${p.name}">
                     </div>
@@ -2325,7 +2331,7 @@
                 </div>
                 <div class="modal-body" style="padding-top: 24px;">
                     <div class="modal-product-summary" style="margin-bottom: 24px; display: flex; gap: 20px; align-items: flex-start;">
-                        <img src="${product.img}" alt="${product.name}" style="width: 150px; height: 150px; object-fit: cover; border-radius: 8px; border: 1px solid var(--border);">
+                        <img src="${product.img}" alt="${product.name}" style="width: 150px; height: 150px; object-fit: cover; border-radius: 8px; border: 1px solid var(--border); cursor: zoom-in;" onclick="openImageZoom('${product.img}')">
                         <div class="modal-product-info">
                             <h4 style="font-size: 20px; color: var(--primary); margin-bottom: 8px;">${product.name}</h4>
                             <p style="font-size: 18px; font-weight: 700; color: var(--brand); margin-bottom: 16px;">${product.price} <span style="font-size: 14px; font-weight: normal; color: var(--text-muted);">/ ${product.unit}</span></p>
@@ -2358,6 +2364,22 @@
 
         function closeModal() {
             modalOverlay.classList.remove('active');
+        }
+
+        function openImageZoom(imgSrc) {
+            const zoomModal = document.getElementById('imageZoomModal');
+            const zoomedImg = document.getElementById('zoomedImage');
+            if (zoomModal && zoomedImg) {
+                zoomedImg.src = imgSrc;
+                zoomModal.classList.add('active');
+            }
+        }
+
+        function closeImageZoomModal() {
+            const zoomModal = document.getElementById('imageZoomModal');
+            if (zoomModal) {
+                zoomModal.classList.remove('active');
+            }
         }
 
         // Close modal on click outside
