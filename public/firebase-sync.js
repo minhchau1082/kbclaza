@@ -1,3 +1,18 @@
+// Firebase Configuration
+const firebaseConfig = {
+  apiKey: "AIzaSyCGZYtXnYoP_zATt_6EfZmoFmeF0PrPGYY",
+  authDomain: "kbclaza-storage.firebaseapp.com",
+  projectId: "kbclaza-storage",
+  storageBucket: "kbclaza-storage.firebasestorage.app",
+  messagingSenderId: "710851318555",
+  appId: "1:710851318555:web:037489bf360c6f04a4b9be"
+};
+
+// Initialize Firebase if not already initialized
+if (typeof firebase !== 'undefined' && !firebase.apps.length) {
+    firebase.initializeApp(firebaseConfig);
+}
+
 // Hàm tải dữ liệu từ API về localStorage khi vào trang
 async function loadDataFromFirebase() {
     try {
