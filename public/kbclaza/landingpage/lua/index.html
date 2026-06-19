@@ -2150,7 +2150,12 @@
                 try {
                     const customs = JSON.parse(customProductsStr);
                     customs.forEach(p => {
-                        if (p.supplier && p.supplier.toLowerCase().includes('thực liên')) {
+                        // Filter: show product if URL points to this lua landing page
+                        // OR if supplier name loosely contains 'liên' or 'silk' or 'lụa'
+                        const urlMatch = p.url && (p.url.includes('/lua/') || p.url.includes('landingpage/lua'));
+                        const supplierLower = (p.supplier || '').toLowerCase().normalize('NFD').replace(/[\u0300-\u036f]/g, '');
+                        const supplierMatch = supplierLower.includes('lien') || supplierLower.includes('lua') || supplierLower.includes('silk');
+                        if (urlMatch || supplierMatch) {
                             const priceStr = typeof p.price === 'number' ? p.price.toLocaleString('vi-VN') + 'đ' : p.price;
                             const newProdObj = {
                                 id: p.id,
@@ -2171,6 +2176,8 @@
                             // Category mapping map
                             const catMap = {
                                 'Vòng lụa tơ tằm': 'vong-lua',
+                                'silk': 'vong-lua',
+                                'Silk': 'vong-lua',
                                 'Bà ba tơ tằm': 'ba-ba',
                                 'Khăn lụa tơ tằm': 'khan-lua',
                                 'Nón lụa tơ tằm': 'non-lua',
