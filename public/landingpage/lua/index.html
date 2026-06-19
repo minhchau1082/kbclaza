@@ -1395,6 +1395,41 @@
                 grid-template-columns: 1fr;
             }
         }
+
+        @media (max-width: 576px) {
+            .tab-filters {
+                display: flex;
+                flex-wrap: nowrap !important;
+                overflow-x: auto;
+                padding-bottom: 10px;
+                -webkit-overflow-scrolling: touch;
+                justify-content: flex-start !important;
+                gap: 8px !important;
+            }
+            .tab-filters::-webkit-scrollbar {
+                height: 4px;
+            }
+            .tab-filters::-webkit-scrollbar-thumb {
+                background: #ccc;
+                border-radius: 4px;
+            }
+            .tab-btn {
+                white-space: nowrap;
+                flex: 0 0 auto;
+                padding: 8px 16px !important;
+                font-size: 13px !important;
+            }
+            .product-grid {
+                grid-template-columns: repeat(2, 1fr) !important;
+                gap: 12px !important;
+            }
+            .product-card .price {
+                font-size: 14px !important;
+            }
+            .product-card h3 {
+                font-size: 14px !important;
+            }
+        }
     </style>
 
     <script>
@@ -2095,6 +2130,110 @@
         }
 
         // Render products
+        
+        // Function to reload custom products from localStorage and merge with productsData
+        window.reloadProductsData = function() {
+            // 2. Read custom products and merge
+            const customProductsStr = localStorage.getItem('kbclaza_custom_products');
+            if (customProductsStr) {
+                try {
+                    const customs = JSON.parse(customProductsStr);
+                    customs.forEach(p => {
+                        if (p.supplier === 'Thực Liên Silk') {
+                            const priceStr = typeof p.price === 'number' ? p.price.toLocaleString('vi-VN') + 'đ' : p.price;
+                            const newProdObj = {
+                                id: p.id,
+                                name: p.name,
+                                price: priceStr,
+                                unit: (p.stock && p.stock.includes('mét')) ? 'mét' : ((p.stock && p.stock.includes('bộ')) ? 'bộ' : 'sản phẩm'),
+                                img: p.img
+                            };
+                            
+                            // Always remove the product from any existing tabs first (in case it was a default product that got renamed)
+                            for (const t in productsData) {
+                                productsData[t] = productsData[t].filter(existing => existing.id !== p.id);
+                            }
+                            
+                            // Re-categorize the product based on its category or current name
+                            let tab = 'vai-lua-tron'; // default
+                            
+                            // Category mapping map
+                            const catMap = {
+                                'Vòng lụa tơ tằm': 'vong-lua',
+                                'Bà ba tơ tằm': 'ba-ba',
+                                'Khăn lụa tơ tằm': 'khan-lua',
+                                'Nón lụa tơ tằm': 'non-lua',
+                                'Áo dài': 'ao-dai',
+                                'Thợ Rời': 'tho-roi',
+                                'Lụa Vàng': 'lua-vang',
+                                'Lụa Hồng': 'lua-hong',
+                                'Lụa Hoa Cải': 'lua-hoa-cai',
+                                'Lụa Chấm Bi': 'lua-cham-bi',
+                                'Vải Lụa Trơn': 'vai-lua-tron',
+                                'Lụa Hoa Mai': 'lua-hoa-mai',
+                                'Lụa Hoa Bèo': 'lua-hoa-beo',
+                                'Lụa Cành': 'lua-canh',
+                                'Lụa Đuôi Công': 'lua-duoi-cong',
+                                'Lụa Chuồn Chuồn': 'lua-chuon-chuon',
+                                'Lụa Đồng Tiền': 'lua-dong-tien',
+                                'Nhung The': 'nhung-the',
+                                'Bịt Mắt': 'bit-mat',
+                                'Lụa Bồ Công Anh': 'lua-bo-cong-anh'
+                            };
+
+                            if (p.category && catMap[p.category]) {
+                                tab = catMap[p.category];
+                            } else {
+                                const nameNorm = p.name.normalize('NFD').replace(/[̀-ͯ]/g, '').toLowerCase();
+                                if (nameNorm.includes('vong')) tab = 'vong-lua';
+                                else if (nameNorm.includes('ba ba')) tab = 'ba-ba';
+                                else if (nameNorm.includes('khan')) tab = 'khan-lua';
+                                else if (nameNorm.includes('non')) tab = 'non-lua';
+                                else if (nameNorm.includes('ao dai')) tab = 'ao-dai';
+                                else if (nameNorm.includes('tho roi')) tab = 'tho-roi';
+                                else if (nameNorm.includes('vang')) tab = 'lua-vang';
+                                else if (nameNorm.includes('hong')) tab = 'lua-hong';
+                                else if (nameNorm.includes('hoa cai')) tab = 'lua-hoa-cai';
+                                else if (nameNorm.includes('cham bi')) tab = 'lua-cham-bi';
+                                else if (nameNorm.includes('hoa mai')) tab = 'lua-hoa-mai';
+                                else if (nameNorm.includes('hoa beo')) tab = 'lua-hoa-beo';
+                                else if (nameNorm.includes('canh')) tab = 'lua-canh';
+                                else if (nameNorm.includes('duoi cong')) tab = 'lua-duoi-cong';
+                                else if (nameNorm.includes('chuon chuon')) tab = 'lua-chuon-chuon';
+                                else if (nameNorm.includes('dong tien')) tab = 'lua-dong-tien';
+                                else if (nameNorm.includes('nhung')) tab = 'nhung-the';
+                                else if (nameNorm.includes('bit mat')) tab = 'bit-mat';
+                                else if (nameNorm.includes('bo cong anh')) tab = 'lua-bo-cong-anh';
+                                else if (nameNorm.includes('tron') || nameNorm.includes('lua tron')) tab = 'vai-lua-tron';
+                            }
+                            
+                            productsData[tab].push(newProdObj);
+                        }
+                    });
+                } catch (e) {
+                    console.error('Error merging custom products', e);
+                }
+            }
+
+            // 3. Remove deleted products
+            const deletedStr = localStorage.getItem('kbclaza_deleted_products');
+            if (deletedStr) {
+                try {
+                    const deleted = JSON.parse(deletedStr);
+                    for (const tab in productsData) {
+                        productsData[tab] = productsData[tab].filter(p => !deleted.includes(p.id));
+                    }
+                } catch (e) {
+                    console.error('Error filtering deleted products', e);
+                }
+            }
+            
+            // Re-render
+            if (typeof renderProducts === 'function') {
+                renderProducts();
+            }
+        };
+
         function renderProducts() {
             const grid = document.getElementById('productGrid');
             grid.innerHTML = '';
@@ -2354,72 +2493,7 @@
                 }
             }
 
-            // 2. Read custom products and merge
-            const customProductsStr = localStorage.getItem('kbclaza_custom_products');
-            if (customProductsStr) {
-                try {
-                    const customs = JSON.parse(customProductsStr);
-                    customs.forEach(p => {
-                        if (p.supplier === 'Thực Liên Silk') {
-                            const priceStr = typeof p.price === 'number' ? p.price.toLocaleString('vi-VN') + 'đ' : p.price;
-                            const newProdObj = {
-                                id: p.id,
-                                name: p.name,
-                                price: priceStr,
-                                unit: p.stock.includes('mét') ? 'mét' : (p.stock.includes('bộ') ? 'bộ' : 'sản phẩm'),
-                                img: p.img
-                            };
-                            
-                            // Always remove the product from any existing tabs first (in case it was a default product that got renamed)
-                            for (const t in productsData) {
-                                productsData[t] = productsData[t].filter(existing => existing.id !== p.id);
-                            }
-                            
-                            // Re-categorize the product based on its current name
-                            let tab = 'vai-lua-tron';
-                            const nameNorm = p.name.normalize('NFD').replace(/[\u0300-\u036f]/g, '').toLowerCase();
-                            
-                            if (nameNorm.includes('vong')) tab = 'vong-lua';
-                            else if (nameNorm.includes('ba ba')) tab = 'ba-ba';
-                            else if (nameNorm.includes('khan')) tab = 'khan-lua';
-                            else if (nameNorm.includes('non')) tab = 'non-lua';
-                            else if (nameNorm.includes('ao dai')) tab = 'ao-dai';
-                            else if (nameNorm.includes('tho roi')) tab = 'tho-roi';
-                            else if (nameNorm.includes('vang')) tab = 'lua-vang';
-                            else if (nameNorm.includes('hong')) tab = 'lua-hong';
-                            else if (nameNorm.includes('hoa cai')) tab = 'lua-hoa-cai';
-                            else if (nameNorm.includes('cham bi')) tab = 'lua-cham-bi';
-                            else if (nameNorm.includes('hoa mai')) tab = 'lua-hoa-mai';
-                            else if (nameNorm.includes('hoa beo')) tab = 'lua-hoa-beo';
-                            else if (nameNorm.includes('canh')) tab = 'lua-canh';
-                            else if (nameNorm.includes('duoi cong')) tab = 'lua-duoi-cong';
-                            else if (nameNorm.includes('chuon chuon')) tab = 'lua-chuon-chuon';
-                            else if (nameNorm.includes('dong tien')) tab = 'lua-dong-tien';
-                            else if (nameNorm.includes('nhung')) tab = 'nhung-the';
-                            else if (nameNorm.includes('bit mat')) tab = 'bit-mat';
-                            else if (nameNorm.includes('bo cong anh')) tab = 'lua-bo-cong-anh';
-                            else if (nameNorm.includes('tron') || nameNorm.includes('lua tron')) tab = 'vai-lua-tron';
-                            
-                            productsData[tab].push(newProdObj);
-                        }
-                    });
-                } catch (e) {
-                    console.error('Error merging custom products', e);
-                }
-            }
-
-            // 3. Remove deleted products
-            const deletedStr = localStorage.getItem('kbclaza_deleted_products');
-            if (deletedStr) {
-                try {
-                    const deleted = JSON.parse(deletedStr);
-                    for (const tab in productsData) {
-                        productsData[tab] = productsData[tab].filter(p => !deleted.includes(p.id));
-                    }
-                } catch (e) {
-                    console.error('Error filtering deleted products', e);
-                }
-            }
+            window.reloadProductsData();
 
             // By default, show all products
             const seeMoreBtn = document.querySelector('button[onclick^="showAllProducts"]');

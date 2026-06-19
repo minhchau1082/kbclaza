@@ -56,8 +56,9 @@ async function loadDataFromFirebase() {
             }
         }
 
-        // Gọi lại các hàm render của HTML nếu có để cập nhật giao diện
-        if (typeof renderProducts === 'function') renderProducts();
+        // Gọi lại các hàm render của HTML để cập nhật giao diện
+        if (typeof reloadProductsData === 'function') reloadProductsData();
+        else if (typeof renderProducts === 'function') renderProducts();
         if (typeof renderCategories === 'function') renderCategories();
         if (typeof renderEnterprises === 'function') renderEnterprises();
         
