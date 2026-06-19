@@ -18,16 +18,14 @@ let db: Firestore;
 let auth: Auth;
 let storage: FirebaseStorage;
 
-if (typeof window !== "undefined" && !getApps().length) {
+if (!getApps().length) {
   app = initializeApp(firebaseConfig);
-  db = getFirestore(app);
-  auth = getAuth(app);
-  storage = getStorage(app);
-} else if (getApps().length > 0) {
+} else {
   app = getApps()[0];
-  db = getFirestore(app);
-  auth = getAuth(app);
-  storage = getStorage(app);
 }
+
+db = getFirestore(app);
+auth = getAuth(app);
+storage = getStorage(app);
 
 export { app, db, auth, storage };
