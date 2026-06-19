@@ -2139,7 +2139,7 @@
                 try {
                     const customs = JSON.parse(customProductsStr);
                     customs.forEach(p => {
-                        if (p.supplier === 'Thực Liên Silk') {
+                        if (p.supplier && p.supplier.toLowerCase().includes('thực liên')) {
                             const priceStr = typeof p.price === 'number' ? p.price.toLocaleString('vi-VN') + 'đ' : p.price;
                             const newProdObj = {
                                 id: p.id,

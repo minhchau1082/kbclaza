@@ -15,6 +15,18 @@ const nextConfig: NextConfig = {
       }
     ];
   },
+  async rewrites() {
+    return [
+      {
+        source: '/landingpage/:path*',
+        destination: '/landingpage/:path*/index.html',
+      },
+      {
+        source: '/kbclaza/landingpage/:path*',
+        destination: '/kbclaza/landingpage/:path*/index.html',
+      }
+    ];
+  },
 };
 
 export default nextConfig;
