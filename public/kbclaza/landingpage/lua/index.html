@@ -366,10 +366,11 @@
             transition: var(--transition);
             display: flex;
             flex-direction: column;
+            position: relative;
         }
 
         .product-card:hover {
-            transform: translateY(-8px);
+            transform: translateY(-6px);
             box-shadow: 0 16px 36px var(--shadow);
             border-color: var(--primary-light);
         }
@@ -379,6 +380,7 @@
             aspect-ratio: 1/1;
             overflow: hidden;
             background-color: #f7f5f0;
+            cursor: pointer;
         }
 
         .product-img-box img {
@@ -389,54 +391,182 @@
         }
 
         .product-card:hover .product-img-box img {
-            transform: scale(1.08);
+            transform: scale(1.06);
+        }
+
+        /* Image search zoom indicator styling */
+        .zoom-hover-icon {
+            position: absolute;
+            bottom: 8px;
+            right: 8px;
+            background: rgba(0,0,0,0.5);
+            color: white;
+            width: 30px;
+            height: 30px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            opacity: 0;
+            transition: opacity 0.3s ease;
+            pointer-events: none;
+        }
+
+        .product-card:hover .zoom-hover-icon {
+            opacity: 1;
         }
 
         .product-details {
-            padding: 20px;
-            text-align: center;
+            padding: 16px;
+            text-align: left; /* Shopee & Wellness Nest Style */
             display: flex;
             flex-direction: column;
             flex-grow: 1;
         }
 
         .product-name {
-            font-size: 15px;
+            font-size: 14px;
             font-weight: 700;
-            margin-bottom: 8px;
+            margin-bottom: 6px;
             color: var(--text-dark);
-            min-height: 44px;
+            min-height: 40px;
+            display: -webkit-box;
+            -webkit-line-clamp: 2;
+            -webkit-box-orient: vertical;
+            overflow: hidden;
+            line-height: 1.4;
+            cursor: pointer;
+            transition: color 0.2s;
+        }
+
+        .product-name:hover {
+            color: var(--primary);
+            text-decoration: underline;
+        }
+
+        /* Star ratings */
+        .product-rating {
             display: flex;
             align-items: center;
-            justify-content: center;
+            gap: 6px;
+            margin-bottom: 8px;
+            font-size: 11px;
+        }
+
+        .stars-gold {
+            color: #ffb800; /* Beautiful golden yellow */
+            display: flex;
+            gap: 1px;
+        }
+
+        .rating-count {
+            color: var(--text-muted);
+            font-weight: 500;
+        }
+
+        /* Feature bullet points */
+        .product-bullets {
+            list-style: none;
+            padding: 0;
+            margin: 0 0 12px 0;
+            font-size: 11px;
+            color: var(--text-muted);
+            line-height: 1.6;
+        }
+
+        .product-bullets li {
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            margin-bottom: 3px;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+        }
+
+        .product-bullets li i {
+            color: #2e7d32; /* Green checkmark for premium organic vibe */
+            font-size: 10px;
+        }
+
+        /* Price Wrapper */
+        .product-price-wrapper {
+            display: flex;
+            align-items: baseline;
+            gap: 8px;
+            flex-wrap: wrap;
+            margin-top: auto;
+            margin-bottom: 12px;
         }
 
         .product-price {
             font-size: 16px;
             font-weight: 800;
-            color: var(--primary);
-            margin-bottom: 16px;
+            color: var(--primary); /* Maroon */
         }
 
-        .btn-order-outline {
-            display: block;
+        .product-original-price {
+            font-size: 12px;
+            color: var(--text-muted);
+            text-decoration: line-through;
+            font-weight: 500;
+        }
+
+        .product-unit {
+            font-size: 11px;
+            color: var(--text-muted);
+            font-weight: normal;
+        }
+
+        /* Full Width Add to Cart button */
+        .btn-add-cart-full {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+            background-color: var(--primary);
+            color: white;
             border: 1px solid var(--primary);
-            color: var(--primary);
-            background: transparent;
             padding: 10px;
             border-radius: 8px;
             font-weight: 700;
-            font-size: 13px;
+            font-size: 12px;
             text-transform: uppercase;
+            letter-spacing: 0.5px;
             cursor: pointer;
             transition: var(--transition);
             width: 100%;
-            margin-top: auto;
         }
 
-        .product-card:hover .btn-order-outline {
-            background-color: var(--primary);
-            color: white;
+        .btn-add-cart-full:hover {
+            background-color: var(--primary-hover);
+            border-color: var(--primary-hover);
+            box-shadow: 0 4px 12px rgba(122, 6, 33, 0.2);
+            transform: translateY(-1px);
+        }
+
+        /* Responsive hiding of bullets */
+        @media (max-width: 768px) {
+            .product-bullets {
+                display: none;
+            }
+            .product-details {
+                padding: 12px;
+            }
+            .product-name {
+                font-size: 13px;
+                min-height: 36px;
+            }
+            .product-price {
+                font-size: 14px;
+            }
+            .product-original-price {
+                font-size: 10px;
+            }
+            .btn-add-cart-full {
+                padding: 8px;
+                font-size: 11px;
+            }
         }
 
         /* MAGAZINE & TRUST SECTION (Image 3) */
@@ -1395,41 +1525,6 @@
                 grid-template-columns: 1fr;
             }
         }
-
-        @media (max-width: 576px) {
-            .tab-filters {
-                display: flex;
-                flex-wrap: nowrap !important;
-                overflow-x: auto;
-                padding-bottom: 10px;
-                -webkit-overflow-scrolling: touch;
-                justify-content: flex-start !important;
-                gap: 8px !important;
-            }
-            .tab-filters::-webkit-scrollbar {
-                height: 4px;
-            }
-            .tab-filters::-webkit-scrollbar-thumb {
-                background: #ccc;
-                border-radius: 4px;
-            }
-            .tab-btn {
-                white-space: nowrap;
-                flex: 0 0 auto;
-                padding: 8px 16px !important;
-                font-size: 13px !important;
-            }
-            .product-grid {
-                grid-template-columns: repeat(2, 1fr) !important;
-                gap: 12px !important;
-            }
-            .product-card .price {
-                font-size: 14px !important;
-            }
-            .product-card h3 {
-                font-size: 14px !important;
-            }
-        }
     </style>
 
     <script>
@@ -1443,6 +1538,30 @@
                 }
             });
         })();
+
+        // FIX: Xóa ảnh base64 khỏi localStorage để không làm treo sync
+        (function() {
+            try {
+                const keysToClean = ['kbclaza_enterprises', 'kbclaza_custom_products'];
+                keysToClean.forEach(key => {
+                    const val = localStorage.getItem(key);
+                    if (!val) return;
+                    if (val.length > 50000 && val.includes('data:image')) {
+                        try {
+                            const arr = JSON.parse(val);
+                            const cleaned = arr.map(item => {
+                                if (item.img && item.img.startsWith('data:image')) {
+                                    item.img = '';
+                                }
+                                return item;
+                            });
+                            localStorage.setItem(key, JSON.stringify(cleaned));
+                        } catch(e) {}
+                    }
+                });
+            } catch(e) {}
+        })();
+
 
         // Intersection Observer for scroll animations
         document.addEventListener("DOMContentLoaded", function() {
@@ -1466,11 +1585,7 @@
             });
         });
     </script>
-    <!-- Firebase Sync Injected -->
-    <script src="https://www.gstatic.com/firebasejs/10.11.1/firebase-app-compat.js"></script>
-    <script src="https://www.gstatic.com/firebasejs/10.11.1/firebase-firestore-compat.js"></script>
-    <script src="https://www.gstatic.com/firebasejs/10.11.1/firebase-auth-compat.js"></script>
-    <script src="/firebase-sync.js?v=4"></script>
+    <script src="/kbclaza/firebase-sync.js?v=9"></script>
 </head>
 <body>
 
@@ -2056,12 +2171,6 @@
         </div>
     </footer>
 
-    <!-- IMAGE LIGHTBOX / ZOOM MODAL -->
-    <div class="modal-overlay" id="imageZoomModal" onclick="closeImageZoomModal()" style="z-index: 2000; background-color: rgba(0, 0, 0, 0.85);">
-        <span class="modal-close" style="color: white; font-size: 40px; cursor: pointer; top: 20px; right: 30px; position: absolute; z-index: 2001;" onclick="closeImageZoomModal()">&times;</span>
-        <img id="zoomedImage" src="" alt="Zoomed Product Image" style="max-width: 90vw; max-height: 90vh; object-fit: contain; border-radius: 8px; box-shadow: 0 10px 30px rgba(0,0,0,0.5);">
-    </div>
-
     <!-- ORDER / CHECKOUT MODAL -->
     <div class="modal-overlay" id="orderModal">
         <div class="modal-container">
@@ -2069,6 +2178,14 @@
             <div id="modalContent">
                 <!-- Modal forms will be dynamically rendered here -->
             </div>
+        </div>
+    </div>
+
+    <!-- IMAGE ZOOM MODAL -->
+    <div class="modal-overlay" id="imageZoomModal" style="z-index: 3000;" onclick="closeImageZoomModal()">
+        <div style="position: relative; width: 90%; max-width: 600px; max-height: 90vh; display: flex; justify-content: center; align-items: center; background: transparent; margin: auto; transform: translateY(10vh);" onclick="event.stopPropagation()">
+            <img id="zoomModalImg" src="" style="max-width: 100%; max-height: 80vh; object-fit: contain; border-radius: 8px; box-shadow: 0 10px 30px rgba(0,0,0,0.5);">
+            <button style="position: absolute; top: -40px; right: 0; background: none; border: none; color: white; font-size: 30px; cursor: pointer; opacity: 0.8;" onclick="closeImageZoomModal()">&times;</button>
         </div>
     </div>
 
@@ -2110,9 +2227,118 @@
             'lua-bo-cong-anh': []
         };
 
+        // --- GLOBAL VARIABLES ---
         let activeCategory = 'ao-dai'; // Default to one with products
         let cartCount = 0;
         let showingAll = false;
+
+        // --- INJECT CUSTOM PRODUCTS FROM ADMIN ---
+        // Reset custom entries from all tabs (keep only default/hardcoded products)
+        const defaultProductIds = new Set();
+        Object.keys(productsData).forEach(tab => {
+            productsData[tab].forEach(p => defaultProductIds.add(p.id));
+        });
+        function resetCustomProducts() {
+            // Remove all non-default products from each tab
+            Object.keys(productsData).forEach(tab => {
+                productsData[tab] = productsData[tab].filter(p => defaultProductIds.has(p.id));
+            });
+        }
+        function reloadProductsData() {
+            resetCustomProducts();
+            try {
+                const customProductsStr = localStorage.getItem('kbclaza_custom_products');
+                if (customProductsStr) {
+                    const customProducts = JSON.parse(customProductsStr);
+                    const deletedProductsStr = localStorage.getItem('kbclaza_deleted_products');
+                    const deletedProducts = deletedProductsStr ? JSON.parse(deletedProductsStr) : [];
+
+                    customProducts.forEach(p => {
+                        if (!deletedProducts.includes(p.id)) {
+                            const supLow = (p.supplier || '').toLowerCase();
+                            const urlLow = (p.url || '').toLowerCase();
+                            const catLow = (p.category || '').toLowerCase();
+
+                            if (
+                                supLow.includes('thực liên') || supLow.includes('lụa') || supLow.includes('nha xá') || 
+                                supLow.includes('lua') || supLow.includes('silk') || 
+                                urlLow.includes('lua') || catLow.includes('silk') || catLow.includes('lụa') ||
+                                p.url === 'landingpage/lua/index.html' ||
+                                !p.url || p.url === '' // products with no URL also show (default to lua page)
+                            ) {
+                                
+                                let unitStr = 'sản phẩm';
+                                if (p.stock) {
+                                    const s = String(p.stock).toLowerCase();
+                                    if (s.includes('mét')) unitStr = 'mét';
+                                    else if (s.includes('bộ')) unitStr = 'bộ';
+                                    else if (s.includes('chiếc')) unitStr = 'chiếc';
+                                    else if (s.includes('cái')) unitStr = 'cái';
+                                }
+                                
+                                let priceStr = p.price;
+                                if (typeof priceStr === 'number') {
+                                    priceStr = priceStr.toLocaleString('vi-VN') + 'đ';
+                                } else if (!String(priceStr).includes('đ')) {
+                                    priceStr = Number(priceStr).toLocaleString('vi-VN') + 'đ';
+                                }
+
+                                const formattedProduct = {
+                                    id: p.id,
+                                    name: p.name,
+                                    price: priceStr,
+                                    unit: unitStr,
+                                    img: p.img || 'https://images.unsplash.com/photo-1596464716127-f2a82984de30?w=400&fit=crop'
+                                };
+
+                                let targetTab = 'vai-lua-tron';
+                                const nameNorm = String(p.name).normalize('NFD').replace(/[\u0300-\u036f]/g, '').toLowerCase();
+                                
+                                if (nameNorm.includes('vong')) targetTab = 'vong-lua';
+                                else if (nameNorm.includes('ba ba')) targetTab = 'ba-ba';
+                                else if (nameNorm.includes('khan')) targetTab = 'khan-lua';
+                                else if (nameNorm.includes('non')) targetTab = 'non-lua';
+                                else if (nameNorm.includes('ao dai')) targetTab = 'ao-dai';
+                                else if (nameNorm.includes('tho roi')) targetTab = 'tho-roi';
+                                else if (nameNorm.includes('vang')) targetTab = 'lua-vang';
+                                else if (nameNorm.includes('hong')) targetTab = 'lua-hong';
+                                else if (nameNorm.includes('hoa cai')) targetTab = 'lua-hoa-cai';
+                                else if (nameNorm.includes('cham bi')) targetTab = 'lua-cham-bi';
+                                else if (nameNorm.includes('hoa mai')) targetTab = 'lua-hoa-mai';
+                                else if (nameNorm.includes('beo')) targetTab = 'lua-hoa-beo';
+                                else if (nameNorm.includes('canh')) targetTab = 'lua-canh';
+                                else if (nameNorm.includes('duoi cong')) targetTab = 'lua-duoi-cong';
+                                else if (nameNorm.includes('chuon chuon')) targetTab = 'lua-chuon-chuon';
+                                else if (nameNorm.includes('dong tien')) targetTab = 'lua-dong-tien';
+                                else if (nameNorm.includes('nhung')) targetTab = 'nhung-the';
+                                else if (nameNorm.includes('bit mat')) targetTab = 'bit-mat';
+                                else if (nameNorm.includes('bo cong anh')) targetTab = 'lua-bo-cong-anh';
+                                else if (nameNorm.includes('tron') || nameNorm.includes('lua tron')) targetTab = 'vai-lua-tron';
+                                
+                                if (!productsData[targetTab]) productsData[targetTab] = [];
+                                
+                                const existingIndex = productsData[targetTab].findIndex(item => item.id === p.id);
+                                if (existingIndex !== -1) {
+                                    productsData[targetTab][existingIndex] = formattedProduct;
+                                } else {
+                                    productsData[targetTab].unshift(formattedProduct);
+                                }
+                            }
+                        }
+                    });
+                }
+            } catch (e) {
+                console.error("Error loading custom products:", e);
+            }
+            // Re-render after reload
+            if (showingAll) {
+                showAllProducts(null);
+            } else if (typeof renderProducts === 'function') {
+                renderProducts();
+            }
+        }
+        
+        // -----------------------------------------
 
         function toggleMoreTabsDropdown(e) {
             if (e) e.stopPropagation();
@@ -2141,117 +2367,6 @@
         }
 
         // Render products
-        
-        // Function to reload custom products from localStorage and merge with productsData
-        window.reloadProductsData = function() {
-            // 2. Read custom products and merge
-            const customProductsStr = localStorage.getItem('kbclaza_custom_products');
-            if (customProductsStr) {
-                try {
-                    const customs = JSON.parse(customProductsStr);
-                    customs.forEach(p => {
-                        // Filter: show product if URL points to this lua landing page
-                        // OR if supplier name loosely contains 'liên' or 'silk' or 'lụa'
-                        const urlMatch = p.url && (p.url.includes('/lua/') || p.url.includes('landingpage/lua'));
-                        const supplierLower = (p.supplier || '').toLowerCase().normalize('NFD').replace(/[\u0300-\u036f]/g, '');
-                        const supplierMatch = supplierLower.includes('lien') || supplierLower.includes('lua') || supplierLower.includes('silk');
-                        if (urlMatch || supplierMatch) {
-                            const priceStr = typeof p.price === 'number' ? p.price.toLocaleString('vi-VN') + 'đ' : p.price;
-                            const newProdObj = {
-                                id: p.id,
-                                name: p.name,
-                                price: priceStr,
-                                unit: (p.stock && p.stock.includes('mét')) ? 'mét' : ((p.stock && p.stock.includes('bộ')) ? 'bộ' : 'sản phẩm'),
-                                img: p.img
-                            };
-                            
-                            // Always remove the product from any existing tabs first (in case it was a default product that got renamed)
-                            for (const t in productsData) {
-                                productsData[t] = productsData[t].filter(existing => existing.id !== p.id);
-                            }
-                            
-                            // Re-categorize the product based on its category or current name
-                            let tab = 'vai-lua-tron'; // default
-                            
-                            // Category mapping map
-                            const catMap = {
-                                'Vòng lụa tơ tằm': 'vong-lua',
-                                'silk': 'vong-lua',
-                                'Silk': 'vong-lua',
-                                'Bà ba tơ tằm': 'ba-ba',
-                                'Khăn lụa tơ tằm': 'khan-lua',
-                                'Nón lụa tơ tằm': 'non-lua',
-                                'Áo dài': 'ao-dai',
-                                'Thợ Rời': 'tho-roi',
-                                'Lụa Vàng': 'lua-vang',
-                                'Lụa Hồng': 'lua-hong',
-                                'Lụa Hoa Cải': 'lua-hoa-cai',
-                                'Lụa Chấm Bi': 'lua-cham-bi',
-                                'Vải Lụa Trơn': 'vai-lua-tron',
-                                'Lụa Hoa Mai': 'lua-hoa-mai',
-                                'Lụa Hoa Bèo': 'lua-hoa-beo',
-                                'Lụa Cành': 'lua-canh',
-                                'Lụa Đuôi Công': 'lua-duoi-cong',
-                                'Lụa Chuồn Chuồn': 'lua-chuon-chuon',
-                                'Lụa Đồng Tiền': 'lua-dong-tien',
-                                'Nhung The': 'nhung-the',
-                                'Bịt Mắt': 'bit-mat',
-                                'Lụa Bồ Công Anh': 'lua-bo-cong-anh'
-                            };
-
-                            if (p.category && catMap[p.category]) {
-                                tab = catMap[p.category];
-                            } else {
-                                const nameNorm = p.name.normalize('NFD').replace(/[̀-ͯ]/g, '').toLowerCase();
-                                if (nameNorm.includes('vong')) tab = 'vong-lua';
-                                else if (nameNorm.includes('ba ba')) tab = 'ba-ba';
-                                else if (nameNorm.includes('khan')) tab = 'khan-lua';
-                                else if (nameNorm.includes('non')) tab = 'non-lua';
-                                else if (nameNorm.includes('ao dai')) tab = 'ao-dai';
-                                else if (nameNorm.includes('tho roi')) tab = 'tho-roi';
-                                else if (nameNorm.includes('vang')) tab = 'lua-vang';
-                                else if (nameNorm.includes('hong')) tab = 'lua-hong';
-                                else if (nameNorm.includes('hoa cai')) tab = 'lua-hoa-cai';
-                                else if (nameNorm.includes('cham bi')) tab = 'lua-cham-bi';
-                                else if (nameNorm.includes('hoa mai')) tab = 'lua-hoa-mai';
-                                else if (nameNorm.includes('hoa beo')) tab = 'lua-hoa-beo';
-                                else if (nameNorm.includes('canh')) tab = 'lua-canh';
-                                else if (nameNorm.includes('duoi cong')) tab = 'lua-duoi-cong';
-                                else if (nameNorm.includes('chuon chuon')) tab = 'lua-chuon-chuon';
-                                else if (nameNorm.includes('dong tien')) tab = 'lua-dong-tien';
-                                else if (nameNorm.includes('nhung')) tab = 'nhung-the';
-                                else if (nameNorm.includes('bit mat')) tab = 'bit-mat';
-                                else if (nameNorm.includes('bo cong anh')) tab = 'lua-bo-cong-anh';
-                                else if (nameNorm.includes('tron') || nameNorm.includes('lua tron')) tab = 'vai-lua-tron';
-                            }
-                            
-                            productsData[tab].push(newProdObj);
-                        }
-                    });
-                } catch (e) {
-                    console.error('Error merging custom products', e);
-                }
-            }
-
-            // 3. Remove deleted products
-            const deletedStr = localStorage.getItem('kbclaza_deleted_products');
-            if (deletedStr) {
-                try {
-                    const deleted = JSON.parse(deletedStr);
-                    for (const tab in productsData) {
-                        productsData[tab] = productsData[tab].filter(p => !deleted.includes(p.id));
-                    }
-                } catch (e) {
-                    console.error('Error filtering deleted products', e);
-                }
-            }
-            
-            // Re-render
-            if (typeof renderProducts === 'function') {
-                renderProducts();
-            }
-        };
-
         function renderProducts() {
             const grid = document.getElementById('productGrid');
             grid.innerHTML = '';
@@ -2276,6 +2391,55 @@
                 const isFeatured = index < 2 && !showingAll; // Make first 2 featured only when not showing all
                 const badgeHtml = isFeatured ? `<div style="position: absolute; top: 12px; left: 12px; background: var(--accent); color: white; padding: 4px 10px; font-size: 11px; font-weight: 700; border-radius: 4px; z-index: 1;">NỔI BẬT</div>` : '';
                 
+                // Calculate simulated original price (25% higher)
+                let priceNum = 0;
+                let originalPriceHtml = '';
+                if (p.price) {
+                    const priceClean = String(p.price).replace(/[^0-9]/g, '');
+                    priceNum = parseInt(priceClean, 10);
+                    if (priceNum > 0) {
+                        const originalPrice = Math.round((priceNum * 1.25) / 1000) * 1000;
+                        originalPriceHtml = `<span class="product-original-price">${originalPrice.toLocaleString('vi-VN')}đ</span>`;
+                    }
+                }
+
+                // Bullet descriptions based on name matching
+                let bulletHtml = '';
+                const lowerName = String(p.name).toLowerCase();
+                if (lowerName.includes('vòng')) {
+                    bulletHtml = `
+                        <ul class="product-bullets">
+                            <li><i class="fa-solid fa-circle-check"></i> 100% tơ tằm tự nhiên cao cấp</li>
+                            <li><i class="fa-solid fa-circle-check"></i> Thiết kế đính khuy tinh tế</li>
+                            <li><i class="fa-solid fa-circle-check"></i> Phụ kiện thời trang quý phái</li>
+                        </ul>
+                    `;
+                } else if (lowerName.includes('khăn')) {
+                    bulletHtml = `
+                        <ul class="product-bullets">
+                            <li><i class="fa-solid fa-circle-check"></i> Lụa Nha Xá chất lượng xuất khẩu</li>
+                            <li><i class="fa-solid fa-circle-check"></i> Nhuộm màu tự nhiên an toàn</li>
+                            <li><i class="fa-solid fa-circle-check"></i> Mềm mịn, giữ ấm tốt mùa lạnh</li>
+                        </ul>
+                    `;
+                } else if (lowerName.includes('áo dài') || lowerName.includes('bà ba')) {
+                    bulletHtml = `
+                        <ul class="product-bullets">
+                            <li><i class="fa-solid fa-circle-check"></i> Kiểu dáng chuẩn may đo cao cấp</li>
+                            <li><i class="fa-solid fa-circle-check"></i> Đường may giấu kín tinh tế</li>
+                            <li><i class="fa-solid fa-circle-check"></i> Giữ phom dáng sang trọng, thanh lịch</li>
+                        </ul>
+                    `;
+                } else {
+                    bulletHtml = `
+                        <ul class="product-bullets">
+                            <li><i class="fa-solid fa-circle-check"></i> Dệt thủ công từ tơ tằm nguyên bản</li>
+                            <li><i class="fa-solid fa-circle-check"></i> Thấm hút mồ hôi, thoáng mát</li>
+                            <li><i class="fa-solid fa-circle-check"></i> Nâng niu làn da nhạy cảm</li>
+                        </ul>
+                    `;
+                }
+
                 const card = document.createElement('div');
                 card.className = 'product-card animate-on-scroll';
                 
@@ -2291,17 +2455,36 @@
                 }
 
                 card.innerHTML = `
-                    <div class="product-img-box" style="position: relative; cursor: zoom-in;" onclick="openImageZoom('${p.img}')">
+                    <div class="product-img-box" onclick="openImageZoomModal('${p.img}')">
                         ${badgeHtml}
-                        <img src="${p.img}" alt="${p.name}">
+                        <img src="${p.img}" alt="${p.name}" onerror="this.onerror=null;this.src='https://images.unsplash.com/photo-1596464716127-f2a82984de30?w=400&fit=crop'">
+                        <div class="zoom-hover-icon"><i class="fa-solid fa-magnifying-glass-plus"></i></div>
                     </div>
                     <div class="product-details">
-                        <h4 class="product-name">${p.name}</h4>
-                        <div class="product-price">${p.price} <span style="font-size: 13px; font-weight: normal; color: var(--text-muted);">/ ${p.unit}</span></div>
-                        <div style="display: flex; gap: 8px;">
-                            <button class="btn-order-outline" style="flex: 1; font-size: 13px;" onclick="openOrderModal('${productCat}', '${p.id}')">Chi Tiết</button>
-                            <button class="btn-order-outline" style="flex: 1; font-size: 13px; background-color: var(--primary); color: white;" onclick="openAddToCartModal('${productCat}', '${p.id}')">Thêm giỏ hàng</button>
+                        <h4 class="product-name" onclick="openOrderModal('${productCat}', '${p.id}')">${p.name}</h4>
+                        
+                        <div class="product-rating">
+                            <div class="stars-gold">
+                                <i class="fa-solid fa-star"></i>
+                                <i class="fa-solid fa-star"></i>
+                                <i class="fa-solid fa-star"></i>
+                                <i class="fa-solid fa-star"></i>
+                                <i class="fa-solid fa-star"></i>
+                            </div>
+                            <span class="rating-count">5.0 (92+ đã bán)</span>
                         </div>
+
+                        ${bulletHtml}
+
+                        <div class="product-price-wrapper">
+                            <span class="product-price">${p.price}</span>
+                            ${originalPriceHtml}
+                            <span class="product-unit">/ ${p.unit}</span>
+                        </div>
+
+                        <button class="btn-add-cart-full" onclick="openAddToCartModal('${productCat}', '${p.id}')">
+                            <i class="fa-solid fa-shopping-cart"></i> Thêm giỏ hàng
+                        </button>
                     </div>
                 `;
                 grid.appendChild(card);
@@ -2333,6 +2516,15 @@
         const modalOverlay = document.getElementById('orderModal');
         const modalContent = document.getElementById('modalContent');
 
+        function openImageZoomModal(imgUrl) {
+            document.getElementById('zoomModalImg').src = imgUrl;
+            document.getElementById('imageZoomModal').classList.add('active');
+        }
+
+        function closeImageZoomModal() {
+            document.getElementById('imageZoomModal').classList.remove('active');
+        }
+
         function openOrderModal(category, productId) {
             const product = productsData[category].find(p => p.id === productId);
             if (!product) return;
@@ -2343,7 +2535,10 @@
                 </div>
                 <div class="modal-body" style="padding-top: 24px;">
                     <div class="modal-product-summary" style="margin-bottom: 24px; display: flex; gap: 20px; align-items: flex-start;">
-                        <img src="${product.img}" alt="${product.name}" style="width: 150px; height: 150px; object-fit: cover; border-radius: 8px; border: 1px solid var(--border); cursor: zoom-in;" onclick="openImageZoom('${product.img}')">
+                        <div style="position: relative; cursor: pointer;" onclick="openImageZoomModal('${product.img}')">
+                            <img src="${product.img}" alt="${product.name}" style="width: 150px; height: 150px; object-fit: cover; border-radius: 8px; border: 1px solid var(--border);">
+                            <div style="position: absolute; bottom: 8px; right: 8px; background: rgba(0,0,0,0.5); color: white; width: 24px; height: 24px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 10px; pointer-events: none;"><i class="fa-solid fa-magnifying-glass-plus"></i></div>
+                        </div>
                         <div class="modal-product-info">
                             <h4 style="font-size: 20px; color: var(--primary); margin-bottom: 8px;">${product.name}</h4>
                             <p style="font-size: 18px; font-weight: 700; color: var(--brand); margin-bottom: 16px;">${product.price} <span style="font-size: 14px; font-weight: normal; color: var(--text-muted);">/ ${product.unit}</span></p>
@@ -2376,22 +2571,6 @@
 
         function closeModal() {
             modalOverlay.classList.remove('active');
-        }
-
-        function openImageZoom(imgSrc) {
-            const zoomModal = document.getElementById('imageZoomModal');
-            const zoomedImg = document.getElementById('zoomedImage');
-            if (zoomModal && zoomedImg) {
-                zoomedImg.src = imgSrc;
-                zoomModal.classList.add('active');
-            }
-        }
-
-        function closeImageZoomModal() {
-            const zoomModal = document.getElementById('imageZoomModal');
-            if (zoomModal) {
-                zoomModal.classList.remove('active');
-            }
         }
 
         // Close modal on click outside
@@ -2527,7 +2706,8 @@
                 }
             }
 
-            window.reloadProductsData();
+            // 2. Read custom products and merge, filtering deleted ones
+            reloadProductsData();
 
             // By default, show all products
             const seeMoreBtn = document.querySelector('button[onclick^="showAllProducts"]');

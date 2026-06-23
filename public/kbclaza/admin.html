@@ -15,7 +15,7 @@
     <script src="https://www.gstatic.com/firebasejs/10.11.1/firebase-app-compat.js"></script>
     <script src="https://www.gstatic.com/firebasejs/10.11.1/firebase-firestore-compat.js"></script>
     <script src="https://www.gstatic.com/firebasejs/10.11.1/firebase-auth-compat.js"></script>
-    <script src="/firebase-sync.js?v=3"></script>
+    <script src="/firebase-sync.js?v=9"></script>
 
     <style>
         :root {
@@ -739,7 +739,7 @@
     <script src="https://www.gstatic.com/firebasejs/10.11.1/firebase-app-compat.js"></script>
     <script src="https://www.gstatic.com/firebasejs/10.11.1/firebase-firestore-compat.js"></script>
     <script src="https://www.gstatic.com/firebasejs/10.11.1/firebase-auth-compat.js"></script>
-    <script src="/firebase-sync.js?v=3"></script>
+    <script src="/firebase-sync.js?v=9"></script>
 
 </head>
 <body>
@@ -1357,11 +1357,7 @@
                         <div class="form-group">
                             <label>Doanh nghiệp cung cấp</label>
                             <select id="prodSupplier" class="form-control" required>
-                                <option value="">Chọn doanh nghiệp...</option>
-                                <option value="Thực Liên Silk">Thực Liên Silk</option>
-                                <option value="Mật Ong Tây Bắc">Mật Ong Tây Bắc</option>
-                                <option value="Kỷ Nguyên Gốm">Kỷ Nguyên Gốm</option>
-                                <option value="Áo Dài Hà Nội">Áo Dài Hà Nội</option>
+                                <option value="Thực Liên Silk" selected>Thực Liên Silk - Lụa Nha Xá</option>
                             </select>
                         </div>
                         <div class="form-group">
@@ -1828,10 +1824,8 @@
                 return;
             }
 
-            // Map Supplier to URL
-            let ents = getMergedEnterprises();
-            let ent = ents.find(e => e.name === supplier);
-            let url = ent ? ent.url : 'landingpage/lua/index.html';
+            // Map Supplier to URL - always use lua landing page for this admin
+            let url = 'landingpage/lua/index.html';
 
             const newProduct = {
                 id: editingProductId ? editingProductId : ('custom_' + Date.now()),

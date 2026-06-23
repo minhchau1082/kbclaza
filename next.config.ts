@@ -4,6 +4,16 @@ const nextConfig: NextConfig = {
   async redirects() {
     return [
       {
+        source: '/vi',
+        destination: '/',
+        permanent: true,
+      },
+      {
+        source: '/vi/:path*',
+        destination: '/:path*',
+        permanent: true,
+      },
+      {
         source: '/',
         destination: '/index.html',
         permanent: true,
@@ -18,12 +28,12 @@ const nextConfig: NextConfig = {
   async rewrites() {
     return [
       {
-        source: '/landingpage/:path*',
-        destination: '/landingpage/:path*/index.html',
+        source: '/landingpage/:path((?!.*\\.).*)',
+        destination: '/landingpage/:path/index.html',
       },
       {
-        source: '/kbclaza/landingpage/:path*',
-        destination: '/kbclaza/landingpage/:path*/index.html',
+        source: '/kbclaza/landingpage/:path((?!.*\\.).*)',
+        destination: '/kbclaza/landingpage/:path/index.html',
       }
     ];
   },

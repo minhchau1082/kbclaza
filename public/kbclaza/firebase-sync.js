@@ -1,74 +1,121 @@
-// Hàm tải dữ liệu từ API về localStorage khi vào trang
-async function loadDataFromFirebase() {
+// ============================================================
+// firebase-sync.js (kbclaza) - Đồng bộ dữ liệu Admin Lụa
+// Version: 8 - Fix: chặn ảnh base64 làm treo API
+// ============================================================
+
+// Lọc bỏ ảnh base64 khỏi danh sách (chỉ giữ URL thật)
+function stripBase64Images(jsonStr) {
     try {
-        console.log("Syncing from API...");
-        
-        const response = await fetch('/api/sync');
-        if (response.ok) {
-            const result = await response.json();
-            const allData = result.data || {};
-            
-            const keys = ['kbclaza_custom_products', 'kbclaza_categories', 'kbclaza_enterprises', 'kbclaza_orders'];
-            let needToPush = false;
-
-            for (const key of keys) {
-                if (allData[key]) {
-                    // Cập nhật local nếu API có dữ liệu
-                    originalSetItem.call(localStorage, key, allData[key]);
-                } else if (localStorage.getItem(key)) {
-                    // API trống nhưng local có dữ liệu -> Đẩy lên API
-                    needToPush = true;
-                }
+        const arr = JSON.parse(jsonStr);
+        if (!Array.isArray(arr)) return jsonStr;
+        const cleaned = arr.map(item => {
+            const newItem = Object.assign({}, item);
+            if (newItem.img && typeof newItem.img === 'string' && newItem.img.startsWith('data:image')) {
+                newItem.img = ''; // Xóa base64 - chỉ lưu URL
             }
-
-            if (needToPush) {
-                console.log("Pushing local data to API...");
-                for (const key of keys) {
-                    if (localStorage.getItem(key)) {
-                        await fetch('/api/sync', {
-                            method: 'POST',
-                            headers: { 'Content-Type': 'application/json' },
-                            body: JSON.stringify({ key, data: localStorage.getItem(key) })
-                        }).catch(e => console.error("Error pushing:", e));
-                    }
-                }
-            }
-        }
-
-        // Gọi lại các hàm render của HTML nếu có để cập nhật giao diện
-        if (typeof renderProducts === 'function') renderProducts();
-        if (typeof renderCategories === 'function') renderCategories();
-        if (typeof renderEnterprises === 'function') renderEnterprises();
-        
-        console.log("API sync complete.");
+            return newItem;
+        });
+        return JSON.stringify(cleaned);
     } catch (e) {
-        console.error("Lỗi đồng bộ API:", e);
+        return jsonStr;
     }
 }
 
+// Hàm tải dữ liệu từ API về localStorage khi vào trang
+async function loadDataFromFirebase() {
+    try {
+        const response = await fetch('/api/sync');
+        if (!response.ok) {
+            console.error('API sync failed:', response.status);
+            _callRenderFunctions();
+            return;
+        }
+        
+        const result = await response.json();
+        const allData = result.data || {};
+        
+        const keys = ['kbclaza_custom_products', 'kbclaza_categories', 'kbclaza_enterprises', 'kbclaza_orders', 'kbclaza_deleted_products'];
+        let needToPush = false;
+
+        for (const key of keys) {
+            const serverData = allData[key];
+            const localData = localStorage.getItem(key);
+            
+            const isServerEmpty = !serverData || serverData === '[]' || serverData === '{}';
+            const isLocalEmpty = !localData || localData === '[]' || localData === '{}';
+
+            if (!isServerEmpty) {
+                originalSetItem.call(localStorage, key, serverData);
+            } else if (!isLocalEmpty) {
+                needToPush = true;
+            }
+        }
+
+        if (needToPush) {
+            for (const key of keys) {
+                const localVal = localStorage.getItem(key);
+                if (localVal && localVal !== '[]' && localVal !== '{}') {
+                    const cleanVal = (key === 'kbclaza_enterprises' || key === 'kbclaza_custom_products')
+                        ? stripBase64Images(localVal)
+                        : localVal;
+                    
+                    await fetch('/api/sync', {
+                        method: 'POST',
+                        headers: { 'Content-Type': 'application/json' },
+                        body: JSON.stringify({ key, data: cleanVal })
+                    }).catch(e => console.error('Error pushing ' + key + ':', e));
+                }
+            }
+        }
+
+        console.log('API sync complete.');
+        _callRenderFunctions();
+        
+    } catch (e) {
+        console.error('Loi dong bo API:', e);
+        _callRenderFunctions();
+    }
+}
+
+// Gọi tất cả các hàm render tùy theo trang
+function _callRenderFunctions() {
+    // Landing page
+    if (typeof reloadProductsData === 'function') reloadProductsData();
+    else if (typeof renderProducts === 'function') renderProducts();
+    if (typeof renderCategories === 'function') renderCategories();
+    if (typeof renderEnterprises === 'function') renderEnterprises();
+    
+    // Admin page
+    if (typeof renderAdminProducts === 'function') renderAdminProducts();
+    if (typeof renderAdminCategories === 'function') renderAdminCategories();
+    if (typeof renderAdminOrders === 'function') renderAdminOrders();
+}
+
 // Chặn localStorage.setItem để đồng bộ ngược lên API
-const originalSetItem = localStorage.setItem;
+const originalSetItem = localStorage.setItem.bind(localStorage);
 localStorage.setItem = function(key, value) {
-    originalSetItem.apply(this, arguments); // Vẫn lưu local bình thường
+    originalSetItem(key, value);
 
     try {
-        if (['kbclaza_custom_products', 'kbclaza_categories', 'kbclaza_enterprises', 'kbclaza_orders'].includes(key)) {
+        const syncKeys = ['kbclaza_custom_products', 'kbclaza_categories', 'kbclaza_enterprises', 'kbclaza_orders', 'kbclaza_deleted_products'];
+        if (syncKeys.includes(key)) {
+            const cleanValue = (key === 'kbclaza_enterprises' || key === 'kbclaza_custom_products')
+                ? stripBase64Images(value)
+                : value;
+            
             fetch('/api/sync', {
                 method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json'
-                },
-                body: JSON.stringify({ key, data: value })
-            }).catch(e => console.error("Lỗi POST API:", e));
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ key, data: cleanValue })
+            }).catch(e => console.error('Loi POST API:', e));
         }
     } catch (e) {
-        console.error("Lỗi gọi API lưu:", e);
+        console.error('Loi goi API luu:', e);
     }
 };
 
-// Khi trang vừa load xong, tiến hành tải dữ liệu
+// Khi trang vừa load xong, tiến hành tải dữ liệu lần đầu
 window.addEventListener('DOMContentLoaded', () => {
     loadDataFromFirebase();
-    // Tự động tải lại dữ liệu mới nhất mỗi 6 giây (đồng bộ thời gian thực giữa Admin và Landing Page)
-    setInterval(loadDataFromFirebase, 6000);
+    setInterval(loadDataFromFirebase, 8000);
 });

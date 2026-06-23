@@ -16,7 +16,7 @@
     <script src="https://www.gstatic.com/firebasejs/10.11.1/firebase-firestore-compat.js"></script>
     <script src="https://www.gstatic.com/firebasejs/10.11.1/firebase-auth-compat.js"></script>
     <script src="https://www.gstatic.com/firebasejs/10.11.1/firebase-storage-compat.js"></script>
-    <script src="/firebase-sync.js?v=4"></script>
+    <script src="/firebase-sync.js?v=9"></script>
 
     <style>
         :root {
@@ -741,7 +741,7 @@
     <script src="https://www.gstatic.com/firebasejs/10.11.1/firebase-firestore-compat.js"></script>
     <script src="https://www.gstatic.com/firebasejs/10.11.1/firebase-auth-compat.js"></script>
     <script src="https://www.gstatic.com/firebasejs/10.11.1/firebase-storage-compat.js"></script>
-    <script src="/firebase-sync.js?v=4"></script>
+    <script src="/firebase-sync.js?v=9"></script>
 
 </head>
 <body>
@@ -1881,10 +1881,16 @@
                 return;
             }
 
-            // Map Supplier to URL
+            // Map Supplier to URL - try enterprises first, then fallback to hardcoded map
+            const supplierUrlMap = {
+                'Thực Liên Silk': 'landingpage/lua/index.html',
+                'Mật Ong Tây Bắc': 'landingpage/matong/index.html',
+                'Kỷ Nguyên Gốm': 'landingpage/gom/index.html',
+                'Áo Dài Hà Nội': 'landingpage/aodai/index.html',
+            };
             let ents = getMergedEnterprises();
-            let ent = ents.find(e => e.name === supplier);
-            let url = ent ? ent.url : 'landingpage/lua/index.html';
+            let ent = ents.find(e => e.name === supplier || (e.name && e.name.includes(supplier)));
+            let url = ent ? ent.url : (supplierUrlMap[supplier] || 'landingpage/lua/index.html');
 
             const newProduct = {
                 id: editingProductId ? editingProductId : ('custom_' + Date.now()),

@@ -835,7 +835,7 @@
     <script src="https://www.gstatic.com/firebasejs/10.11.1/firebase-app-compat.js"></script>
     <script src="https://www.gstatic.com/firebasejs/10.11.1/firebase-firestore-compat.js"></script>
     <script src="https://www.gstatic.com/firebasejs/10.11.1/firebase-auth-compat.js"></script>
-    <script src="/firebase-sync.js?v=3"></script>
+    <script src="/firebase-sync.js?v=9"></script>
 
 </head>
 <body>
@@ -1152,7 +1152,7 @@
                             id: e.id,
                             img: e.img || 'https://images.unsplash.com/photo-1560179707-f14e90ef3623?w=400&fit=crop',
                             name: e.name,
-                            url: e.url === 'lua' ? 'landingpage/lua/index.html' : '#',
+                            url: (e.name && (e.name.includes('Thực Liên') || e.name.toLowerCase().includes('nha xá') || e.name.toLowerCase().includes('nha xa')) || (e.url && (e.url.includes('lua') || e.url.includes('landingpage/lua')))) ? 'landingpage/lua/index.html' : (e.url || '#'),
                             badge: ''
                         });
                     } else if (productsMap.has(e.id)) {
